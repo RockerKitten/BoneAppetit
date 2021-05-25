@@ -8,7 +8,7 @@ using Jotunn.Configs;
 using Jotunn.Managers;
 using System;
 
-namespace Grills
+namespace Boneappetit
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     [BepInDependency(Jotunn.Main.ModGuid)]

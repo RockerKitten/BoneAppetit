@@ -7,8 +7,8 @@
     <ProjectGuid>{DEAF4438-8089-40ED-8175-398E1261D45B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Grills</RootNamespace>
-    <AssemblyName>Grills</AssemblyName>
+    <RootNamespace>BoneAppetit</RootNamespace>
+    <AssemblyName>BoneAppetit</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -78,14 +78,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
-    <Compile Include="Grill.cs" />
+    <Compile Include="BoneAppetit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="grill" />
     <EmbeddedResource Include="customfood" />
-    <None Include="grill.manifest" />
     <None Include="packages.config" />
     <None Include="Package\README.md" />
   </ItemGroup>
