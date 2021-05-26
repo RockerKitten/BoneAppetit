@@ -1,57 +1,28 @@
-**MOD Description** 
+Introducing the newest fad in Viking cuisine! Hope you enjoy, Bone Appetit!
 
-Master Chef 2.0 is a partial remake of Master Chef with 3d models by deBARBA
-Please support his artwork he made some really amazing models for this 
+v. 1.0.0 release includes 2 food crafting stations that require a fire underneath to cook on, and 5 new food items, one for each biome.
 
-You can find him here:
-patreon.com/littleroomdev 
+Cooking Stations
+Griddle  - buildable with 10 stone and a hammer. Allows for custom food as soon as you find a place to build it.
+Grill       - requires a forge, 1 iron and 10 stone to build. unlock higher tier grilled foods.
 
-
-I have permission from hrve to remake master chef and can furnish proof if needed 
-
-
-You will get 6 new food items with this mod and 1 new wearable item
-
-Burger
-Blood Sausage
-Broth
-Carrot Butter
-Carrot Butter Jelly Sandwich
-Dragon Omlette
-Fish Stew
+Food included in initial release
+Pork Rinds
+Honey Glazed Carrots
+Kabobs
+Ice Cream Cone
+Country Fried Lox Meat
 
 
-and finally a Chef Hat as a wearable item. 
+To Do/ Current Ideas
+-add food menu items (in progress with permission from zarboz)
+-expand menu
+-localizaion
+-add another new processing station for food
+-add new food drops from creatures
+-meals/config sync
+
+This mod is routinely tested on a dedicated server with a great many other mods. To ensure your crafting stations don't disappear, and that food doesn't vanish, please put on the dedicated server as well as ALL clients.
 
 
----
-**Installation**
-
-1) Go to [BepInExPack Valheim](https://valheim.thunderstore.io/package/denikson/BepInExPack_Valheim/)
-2) Download it and follow the installation manual
-3) Drag the unzipped MasterChef20 folder into -> <Steam Location>\steamapps\common\Valheim\BepInEx\plugin\  
-
-The next time you start your game, the mod will be enabled. To disable it, just remove it from the mods folder.
-
----
-**Usage**
-
-Recipes should appear in game through normal play. If you are installing this mod on an existing playthrough, you will have to pick up items or re-order you inventory to learn the new recipes.
-
----
-I wanna extend a huge thank you to Jotunn team they are amazing and basically enabled me to make this project :D 
-
---- 
-**Changelog**
-
-**v1.0.0**
-
-* initial release 
-
-**v1.0.1**
-
-* readme updates
-
-**v1.0.2**
-
-* readme updates
+Huge thanks to zarboz, GraveBear, and plumga for helping me get going, setting me up, and encouraging me the whole way! This mod wouldn't exist without them.
