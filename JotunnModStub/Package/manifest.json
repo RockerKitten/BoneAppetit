@@ -1,10 +1,10 @@
-﻿{
-  "name": "JotunnModStub",
-  "description": "",
-  "version_number": "1.0.0",
-  "website_url": "",
-  "dependencies": [
-    "denikson-BepInExPack_Valheim-5.4.601",
-    ""
-  ]
+{
+    "name": "BoneAppetit",
+    "version_number": "1.1.0",
+    "website_url": "https://github.com/RockerKitten/Many-Jotunn-Mods/tree/BoneAppetit",
+    "description": "New food and cooking stations!",
+    "dependencies": [
+        "denikson-BepInExPack_Valheim-5.4.1001", 
+		"ValheimModding-Jotunn-2.0.10"
+    ]
 }
