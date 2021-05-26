@@ -16,7 +16,7 @@ namespace Boneappetit
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.1";
         public AssetBundle assetBundle;
         private AssetBundle customfood;
         private void Awake()
@@ -29,16 +29,19 @@ namespace Boneappetit
             Kabob();
             FriedLox();
             GlazedCarrot();
-            
+            Bacon();
+            SmokedFish();
+            Pancakes();
+
         }
 
         private void AssetLoad()
         {
             assetBundle = AssetUtils.LoadAssetBundleFromResources("grill", typeof(Grills).Assembly);
             customfood = AssetUtils.LoadAssetBundleFromResources("customfood", Assembly.GetExecutingAssembly());
-            
+
         }
-       
+
         private void LoadItem()
         {
             //piece_grill
@@ -176,6 +179,61 @@ namespace Boneappetit
                 });
 
             ItemManager.Instance.AddItem(glazedcarrot);
+
+        }
+        private void Bacon()
+        {
+            var bacon_prefab = customfood.LoadAsset<GameObject>("rk_bacon");
+            var bacon = new CustomItem(bacon_prefab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Bacon",
+                    Amount = 2,
+                    CraftingStation = "rk_griddle",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "RawMeat", Amount = 1}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(bacon);
+        }
+        private void SmokedFish()
+        {
+            var smokedfish_prefab = customfood.LoadAsset<GameObject>("rk_smokedfish");
+            var smokedfish = new CustomItem(smokedfish_prefab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Country Fried Lox Meat",
+                    Amount = 1,
+                    CraftingStation = "rk_grill",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "RawFish", Amount = 1}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(smokedfish);
+
+        }
+        private void Pancakes()
+        {
+            var pancake_prefab = customfood.LoadAsset<GameObject>("rk_pancake");
+            var pancake = new CustomItem(pancake_prefab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Pancakes",
+                    Amount = 1,
+                    CraftingStation = "rk_grill",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "Honey", Amount = 2},
+                        new RequirementConfig { Item = "BarleyFlour", Amount = 3},
+                        new RequirementConfig { Item = "Cloudberry", Amount = 5}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(pancake);
 
         }
     }
