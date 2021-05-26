@@ -30,7 +30,7 @@ namespace Boneappetit
             FriedLox();
             GlazedCarrot();
             Bacon();
-            SmokedFish();
+        //    SmokedFish();
             Pancakes();
 
         }
@@ -198,7 +198,7 @@ namespace Boneappetit
 
             ItemManager.Instance.AddItem(bacon);
         }
-        private void SmokedFish()
+     /*   private void SmokedFish()
         {
             var smokedfish_prefab = customfood.LoadAsset<GameObject>("rk_smokedfish");
             var smokedfish = new CustomItem(smokedfish_prefab, fixReference: false,
@@ -215,7 +215,7 @@ namespace Boneappetit
 
             ItemManager.Instance.AddItem(smokedfish);
 
-        }
+        } */
         private void Pancakes()
         {
             var pancake_prefab = customfood.LoadAsset<GameObject>("rk_pancake");
