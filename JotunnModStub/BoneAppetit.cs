@@ -211,7 +211,7 @@ namespace Boneappetit
                     CraftingStation = "rk_griddle",
                     Requirements = new[]
                     {
-                        new RequirementConfig { Item = "RawFish", Amount = 1}
+                        new RequirementConfig { Item = "FishRaw", Amount = 1}
                     }
                 });
 
