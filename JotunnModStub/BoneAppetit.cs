@@ -30,8 +30,10 @@ namespace Boneappetit
             FriedLox();
             GlazedCarrot();
             Bacon();
-        //    SmokedFish();
+            SmokedFish();
             Pancakes();
+            Pizza();
+            Coffee();
 
         }
 
@@ -198,15 +200,15 @@ namespace Boneappetit
 
             ItemManager.Instance.AddItem(bacon);
         }
-     /*   private void SmokedFish()
+        private void SmokedFish()
         {
             var smokedfish_prefab = customfood.LoadAsset<GameObject>("rk_smokedfish");
             var smokedfish = new CustomItem(smokedfish_prefab, fixReference: false,
                 new ItemConfig
                 {
-                    Name = "Country Fried Lox Meat",
+                    Name = "SmokedFish",
                     Amount = 1,
-                    CraftingStation = "rk_grill",
+                    CraftingStation = "rk_griddle",
                     Requirements = new[]
                     {
                         new RequirementConfig { Item = "RawFish", Amount = 1}
@@ -215,7 +217,7 @@ namespace Boneappetit
 
             ItemManager.Instance.AddItem(smokedfish);
 
-        } */
+        }
         private void Pancakes()
         {
             var pancake_prefab = customfood.LoadAsset<GameObject>("rk_pancake");
@@ -236,5 +238,44 @@ namespace Boneappetit
             ItemManager.Instance.AddItem(pancake);
 
         }
+        private void Pizza()
+        {
+            var pizza_prefab = customfood.LoadAsset<GameObject>("rk_pizza");
+            var pizza = new CustomItem(pizza_prefab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Pizza",
+                    Amount = 1,
+                    CraftingStation = "rk_grill",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "Honey", Amount = 2},
+                        new RequirementConfig { Item = "BarleyFlour", Amount = 3},
+                        new RequirementConfig { Item = "Mushroom", Amount = 2},
+                        new RequirementConfig { Item = "CookedMeat", Amount = 2}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(pizza);
+        }
+
+         private void Coffee()
+         {
+             var coffee_prefab = customfood.LoadAsset<GameObject>("rk_coffee");
+             var coffee = new CustomItem(coffee_prefab, fixReference: false,
+                 new ItemConfig
+                 {
+                     Name = "Coffee",
+                     Amount = 2,
+                     CraftingStation = "piece_cauldron",
+                     Requirements = new[]
+                     {
+                         new RequirementConfig { Item = "AncientSeed", Amount = 1}
+                     }
+                 });
+
+                ItemManager.Instance.AddItem(coffee);
+
+         }
     }
 }
