@@ -16,7 +16,7 @@ namespace Boneappetit
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "1.1.0";
+        public const string PluginVersion = "1.1.1";
         public AssetBundle assetBundle;
         private AssetBundle customfood;
         private void Awake()
@@ -127,7 +127,7 @@ namespace Boneappetit
             var kabob = new CustomItem(kabob_prefab, fixReference: false,
                 new ItemConfig
                 {
-                    Name = "Kabob",
+                    Name = "Kebab",
                     Amount = 1,
                     CraftingStation = "rk_grill",
                     Requirements = new[]
