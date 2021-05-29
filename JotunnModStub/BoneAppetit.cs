@@ -16,7 +16,7 @@ namespace Boneappetit
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "1.1.1";
+        public const string PluginVersion = "1.1.2";
         public AssetBundle assetBundle;
         private AssetBundle customfood;
         private void Awake()
@@ -34,6 +34,7 @@ namespace Boneappetit
             Pancakes();
             Pizza();
             Coffee();
+            Latte();
 
         }
 
@@ -270,12 +271,32 @@ namespace Boneappetit
                      CraftingStation = "piece_cauldron",
                      Requirements = new[]
                      {
-                         new RequirementConfig { Item = "AncientSeed", Amount = 1}
+                         new RequirementConfig { Item = "AncientSeedd", Amount = 1}
                      }
                  });
 
                 ItemManager.Instance.AddItem(coffee);
 
          }
+        private void Latte()
+        {
+            var latte_prefab = customfood.LoadAsset<GameObject>("rk_latte");
+            var latte = new CustomItem(latte_prefab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Nikole's Spice Latte",
+                    Amount = 2,
+                    CraftingStation = "piece_cauldron",
+                    Requirements = new[]
+                    {
+                         new RequirementConfig { Item = "Crystal", Amount = 2},
+                         new RequirementConfig { Item = "Barley", Amount = 2},
+                         new RequirementConfig { Item = "Honey", Amount = 10}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(latte);
+
+        }
     }
 }

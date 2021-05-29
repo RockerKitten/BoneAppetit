@@ -22,3 +22,4 @@ C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\obj\Release\BoneAppetit.c
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\obj\Release\BoneAppetit.csproj.CopyComplete
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\obj\Release\BoneAppetit.dll
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\obj\Release\BoneAppetit.pdb
+C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\obj\Release\BoneAppetit.csprojAssemblyReference.cache
