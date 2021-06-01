@@ -1,0 +1,3116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jotunn</name>
+    </assembly>
+    <members>
+        <member name="T:Jotunn.Configs.ButtonConfig">
+            <summary>
+                Configuration class for adding custom inputs and custom key hints.<br />
+                See <a href="https://docs.unity3d.com/2019.4/Documentation/ScriptReference/Input.html" />
+                for more information on Unity Input handling.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ButtonConfig.Name">
+            <summary>
+                Name of the config. Use this to react to the button press bound by this config.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ButtonConfig.Axis">
+            <summary>
+                Axis string this config should be bound to. If Key and Axis are both set, Axis will be used.<br />
+                Use special Axis "Mouse ScrollWheel" to display the scroll icon as the key hint.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ButtonConfig.Key">
+            <summary>
+                Unity KeyCode this config should be bound to. If Key and Axis are both set, Axis will be used.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ButtonConfig.Inverted">
+            <summary>
+                Should the Axis value be inverted?
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ButtonConfig.RepeatDelay">
+            <summary>
+                Delay until a constantly pressed key is considered "pressed" again.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ButtonConfig.RepeatInterval">
+            <summary>
+                Interval in which the check timer for the repeat delay is decremented.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ButtonConfig.HintToken">
+            <summary>
+                Token for translating the key hint text.
+            </summary>
+        </member>
+        <member name="T:Jotunn.Configs.ConversionConfig">
+            <summary>
+                Base class for adding new ItemConversions to various Valheim stations
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ConversionConfig.Station">
+            <summary>
+                The name of the station prefab this conversion is added to.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ConversionConfig.FromItem">
+            <summary>
+                The name of the item prefab you need to put ín the station.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ConversionConfig.ToItem">
+            <summary>
+                The name of the item prefab that your "FromItem" will be turned into.
+            </summary>
+        </member>
+        <member name="T:Jotunn.Configs.CookingConversionConfig">
+            <summary>
+                Used to add new ItemConversions to the CookingStation
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.CookingConversionConfig.Station">
+            <summary>
+                The name of the station prefab this conversion is added to. Defaults to "piece_cookingstation".
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.CookingConversionConfig.CookTime">
+            <summary>
+                Amount of time it takes to perform the conversion. Defaults to 10f.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Configs.CookingConversionConfig.GetItemConversion">
+            <summary>
+                Turns the CookingConversionConfig into a Valheim CookingStation.ItemConversion item.
+            </summary>
+            <returns>The Valheim CookingStation.ItemConversion</returns>
+        </member>
+        <member name="M:Jotunn.Configs.CookingConversionConfig.FromJson(System.String)">
+            <summary>
+                Loads a single CookingConversionConfig from a JSON string
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded CookingConversionConfig</returns>
+        </member>
+        <member name="M:Jotunn.Configs.CookingConversionConfig.ListFromJson(System.String)">
+            <summary>
+                Loads a list of CookingConversionConfigs from a JSON string
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded list of CookingConversionConfigs</returns>
+        </member>
+        <member name="T:Jotunn.Configs.FermenterConversionConfig">
+            <summary>
+                Used to add new ItemConversions to the Fermenter
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.FermenterConversionConfig.Station">
+            <summary>
+                The name of the station prefab this conversion is added to. Defaults to "fermenter".
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.FermenterConversionConfig.ProducedItems">
+            <summary>
+                The amount of items one conversion yields. Defaults to 4.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Configs.FermenterConversionConfig.GetItemConversion">
+            <summary>
+                Turns the FermenterConversionConfig into a Valheim Fermenter.ItemConversion item.
+            </summary>
+            <returns>The Valheim Fermenter.ItemConversion</returns>
+        </member>
+        <member name="M:Jotunn.Configs.FermenterConversionConfig.FromJson(System.String)">
+            <summary>
+                Loads a single FermenterConversionConfig from a JSON string
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded FermenterConversionConfig</returns>
+        </member>
+        <member name="M:Jotunn.Configs.FermenterConversionConfig.ListFromJson(System.String)">
+            <summary>
+                Loads a list of FermenterConversionConfigs from a JSON string
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded list of FermenterConversionConfigs</returns>
+        </member>
+        <member name="T:Jotunn.Configs.ItemConfig">
+            <summary>
+                Configuration class for adding custom items. Automatically creates a recipe for this item.<br />
+                Use this in a constructor of <see cref="T:Jotunn.Entities.CustomItem"/> and 
+                Jötunn resolves the references to the game objects at runtime.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ItemConfig.Name">
+            <summary>
+                The unique name for your item.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ItemConfig.Item">
+            <summary>
+                The name of the item prefab that this recipe should create. Is automatically set in <see cref="T:Jotunn.Entities.CustomItem"/>.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ItemConfig.Amount">
+            <summary>
+                The amount of <see cref="P:Jotunn.Configs.ItemConfig.Item"/> that will be created from the recipe.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ItemConfig.Enabled">
+            <summary>
+                Whether this item is craftable or not.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ItemConfig.CraftingStation">
+            <summary>
+                The name of the crafting station prefab where this recipe can be crafted.<br/>
+                Can be set to <c>null</c> to have the recipe be craftable without a crafting station.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ItemConfig.RepairStation">
+            <summary>
+                The name of the crafting station prefab where this item can be repaired.<br/>
+                Can be set to <c>null</c> to have the recipe be repairable without a crafting station.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ItemConfig.MinStationLevel">
+            <summary>
+                The minimum required level for the crafting station. Defaults to <c>0</c>.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.ItemConfig.Requirements">
+            <summary>
+                Array of <see cref="T:Jotunn.Configs.RequirementConfig"/>s for all crafting materials it takes to craft the recipe.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Configs.ItemConfig.GetRequirements">
+            <summary>
+                Converts the RequirementConfigs to Valheim style Piece.Requirements
+            </summary>
+            <returns>The Valheim Piece.Requirement array</returns>
+        </member>
+        <member name="M:Jotunn.Configs.ItemConfig.GetRecipe">
+            <summary>
+                Converts the ItemConfig to a Valheim style Recipe.
+            </summary>
+            <returns>The Valheim recipe</returns>
+        </member>
+        <member name="M:Jotunn.Configs.ItemConfig.FromJson(System.String)">
+            <summary>
+                Loads a single ItemConfig from a JSON string
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded ItemConfig</returns>
+        </member>
+        <member name="M:Jotunn.Configs.ItemConfig.ListFromJson(System.String)">
+            <summary>
+                Loads a list of ItemConfigs from a JSON string
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded list of ItemConfigs</returns>
+        </member>
+        <member name="T:Jotunn.Configs.KeyHintConfig">
+            <summary>
+                Configuration class for adding custom key hints.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.KeyHintConfig.Item">
+            <summary>
+                Item for which the KeyHint should be displayed when equipped.<br />
+                Must be the name of the prefab as registered in the <see cref="T:Jotunn.Managers.ItemManager"/>.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.KeyHintConfig.Piece">
+            <summary>
+                If not null the KeyHint will also be bound to a specific <see cref="T:Piece"/>
+                which must be selected for building.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.KeyHintConfig.ButtonConfigs">
+            <summary>
+                Array of <see cref="T:Jotunn.Configs.ButtonConfig"/>s used for this key hint.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Configs.KeyHintConfig.FromJson(System.String)">
+            <summary>
+                Loads a single KeyHintConfig from a JSON string
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded KeyHintConfig</returns>
+        </member>
+        <member name="M:Jotunn.Configs.KeyHintConfig.ListFromJson(System.String)">
+            <summary>
+                Loads a list of KeyHintConfigs from a JSON string
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded list of KeyHintConfigs</returns>
+        </member>
+        <member name="M:Jotunn.Configs.KeyHintConfig.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Jotunn.Configs.LocalizationConfig">
+            <summary>
+                Configuration class for adding custom localizations.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.LocalizationConfig.Language">
+            <summary>
+                Language of this localization. Defaults to English.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Configs.LocalizationConfig.Translations">
+            <summary>
+                Dictionary of tokens and their respective translation in this configs language.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Configs.LocalizationConfig.#ctor(System.String)">
+            <summary>
+                A new localization for a specific language.
+            </summary>
+            <param name="language">Name of the language</param>
+        </member>
+        <member name="T:Jotunn.Configs.PieceConfig">
+            <summary>
+                Configuration class for adding custom pieces.<br />
+                Use this in a constructor of <see cref="T:Jotunn.Entities.CustomPiece"/> and 
+                Jötunn resolves the references to the game objects at runtime.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.PieceConfig.Description">
+            <summary>
+                The description of your piece.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.PieceConfig.Enabled">
+            <summary>
+                Whether this piece is buildable or not.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.PieceConfig.AllowedInDungeons">
+            <summary>
+                Can this piece be built in dungeons?
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.PieceConfig.PieceTable">
+            <summary>
+                The name of the piece table where this piece will be added.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.PieceConfig.CraftingStation">
+            <summary>
+                The name of the crafting station prefab which needs to be in close proximity to build this piece.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.PieceConfig.ExtendStation">
+            <summary>
+                The name of the crafting station prefab to which this piece will be an upgrade to.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.PieceConfig.Icon">
+            <summary>
+                Icon which is displayed in the crafting GUI.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.PieceConfig.Requirements">
+            <summary>
+                Array of <see cref="T:Jotunn.Configs.RequirementConfig"/>s for all crafting materials it takes to craft the recipe.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Configs.PieceConfig.GetRequirements">
+            <summary>
+                Converts the RequirementConfigs to Valheim style Piece.Requirements
+            </summary>
+            <returns>The Valheim Piece.Requirement array</returns>
+        </member>
+        <member name="M:Jotunn.Configs.PieceConfig.Apply(UnityEngine.GameObject)">
+            <summary>
+                Apply this configs values to a piece GameObject.
+            </summary>
+            <param name="prefab"></param>
+        </member>
+        <member name="T:Jotunn.Configs.RecipeConfig">
+            <summary>
+                Configuration class for adding custom recipes.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RecipeConfig.Name">
+            <summary>
+                The unique name for your recipe.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RecipeConfig.Item">
+            <summary>
+                The name of the item prefab that this recipe should create.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RecipeConfig.Amount">
+            <summary>
+                The amount of <see cref="P:Jotunn.Configs.RecipeConfig.Item"/> that will be created from this Recipe. Defaults to 1.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RecipeConfig.Enabled">
+            <summary>
+                Whether this recipe is craftable or not. Defaults to true.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RecipeConfig.CraftingStation">
+            <summary>
+                The name of the crafting station prefab where this recipe can be crafted.
+                <br/>
+                Can be set to <c>null</c> to have the recipe be craftable without a crafting station.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RecipeConfig.RepairStation">
+            <summary>
+                The name of the crafting station prefab where this item can be repaired.
+                <br/>
+                Can be set to <c>null</c> to have the recipe be repairable without a crafting station.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RecipeConfig.MinStationLevel">
+            <summary>
+                The minimum required level for the crafting station. Defaults to <c>0</c>.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RecipeConfig.Requirements">
+            <summary>
+                Array of <see cref="T:Jotunn.Configs.RequirementConfig"/>s for all crafting materials it takes to craft the recipe.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Configs.RecipeConfig.GetRequirements">
+            <summary>
+                Converts the RequirementConfigs to Valheim style Piece.Requirements
+            </summary>
+            <returns>The Valheim Piece.Requirement array</returns>
+        </member>
+        <member name="M:Jotunn.Configs.RecipeConfig.GetRecipe">
+            <summary>
+                Converts the RecipeConfig to a Valheim style Recipe.
+            </summary>
+            <returns>The Valheim recipe</returns>
+        </member>
+        <member name="M:Jotunn.Configs.RecipeConfig.FromJson(System.String)">
+            <summary>
+                Loads a single RecipeConfig from a JSON string.
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded RecipeConfig</returns>
+        </member>
+        <member name="M:Jotunn.Configs.RecipeConfig.ListFromJson(System.String)">
+            <summary>
+                Loads a list of RecipeConfigs from a JSON string.
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded list of RecipeConfigs</returns>
+        </member>
+        <member name="T:Jotunn.Configs.RequirementConfig">
+            <summary>
+                Configuration class for requirements needed to craft items or build pieces.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RequirementConfig.Item">
+            <summary>
+                Name of the item prefab of this requirement.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RequirementConfig.Amount">
+            <summary>
+                Amount that is needed to fulfill the requirement. Defaults to 1.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RequirementConfig.AmountPerLevel">
+            <summary>
+                How much more of this requirement is needed per item level. Defaults to 0.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.RequirementConfig.Recover">
+            <summary>
+                Determines if the used requirement will be rewarded again after dismanteling a piece. Defaults to false.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Configs.RequirementConfig.GetRequirement">
+            <summary>
+                Creates a Valheim Piece.Requirement from this config. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.Configs.SkillConfig">
+            <summary>
+                Configuration class for adding custom skills.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.SkillConfig.UID">
+            <summary>
+                A SkillType used to distinguish this skill from others. This is a unique ID that Jotunn generates
+                based on the Identifier provided.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.SkillConfig.Identifier">
+            <summary>
+                A <b>unique</b> string used to identify the skill, and used to generate the <see cref="P:Jotunn.Configs.SkillConfig.UID"/>.
+                <para>
+                    <b>Do not</b> change the Identifier after you have released a mod using it.
+                    If the Identifier changes, so will the skill's SkillType/UID, so
+                    all users who have your mod will lose their save progress for the skill.
+                </para>
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.SkillConfig.Name">
+            <summary>
+                The in-game name for your skill.
+                Can either be the name you want to see in-game, or a localization token.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.SkillConfig.Description">
+            <summary>
+                The in-game description for your skill.
+                Can either be the description you want to see in-game, or a localization token.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.SkillConfig.Icon">
+            <summary>
+                The in-game icon for your skill. If null, will default to a "shield" icon.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.SkillConfig.IncreaseStep">
+            <summary>
+                The multiplier applied to all XP gained for this skill via <see cref="M:Skills.RaiseSkill(Skills.SkillType,System.Single)"/>.
+                If this is set to 0, your skill will be unable to gain XP at all.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.SkillConfig.IconPath">
+            <summary>
+                The path to load an icon png/jpg file from.
+                If you wish to load from an asset bundle, use a <c>$</c> to separate the path to the asset bundle,
+                and your sprite name in the asset bundle
+                
+                <para>
+                    This <b>cannot</b> be set if <see cref="P:Jotunn.Configs.SkillConfig.Icon"/> is also set. You can only set one of them at once.
+                </para>
+                
+                <example>
+                    This sample shows how you would load a sprite from an asset bundle:
+                    <code>
+                        IconPath = "MyMod/Assets/assetbundle$mysprite"
+                    </code>
+                </example>
+            </summary>
+        </member>
+        <member name="M:Jotunn.Configs.SkillConfig.ToString">
+            <summary>
+                Converts the SkillConfig to a printable string.
+            </summary>
+            <returns>String representation of the SkillConfig</returns>
+        </member>
+        <member name="M:Jotunn.Configs.SkillConfig.ToSkillDef">
+            <summary>
+                Converts a Jotunn SkillConfig into a Valheim SkillDef.
+            </summary>
+            <returns>Valheim SkillDef representation of the SkillConfig</returns>
+        </member>
+        <member name="M:Jotunn.Configs.SkillConfig.FromSkillInjector(System.String,Skills.SkillType,System.String,System.String,System.Single,UnityEngine.Sprite)">
+            <summary>
+                Creates a SkillConfig object for mods that previously used SkillInjector.
+            </summary>
+            <param name="identifier">Unique identifier of the new skill, ex: "com.jotunn.testmod.testskill"</param>
+            <param name="uid">"id" from SkillInjector</param>
+            <param name="name">"name" from SkillInjector</param>
+            <param name="description">"description" from SkillInjector</param>
+            <param name="increaseStep">"increment" from SkillInjector</param>
+            <param name="icon">"icon" from SkillInjector</param>
+            <returns>New SkillConfig object that bridges SkillInjector to Jotunn without losing user progress</returns>
+            <remarks>For any new skills please do not use this method!</remarks>
+        </member>
+        <member name="M:Jotunn.Configs.SkillConfig.FromJson(System.String)">
+            <summary>
+                Loads a single SkillConfig from a JSON string.
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded SkillConfig</returns>
+        </member>
+        <member name="M:Jotunn.Configs.SkillConfig.ListFromJson(System.String)">
+            <summary>
+                Loads a list of SkillConfigs from a JSON string.
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded list of SkillConfigs</returns>
+        </member>
+        <member name="T:Jotunn.Configs.SmelterConversionConfig">
+            <summary>
+                Used to add new ItemConversions to the Smelter
+            </summary>
+        </member>
+        <member name="P:Jotunn.Configs.SmelterConversionConfig.Station">
+            <summary>
+                The name of the station prefab this conversion is added to. Defaults to "smelter".
+            </summary>
+        </member>
+        <member name="M:Jotunn.Configs.SmelterConversionConfig.GetItemConversion">
+            <summary>
+                Turns the SmelterConversionConfig into a Valheim Smelter.ItemConversion item.
+            </summary>
+            <returns>The Valheim Smelter.ItemConversion</returns>
+        </member>
+        <member name="M:Jotunn.Configs.SmelterConversionConfig.FromJson(System.String)">
+            <summary>
+                Loads a single SmelterConversionConfig from a JSON string
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded SmelterConversionConfig</returns>
+        </member>
+        <member name="M:Jotunn.Configs.SmelterConversionConfig.ListFromJson(System.String)">
+            <summary>
+                Loads a list of SmelterConversionConfigs from a JSON string
+            </summary>
+            <param name="json">JSON text</param>
+            <returns>Loaded list of SmelterConversionConfigs</returns>
+        </member>
+        <member name="T:Jotunn.Entities.ConsoleCommand">
+            <summary>
+                A custom console command.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.ConsoleCommand.Name">
+            <summary>
+                The command that the user will need to type in their console to run your command.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.ConsoleCommand.Help">
+            <summary>
+                The help text that will be displayed to the user for your command when they type `help` into their console.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Entities.ConsoleCommand.Run(System.String[])">
+            <summary>
+                The function that will be called when the user runs your console command, with space-delimited arguments.
+            </summary>
+            <param name="args">The arguments the user types, with spaces being the delimiter.</param>
+        </member>
+        <member name="T:Jotunn.Entities.CustomItem">
+            <summary>
+                Main interface for adding custom items to the game.<br />
+                All custom items have to be wrapped inside this class to add it to Jötunns <see cref="T:Jotunn.Managers.ItemManager"/>.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomItem.ItemPrefab">
+            <summary>
+                The prefab for this custom item.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomItem.ItemDrop">
+            <summary>
+                The <see cref="T:ItemDrop"/> component for this custom item as a shortcut. 
+                Will not be added again to the prefab when replaced.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomItem.Recipe">
+            <summary>
+                The <see cref="T:Jotunn.Entities.CustomRecipe"/> associated with this custom item. Is needed to craft
+                this item on a workbench or from the players crafting menu.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomItem.FixReference">
+            <summary>
+                Indicator if references from <see cref="T:Jotunn.Entities.Mock`1"/>s will be replaced at runtime.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItem.#ctor(UnityEngine.GameObject,System.Boolean)">
+            <summary>
+                Custom item from a prefab.<br />
+                Can fix references for <see cref="T:Jotunn.Entities.Mock`1"/>s and the <see cref="T:Recipe"/>.
+            </summary>
+            <param name="itemPrefab">The prefab for this custom item.</param>
+            <param name="fixReference">If true references for <see cref="T:Jotunn.Entities.Mock`1"/> objects get resolved at runtime by Jötunn.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItem.#ctor(UnityEngine.GameObject,System.Boolean,Jotunn.Configs.ItemConfig)">
+            <summary>
+                Custom item from a prefab with a <see cref="T:Recipe"/> made from a <see cref="T:Jotunn.Configs.ItemConfig"/>.<br />
+                Can fix references for <see cref="T:Jotunn.Entities.Mock`1"/>s.
+            </summary>
+            <param name="itemPrefab">The prefab for this custom item.</param>
+            <param name="fixReference">If true references for <see cref="T:Jotunn.Entities.Mock`1"/> objects get resolved at runtime by Jötunn.</param>
+            <param name="itemConfig">The recipe config for this custom item.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItem.#ctor(System.String,System.Boolean)">
+            <summary>
+                Custom item created as an "empty" primitive.<br />
+                At least the name and the Icon of the <see cref="T:ItemDrop"/> must be edited after creation.
+            </summary>
+            <param name="name">Name of the new prefab. Must be unique.</param>
+            <param name="addZNetView">If true a ZNetView component will be added to the prefab for network sync.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItem.#ctor(System.String,System.Boolean,Jotunn.Configs.ItemConfig)">
+            <summary>
+                Custom item created as an "empty" primitive with a <see cref="T:Recipe"/> made from a <see cref="T:Jotunn.Configs.ItemConfig"/>.<br />
+                At least the name and the Icon of the <see cref="T:ItemDrop"/> must be edited after creation.
+            </summary>
+            <param name="name">Name of the new prefab. Must be unique.</param>
+            <param name="addZNetView">If true a ZNetView component will be added to the prefab for network sync.</param>
+            <param name="itemConfig">The recipe config for this custom item.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItem.#ctor(System.String,System.String)">
+            <summary>
+                Custom item created as a copy of a vanilla Valheim prefab.
+            </summary>
+            <param name="name">The new name of the prefab after cloning.</param>
+            <param name="basePrefabName">The name of the base prefab the custom item is cloned from.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItem.#ctor(System.String,System.String,Jotunn.Configs.ItemConfig)">
+            <summary>
+                Custom item created as a copy of a vanilla Valheim prefab with a <see cref="T:Recipe"/> made from a <see cref="T:Jotunn.Configs.ItemConfig"/>.
+            </summary>
+            <param name="name">The new name of the prefab after cloning.</param>
+            <param name="basePrefabName">The name of the base prefab the custom item is cloned from.</param>
+            <param name="itemConfig">The recipe config for this custom item.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItem.IsValid">
+            <summary>
+                Checks if a custom item is valid (i.e. has a prefab, has an <see cref="P:Jotunn.Entities.CustomItem.ItemDrop"/> 
+                component with at least one icon).
+            </summary>
+            <returns>true if all criteria is met</returns>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItem.IsCustomItem(System.String)">
+            <summary>
+                Helper method to determine if a prefab with a given name is a custom item created with Jötunn.
+            </summary>
+            <param name="prefabName">Name of the prefab to test.</param>
+            <returns>true if the prefab is added as a custom item to the <see cref="T:Jotunn.Managers.ItemManager"/>.</returns>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItem.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItem.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItem.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Jotunn.Entities.CustomItemConversion">
+            <summary>
+                Main interface for adding custom item conversions to the game.<br />
+                Supports and combines conversions for the cooking station, fermenter and smelter.<br />
+                All custom item conversions have to be wrapped inside this class to add it to Jötunns <see cref="T:Jotunn.Managers.ItemManager"/>.
+            </summary>
+        </member>
+        <member name="T:Jotunn.Entities.CustomItemConversion.ConversionType">
+            <summary>
+                Type of the conversion component used in game.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Entities.CustomItemConversion.ConversionType.CookingStation">
+            <summary>
+                Add a conversion to a station with the CookingStation component attached.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Entities.CustomItemConversion.ConversionType.Fermenter">
+            <summary>
+                Add a conversion to a station with the Fermenter component attached.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Entities.CustomItemConversion.ConversionType.Smelter">
+            <summary>
+                Add a conversion to a station with the Smelter component attached.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomItemConversion.Type">
+            <summary>
+                Type of the item conversion. Defines to which station the conversion is added.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomItemConversion.Config">
+            <summary>
+                Config of the item conversion. Depends on the <see cref="P:Jotunn.Entities.CustomItemConversion.Type"/> of the conversion.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Entities.CustomItemConversion.fixReference">
+            <summary>
+                Indicator if the conversion needs fixing.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomItemConversion.ItemConversion">
+            <summary>
+                Actual ItemConversion type as <see cref="T:System.Object"/>. Needs to be cast according to <see cref="T:Jotunn.Entities.CustomItemConversion.ConversionType"/>.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItemConversion.#ctor(Jotunn.Configs.ConversionConfig)">
+            <summary>
+                Create a custom item conversion. Depending on the config class this custom
+                conversion represents one of the following item conversions:<br />
+                <list type="bullet">
+                    <item>CookingStation.ItemConversion</item>
+                    <item>Fermenter.ItemConversion</item>
+                    <item>Smelter.ItemConversion</item>
+                </list>
+            </summary>
+            <param name="config">The item conversion config</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItemConversion.IsValid">
+            <summary>
+                Checks if a custom item conversion is valid.
+            </summary>
+            <returns>true if all criteria is met</returns>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItemConversion.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItemConversion.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Jotunn.Entities.CustomItemConversion.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Jotunn.Entities.CustomPiece">
+            <summary>
+                Main interface for adding custom pieces to the game.<br />
+                All custom pieces have to be wrapped inside this class to add it to Jötunns <see cref="T:Jotunn.Managers.PieceManager"/>.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomPiece.PiecePrefab">
+            <summary>
+                The prefab for this custom piece.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomPiece.Piece">
+            <summary>
+                The <see cref="T:Piece"/> component for this custom piece as a shortcut. 
+                Will not be added again to the prefab when replaced.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomPiece.PieceTable">
+            <summary>
+                Name of the <see cref="T:PieceTable"/> this custom piece belongs to.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomPiece.FixReference">
+            <summary>
+                Indicator if references from <see cref="T:Jotunn.Entities.Mock`1"/>s will be replaced at runtime.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Entities.CustomPiece.#ctor(UnityEngine.GameObject,System.String,System.Boolean)">
+            <summary>
+                Custom piece from a prefab.<br />
+                Will be added to the <see cref="T:PieceTable"/> provided by name.<br />
+                Can fix references from <see cref="T:Jotunn.Entities.Mock`1"/>s or not.
+            </summary>
+            <param name="piecePrefab">The prefab for this custom piece.</param>
+            <param name="pieceTable">
+                Name of the <see cref="T:PieceTable"/> the custom piece should be added to.
+                Can by the "internal" or the <see cref="T:UnityEngine.GameObject"/>s name (e.g. "_PieceTableHammer" or "Hammer")
+            </param>
+            <param name="fixReference">If true references for <see cref="T:Jotunn.Entities.Mock`1"/> objects get resolved at runtime by Jötunn.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomPiece.#ctor(UnityEngine.GameObject,Jotunn.Configs.PieceConfig)">
+            <summary>
+                Custom piece from a prefab with a <see cref="T:Jotunn.Configs.PieceConfig"/> attached.<br />
+                The members and references from the <see cref="T:Jotunn.Configs.PieceConfig"/> will be referenced by Jötunn at runtime.
+            </summary>
+            <param name="piecePrefab">The prefab for this custom piece.</param>
+            <param name="pieceConfig">The <see cref="T:Jotunn.Configs.PieceConfig"/> for this custom piece.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomPiece.#ctor(UnityEngine.AssetBundle,System.String,System.String,System.Boolean)">
+            <summary>
+                Custom piece from a prefab loaded from an <see cref="T:UnityEngine.AssetBundle"/>.<br />
+                Will be added to the <see cref="T:PieceTable"/> provided by name.<br />
+                Can fix references from <see cref="T:Jotunn.Entities.Mock`1"/>s or not.
+            </summary>
+            <param name="assetBundle">A preloaded <see cref="T:UnityEngine.AssetBundle"/></param>
+            <param name="assetName">Name of the prefab in the bundle.</param>
+            <param name = "pieceTable" >
+                Name of the <see cref="T:PieceTable"/> the custom piece should be added to.
+                Can by the "internal" or the <see cref="T:UnityEngine.GameObject"/>s name (e.g. "_PieceTableHammer" or "Hammer")
+            </param>
+            <param name="fixReference">If true references for <see cref="T:Jotunn.Entities.Mock`1"/> objects get resolved at runtime by Jötunn.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomPiece.#ctor(UnityEngine.AssetBundle,System.String,Jotunn.Configs.PieceConfig)">
+            <summary>
+                Custom piece from a prefab loaded from an <see cref="T:UnityEngine.AssetBundle"/> with a PieceConfig attached.<br />
+                Will be added to the <see cref="T:PieceTable"/> provided by name.
+            </summary>
+            <param name="assetBundle">A preloaded <see cref="T:UnityEngine.AssetBundle"/></param>
+            <param name="assetName">Name of the prefab in the bundle.</param>
+            <param name="pieceConfig">The <see cref="T:Jotunn.Configs.PieceConfig"/> for this custom piece.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomPiece.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+                Custom piece created as an "empty" primitive.<br />
+                Will be added to the <see cref="T:PieceTable"/> provided by name.<br />
+                At least the name and the icon of the ItemDrop must be edited after creation.
+            </summary>
+            <param name="name">Name of the new prefab. Must be unique.</param>
+            <param name = "pieceTable" >
+                Name of the <see cref="T:PieceTable"/> the custom piece should be added to.
+                Can by the "internal" or the <see cref="T:UnityEngine.GameObject"/>s name (e.g. "_PieceTableHammer" or "Hammer")
+            </param>
+            <param name="addZNetView">If true a ZNetView component will be added to the prefab for network sync.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomPiece.#ctor(System.String,System.String,System.String)">
+            <summary>
+                Custom piece created as a copy of a vanilla Valheim prefab.<br />
+                Will be added to the <see cref="T:PieceTable"/> provided by name.
+            </summary>
+            <param name="name">The new name of the prefab after cloning.</param>
+            <param name="baseName">The name of the base prefab the custom item is cloned from.</param>
+            <param name = "pieceTable" >
+                Name of the <see cref="T:PieceTable"/> the custom piece should be added to.
+                Can by the "internal" or the <see cref="T:UnityEngine.GameObject"/>s name (e.g. "_PieceTableHammer" or "Hammer")
+            </param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomPiece.IsValid">
+            <summary>
+                Checks if a custom piece is valid (i.e. has a prefab, a target PieceTable is set,
+                has a <see cref="T:Piece"/> component and that component has an icon set).
+            </summary>
+            <returns>true if all criteria is met</returns>
+        </member>
+        <member name="M:Jotunn.Entities.CustomPiece.IsCustomPiece(System.String)">
+            <summary>
+                Helper method to determine if a prefab with a given name is a custom piece created with Jötunn.
+            </summary>
+            <param name="prefabName">Name of the prefab to test.</param>
+            <returns>true if the prefab is added as a custom piece to the <see cref="T:Jotunn.Managers.PieceManager"/>.</returns>
+        </member>
+        <member name="M:Jotunn.Entities.CustomPiece.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Jotunn.Entities.CustomPiece.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Jotunn.Entities.CustomPiece.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Jotunn.Entities.CustomRecipe">
+            <summary>
+                Main interface for adding custom recipes to the game.<br />
+                All custom recipes have to be wrapped inside this class to add it to Jötunns <see cref="T:Jotunn.Managers.ItemManager"/>.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomRecipe.Recipe">
+            <summary>
+                The <see cref="T:Recipe"/> for this custom recipe.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomRecipe.FixReference">
+            <summary>
+                Indicator if references from <see cref="T:Jotunn.Entities.Mock`1"/>s will be replaced at runtime.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomRecipe.FixRequirementReferences">
+            <summary>
+                Indicator if references from <see cref="T:Jotunn.Entities.MockRequirement"/>s will be replaced at runtime.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Entities.CustomRecipe.#ctor(Recipe,System.Boolean,System.Boolean)">
+            <summary>
+                Custom recipe from a <see cref="T:Recipe"/>.<br />
+                Can fix references for <see cref="T:Jotunn.Entities.Mock`1"/>s and <see cref="T:Jotunn.Entities.MockRequirement"/>s or not.
+            </summary>
+            <param name="recipe">The <see cref="T:Recipe"/> for a custom item.</param>
+            <param name="fixReference">If true references for <see cref="T:Jotunn.Entities.Mock`1"/> objects get resolved at runtime by Jötunn.</param>
+            <param name="fixRequirementReferences">If true references for <see cref="T:Jotunn.Entities.MockRequirement"/>s get resolved at runtime by Jötunn.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomRecipe.#ctor(Jotunn.Configs.RecipeConfig)">
+            <summary>
+                Custom recipe from a <see cref="T:Jotunn.Configs.RecipeConfig"/>.<br />
+                The <see cref="T:Recipe"/> is created automatically by Jötunn at runtime.
+            </summary>
+            <param name="recipeConfig">The <see cref="T:Jotunn.Configs.RecipeConfig"/> for a custom recipe.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomRecipe.IsValid">
+            <summary>
+                Checks if a custom status effect is valid (i.e. has a <see cref="T:Recipe"/>).
+            </summary>
+            <returns>true if all criteria is met</returns>
+        </member>
+        <member name="M:Jotunn.Entities.CustomRecipe.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Jotunn.Entities.CustomRecipe.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Jotunn.Entities.CustomRecipe.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Jotunn.Entities.CustomStatusEffect">
+            <summary>
+                Main interface for adding custom status effects to the game.<br />
+                All custom status effects have to be wrapped inside this class to add it to Jötunns <see cref="T:Jotunn.Managers.ItemManager"/>.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomStatusEffect.StatusEffect">
+            <summary>
+                The <see cref="T:StatusEffect"/> for this custom status effect.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Entities.CustomStatusEffect.FixReference">
+            <summary>
+                Indicator if references from <see cref="T:Jotunn.Entities.Mock`1"/>s will be replaced at runtime.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Entities.CustomStatusEffect.#ctor(StatusEffect,System.Boolean)">
+            <summary>
+                Custom status effect from a <see cref="T:StatusEffect"/>.<br />
+                Can fix references for <see cref="T:Jotunn.Entities.Mock`1"/>s.
+            </summary>
+            <param name="statusEffect">A preloaded <see cref="T:StatusEffect"/></param>
+            <param name="fixReference">If true references for <see cref="T:Jotunn.Entities.Mock`1"/> objects get resolved at runtime by Jötunn.</param>
+        </member>
+        <member name="M:Jotunn.Entities.CustomStatusEffect.IsValid">
+            <summary>
+                Checks if a custom status effect is valid (i.e. has a <see cref="T:StatusEffect"/>).
+            </summary>
+            <returns>true if all criteria is met</returns>
+        </member>
+        <member name="M:Jotunn.Entities.CustomStatusEffect.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Jotunn.Entities.CustomStatusEffect.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Jotunn.Entities.CustomStatusEffect.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Jotunn.Entities.Mock`1">
+            <summary>
+                Helper class for creating Mocks of a given vanilla Component.
+            </summary>
+            <typeparam name="T">Type of the mocked <see cref="T:UnityEngine.Component"/></typeparam>
+        </member>
+        <member name="M:Jotunn.Entities.Mock`1.Create(System.String)">
+            <summary>
+                Create a new Mock of type T : Component
+            </summary>
+            <param name="name">Name of the original component</param>
+            <returns>Mocked <see cref="T:UnityEngine.Component"/></returns>
+        </member>
+        <member name="T:Jotunn.Entities.MockRequirement">
+            <summary>
+                Helper class for creating Mocks of item/piece requirements.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Entities.MockRequirement.Create(System.String,System.Int32,System.Boolean)">
+            <summary>
+                Creates a mocked Piece.Requirement
+            </summary>
+            <param name="name">Prefab name</param>
+            <param name="amount">Amount</param>
+            <param name="recover">Whether the resource is returned after deconstruction</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Entities.MockRequirement.CreateArray(System.Collections.Generic.Dictionary{System.String,System.Int32},System.Boolean)">
+            <summary>
+                Creates a mocked Piece.Requirement array
+            </summary>
+            <param name="requirements">List of prefab names and amounts</param>
+            <param name="recover">Whether the resources are returned after deconstruction</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.EventExtensions">
+            <summary>
+                Helper class for C# Events.
+            </summary>
+        </member>
+        <member name="M:Jotunn.EventExtensions.SafeInvoke(System.Action)">
+            <summary>
+                Try catch the delegate chain so that it doesnt break on the first failing Delegate.
+            </summary>
+            <param name="events"></param>
+        </member>
+        <member name="M:Jotunn.EventExtensions.SafeInvoke``1(System.Action{``0},``0)">
+            <summary>
+                Try catch the delegate chain so that it doesnt break on the first failing Delegate.
+            </summary>
+            <typeparam name="TArg1"></typeparam>
+            <param name="events"></param>
+            <param name="arg1"></param>
+        </member>
+        <member name="T:Jotunn.ExposedGameObjectExtension">
+            <summary>
+                Extends GameObject with a shortcut for the Unity bool operator override.
+            </summary>
+        </member>
+        <member name="M:Jotunn.ExposedGameObjectExtension.OrNull(UnityEngine.GameObject)">
+            <summary>
+                Facilitates use of null propagation operator for unity GameObjects by respecting op_equality.
+            </summary>
+            <param name="this"> this </param>
+            <returns>Returns null when GameObject.op_equality returns false.</returns>
+        </member>
+        <member name="M:Jotunn.ExposedGameObjectExtension.OrNull``1(``0)">
+            <summary>
+            Facilitates use of null propagation operator for unity MonBehaviours by respecting op_equality.
+            </summary>
+            <typeparam name="T">Any type that inherits MonoBehaviour</typeparam>
+            <param name="this">this</param>
+            <returns>Returns null when MonoBehaviours.op_equality returns false.</returns>
+        </member>
+        <member name="T:Jotunn.GameObjectGUIExtension">
+            <summary>
+                Use only, if you know what you do.
+                There are no checks if a component exists.
+            </summary>
+        </member>
+        <member name="T:Jotunn.GameObjectExtension">
+            <summary>
+                Extends GameObject with a check if the GameObject is valid
+            </summary>
+        </member>
+        <member name="M:Jotunn.GameObjectExtension.IsValid(UnityEngine.GameObject)">
+            <summary>
+                Check for validity
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.ItemDropExtension">
+            <summary>
+                Extends ItemDrop with a TokenName and a check if the ItemDrop is valid so it can be added to the game.
+            </summary>
+        </member>
+        <member name="M:Jotunn.ItemDropExtension.TokenName(ItemDrop)">
+            <summary>
+                m_itemData.m_shared.m_name
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.ItemDropExtension.IsValid(ItemDrop)">
+            <summary>
+                Check for validity
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.ItemDataExtension">
+            <summary>
+                Extends ItemData with a TokenName.
+            </summary>
+        </member>
+        <member name="M:Jotunn.ItemDataExtension.TokenName(ItemDrop.ItemData)">
+            <summary>
+                m_shared.m_name
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.RecipeExtension">
+            <summary>
+                Extends StatusEffect with a TokenName and a check if the StatusEffect is valid so it can be added to the game.
+            </summary>
+        </member>
+        <member name="M:Jotunn.RecipeExtension.IsValid(Recipe)">
+            <summary>
+                Check for validity
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.PieceExtension">
+            <summary>
+                Extends Piece with a TokenName and a check if the Piece is valid so it can be added to the game.
+            </summary>
+        </member>
+        <member name="M:Jotunn.PieceExtension.TokenName(Piece)">
+            <summary>
+                m_name
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.PieceExtension.IsValid(Piece)">
+            <summary>
+                Check for validity
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.StatusEffectExtension">
+            <summary>
+                Extends StatusEffect with a TokenName and a check if the StatusEffect is valid so it can be added to the game.
+            </summary>
+        </member>
+        <member name="M:Jotunn.StatusEffectExtension.TokenName(StatusEffect)">
+            <summary>
+                m_name
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.StatusEffectExtension.IsValid(StatusEffect)">
+            <summary>
+                Check for validity
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.PrefabExtension">
+            <summary>
+                Extends prefab GameObjects with functionality related to the mocking system.
+            </summary>
+        </member>
+        <member name="F:Jotunn.PrefabExtension.MockPrefix">
+            <summary>
+                Legacy ValheimLib prefix used by the Mock System to recognize Mock gameObject that must be replaced at some point.
+            </summary>
+        </member>
+        <member name="F:Jotunn.PrefabExtension.JVLMockPrefix">
+            <summary>
+                Prefix used by the Mock System to recognize Mock gameObject that must be replaced at some point.
+            </summary>
+        </member>
+        <member name="M:Jotunn.PrefabExtension.GetRealPrefabFromMock(UnityEngine.Object,System.Type)">
+            <summary>
+                Will try to find the real vanilla prefab from the given mock
+            </summary>
+            <param name="unityObject"></param>
+            <param name="mockObjectType"></param>
+            <returns>the real prefab</returns>
+        </member>
+        <member name="M:Jotunn.PrefabExtension.GetRealPrefabFromMock``1(UnityEngine.Object)">
+            <summary>
+                Will try to find the real vanilla prefab from the given mock
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="unityObject"></param>
+            <returns>the real prefab</returns>
+        </member>
+        <member name="M:Jotunn.PrefabExtension.FixReferences(System.Object)">
+            <summary>
+                Will attempt to fix every field that are mocks gameObjects / Components from the given object.
+            </summary>
+            <param name="objectToFix"></param>
+        </member>
+        <member name="M:Jotunn.PrefabExtension.FixReferences(UnityEngine.GameObject)">
+            <summary>
+                Resolves all references for mocks in this GameObject recursively.
+            </summary>
+            <param name="gameObject"></param>
+        </member>
+        <member name="M:Jotunn.PrefabExtension.CloneFields(UnityEngine.GameObject,UnityEngine.GameObject)">
+            <summary>
+                Clones all fields from this GameObject to objectToClone.
+            </summary>
+            <param name="gameObject"></param>
+            <param name="objectToClone"></param>
+        </member>
+        <member name="T:Jotunn.ObjectExtension">
+            <summary>
+                Helpful Unity Object extensions.
+            </summary>
+        </member>
+        <member name="T:Jotunn.ZNetExtension">
+            <summary>
+                Extends ZNet with a clear diversion between local, client and server instances.
+            </summary>
+        </member>
+        <member name="T:Jotunn.ZNetExtension.ZNetInstanceType">
+            <summary>
+                Possible states of the game regarding to networking.
+            </summary>
+        </member>
+        <member name="F:Jotunn.ZNetExtension.ZNetInstanceType.Local">
+            <summary>
+                A local game instance playing on a local world.
+            </summary>
+        </member>
+        <member name="F:Jotunn.ZNetExtension.ZNetInstanceType.Client">
+            <summary>
+                A local game instance playing on a dedicated server.
+            </summary>
+        </member>
+        <member name="F:Jotunn.ZNetExtension.ZNetInstanceType.Server">
+            <summary>
+                A dedicated server instance.
+            </summary>
+        </member>
+        <member name="M:Jotunn.ZNetExtension.IsLocalInstance(ZNet)">
+            <summary>
+                Returns true if the game was started locally and a local world was started.
+            </summary>
+            <param name="znet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.ZNetExtension.IsClientInstance(ZNet)">
+            <summary>
+                Returns true if the game was started locally and is connected to a server.
+            </summary>
+            <param name="znet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.ZNetExtension.IsServerInstance(ZNet)">
+            <summary>
+                Returns true if the game was started as a dedicated server.
+            </summary>
+            <param name="znet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.ZNetExtension.GetInstanceType(ZNet)">
+            <summary>
+                Determine the current game instance type regarding to networking.
+            </summary>
+            <param name="znet"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.InGameConfig.InGameConfig">
+            <summary>
+                An ingame GUI for BepInEx config files
+            </summary>
+        </member>
+        <member name="F:Jotunn.InGameConfig.InGameConfig.settingsRoot">
+            <summary>
+                Cached root gameobject of the settings panel
+            </summary>
+        </member>
+        <member name="F:Jotunn.InGameConfig.InGameConfig.configTab">
+            <summary>
+                Cached root of our additional tab
+            </summary>
+        </member>
+        <member name="M:Jotunn.InGameConfig.InGameConfig.HookOnSettings">
+            <summary>
+                Hook into settings setup
+            </summary>
+        </member>
+        <member name="M:Jotunn.InGameConfig.InGameConfig.CreateModConfigTab">
+            <summary>
+                Create custom configuration tab
+            </summary>
+        </member>
+        <member name="M:Jotunn.InGameConfig.InGameConfig.Settings_SaveSettings(On.Settings.orig_SaveSettings,Settings)">
+            <summary>
+                SaveSettings Hook
+            </summary>
+            <param name="orig"></param>
+            <param name="self"></param>
+        </member>
+        <member name="M:Jotunn.InGameConfig.InGameConfig.SetProperties``1(Jotunn.InGameConfig.InGameConfig.ConfigBound{``0},System.Collections.Generic.KeyValuePair{BepInEx.Configuration.ConfigDefinition,BepInEx.Configuration.ConfigEntryBase})">
+            <summary>
+                Set the properties of the <see cref="T:Jotunn.InGameConfig.InGameConfig.ConfigBound`1" />
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="binding"></param>
+            <param name="entry"></param>
+        </member>
+        <member name="M:Jotunn.InGameConfig.InGameConfig.CreateTextInputField(UnityEngine.Transform,System.String,UnityEngine.Color,System.String,UnityEngine.Color,System.String,System.String,System.String,System.Single)">
+            <summary>
+                Create a text input field (used for string, int, float)
+            </summary>
+            <param name="parent">parent transform</param>
+            <param name="labelname">Label text</param>
+            <param name="description">Description text</param>
+            <param name="guid">module GUID</param>
+            <param name="section">Section</param>
+            <param name="key">Key</param>
+            <param name="width">Width</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.InGameConfig.InGameConfig.GetConfigurationEntries(BepInEx.BaseUnityPlugin)">
+            <summary>
+                Get all config entries of a module
+            </summary>
+            <param name="module"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.InGameConfig.InGameConfig.CreateToggleElement(UnityEngine.Transform,System.String,UnityEngine.Color,System.String,UnityEngine.Color,System.String,System.String,System.String,System.Single)">
+            <summary>
+                Create a toggle element
+            </summary>
+            <param name="parent">parent transform</param>
+            <param name="labelname">label text</param>
+            <param name="description">description text</param>
+            <param name="modguid">module GUID</param>
+            <param name="section">section</param>
+            <param name="key">key</param>
+            <param name="width">width</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.InGameConfig.InGameConfig.CreateKeybindElement(UnityEngine.Transform,System.String,System.String,System.String,System.String,System.String,System.Single)">
+            <summary>
+                Create a keybinding element
+            </summary>
+            <param name="parent">parent transform</param>
+            <param name="labelname">label text</param>
+            <param name="description">description text</param>
+            <param name="modguid">module GUID</param>
+            <param name="section">section</param>
+            <param name="key">key</param>
+            <param name="width">width</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.InGameConfig.InGameConfig.ConfigBound`1">
+            <summary>
+                Generic abstract version of the config binding class
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Jotunn.InGameConfig.InGameConfig.ConfigBoundBoolean">
+            <summary>
+                Boolean Binding
+            </summary>
+        </member>
+        <member name="T:Jotunn.InGameConfig.InGameConfig.ConfigBoundInt">
+            <summary>
+                Integer binding
+            </summary>
+        </member>
+        <member name="T:Jotunn.InGameConfig.InGameConfig.ConfigBoundFloat">
+            <summary>
+                Float binding
+            </summary>
+        </member>
+        <member name="T:Jotunn.InGameConfig.InGameConfig.ConfigBoundKeyCode">
+            <summary>
+                KeyCode binding
+            </summary>
+        </member>
+        <member name="T:Jotunn.InGameConfig.InGameConfig.ConfigBoundString">
+            <summary>
+                String binding
+            </summary>
+        </member>
+        <member name="T:Jotunn.Logger">
+            <summary>
+                A namespace wide Logger class, which automatically creates a ManualLogSource
+                for every Class from which it is being called.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Logger.ShowDate">
+            <summary>
+                Add DateTime to the log output
+            </summary>
+        </member>
+        <member name="M:Jotunn.Logger.Init">
+            <summary>
+                Singleton init
+            </summary>
+        </member>
+        <member name="M:Jotunn.Logger.Destroy">
+            <summary>
+                Remove and clear all Logger instances
+            </summary>
+        </member>
+        <member name="M:Jotunn.Logger.GetLogger">
+            <summary>
+                Get or create a <see cref="T:BepInEx.Logging.ManualLogSource"/> with the callers <see cref="P:System.Type.FullName"/>
+            </summary>
+            <returns>A BepInEx <see cref="T:BepInEx.Logging.ManualLogSource"/></returns>
+        </member>
+        <member name="M:Jotunn.Logger.LogFatal(System.Object)">
+            <summary>
+                Logs a message with <see cref="F:BepInEx.Logging.LogLevel.Fatal"/> level.
+            </summary>
+            <param name="data">Data to log</param>
+        </member>
+        <member name="M:Jotunn.Logger.LogError(System.Object)">
+            <summary>
+                Logs a message with <see cref="F:BepInEx.Logging.LogLevel.Fatal"/> level.
+            </summary>
+            <param name="data">Data to log</param>
+        </member>
+        <member name="M:Jotunn.Logger.LogWarning(System.Object)">
+            <summary>
+                Logs a message with <see cref="F:BepInEx.Logging.LogLevel.Warning"/> level.
+            </summary>
+            <param name="data">Data to log</param>
+        </member>
+        <member name="M:Jotunn.Logger.LogMessage(System.Object)">
+            <summary>
+                Logs a message with <see cref="F:BepInEx.Logging.LogLevel.Message"/> level.
+            </summary>
+            <param name="data">Data to log</param>
+        </member>
+        <member name="M:Jotunn.Logger.LogInfo(System.Object)">
+            <summary>
+                Logs a message with <see cref="F:BepInEx.Logging.LogLevel.Info"/> level.
+            </summary>
+            <param name="data">Data to log</param>
+        </member>
+        <member name="M:Jotunn.Logger.LogDebug(System.Object)">
+            <summary>
+                Logs a message with <see cref="F:BepInEx.Logging.LogLevel.Debug"/> level.
+            </summary>
+            <param name="data">Data to log</param>
+        </member>
+        <member name="T:Jotunn.Main">
+            <summary>
+                Main class implementing BaseUnityPlugin.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Main.Version">
+            <summary>
+                The current version of the Jotunn library.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Main.ModName">
+            <summary>
+                The name of the library.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Main.ModGuid">
+            <summary>
+                The BepInEx plugin Mod GUID being used (com.jotunn.jotunn).
+            </summary>
+        </member>
+        <member name="M:Jotunn.Main.InitializePatches">
+            <summary>
+                Invoke patch initialization methods for all loaded mods.
+            </summary>
+        </member>
+        <member name="T:Jotunn.IManager">
+            <summary>
+                The base class for all the library's various Managers
+            </summary>
+        </member>
+        <member name="M:Jotunn.IManager.Init">
+            <summary>
+                Initialize manager class after all manager scripts have been added to the root game object
+            </summary>
+        </member>
+        <member name="T:Jotunn.Managers.CommandManager">
+            <summary>
+                Manager for handling custom console and chat commands.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.CommandManager.Instance">
+            <summary>
+                The singleton instance of this manager.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.CommandManager.VanillaCommands">
+            <summary>
+                The console commands that are built-in to Valheim. These cannot be changed or overriden, and
+                no other commands can be declared with the same names as these.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.CommandManager.CustomCommands">
+            <summary>
+                A list of all the custom console commands that have been added to the game through this manager,
+                either by Jotunn or by mods using Jotunn.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.CommandManager.Init">
+            <summary>
+                Initialize console commands that come with Jotunn.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.CommandManager.AddConsoleCommand(Jotunn.Entities.ConsoleCommand)">
+            <summary>
+                Adds a new console command to Valheim.
+            </summary>
+            <param name="cmd">The console command to add</param>
+        </member>
+        <member name="T:Jotunn.Managers.GUIManager">
+            <summary>
+                Manager for handling anything GUI related. Provides Valheim style 
+                GUI elements as well as an anchor for custom GUI prefabs.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.GUIManager.Instance">
+            <summary>
+                Singleton instance
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.GUIManager.PixelFix">
+            <summary>
+                GUI container with automatic scaling for high res displays.
+                Gets rebuild at every scene change so make sure to add your custom
+                GUI prefabs again on each scene change.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.GUIManager.GUIContainer">
+            <summary>
+                Internal container for GUI elements created by the GUIManager. 
+                Acts as a static transform for the base GUI elements which can
+                be instantiated with this classes helper methods.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.GUIManager.UILayer">
+            <summary>
+                Unity layer constant for UI objects.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.GUIManager.ValheimOrange">
+            <summary>
+                The default Valheim orange color.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.GUIManager.ValheimScrollbarHandleColorBlock">
+            <summary>
+                Scrollbar handle color block in default Valheim orange.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.GUIManager.AveriaSerif">
+            <summary>
+                Valheim standard font normal faced.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.GUIManager.AveriaSerifBold">
+            <summary>
+                Valheims standard font bold faced.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.GUIManager.TextureAtlas">
+            <summary>
+                Internal reference to Valheims TextureAtlas. 
+                Used to get Valheim sprites in <see cref="M:Jotunn.Managers.GUIManager.CreateSpriteFromAtlas(UnityEngine.Rect,UnityEngine.Vector2,System.Single,System.UInt32,UnityEngine.SpriteMeshType,UnityEngine.Vector4)"/>.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.GUIManager.TextureAtlas2">
+            <summary>
+                Internal reference to Valheims second TextureAtlas.
+                Used to get Valheim sprites in <see cref="M:Jotunn.Managers.GUIManager.CreateSpriteFromAtlas2(UnityEngine.Rect,UnityEngine.Vector2,System.Single,System.UInt32,UnityEngine.SpriteMeshType,UnityEngine.Vector4)"/>.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.GUIManager.Sprites">
+            <summary>
+                Internal Dictionary holding the references to the sprites used in the helper methods.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.GUIManager.KeyHints">
+            <summary>
+                Internal Dictionary holding the references to the custom key hints added to the manager.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.GUIManager.KeyHintContainer">
+            <summary>
+                Reference to the games "KeyHint" GameObjects RectTransform.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.GUIManager.needsLoad">
+            <summary>
+                Indicates if the initial resource load needs to be performed.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.GUIManager.GUIInStart">
+            <summary>
+                Indicates if the PixelFix must be created for the start or main scene.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.OnPointerClick(UnityEngine.EventSystems.PointerEventData)">
+            <summary>
+                Event receiver for pointer click events
+            </summary>
+            <param name="eventData"></param>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.Init">
+            <summary>
+                Initialize the manager
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.AddKeyHint(Jotunn.Configs.KeyHintConfig)">
+            <summary>
+                Add a <see cref="T:Jotunn.Configs.KeyHintConfig"/> to the manager.<br />
+                Checks if the custom key hint is unique (i.e. the first one registered for an item).<br />
+                Custom status effects are displayed in the game instead of the default 
+                KeyHints for equipped tools or weapons they are registered for.
+            </summary>
+            <param name="hintConfig">The custom key hint config to add.</param>
+            <returns>true if the custom key hint config was added to the manager.</returns>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.RemoveKeyHint(Jotunn.Configs.KeyHintConfig)">
+            <summary>
+                Removes a <see cref="T:Jotunn.Configs.KeyHintConfig"/> from the game.
+            </summary>
+            <param name="hintConfig">The custom key hint config to add.</param>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.ShowCustomKeyHint(On.KeyHints.orig_UpdateHints,KeyHints)">
+            <summary>
+                Hook on <see cref="M:KeyHints.UpdateHints" /> to show custom key hints instead of the vanilla ones.
+            </summary>
+            <param name="orig"></param>
+            <param name="self"></param>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.CreateButton(System.String,UnityEngine.Transform,UnityEngine.Vector2,UnityEngine.Vector2,UnityEngine.Vector2,System.Single,System.Single)">
+            <summary>
+                Create a new button (Valheim style).
+            </summary>
+            <param name="text"></param>
+            <param name="parent"></param>
+            <param name="anchorMin"></param>
+            <param name="anchorMax"></param>
+            <param name="position"></param>
+            <param name="width">Set width if > 0</param>
+            <param name="height">Set height if > 0</param>
+            <returns>new Button gameobject</returns>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.CreateWoodpanel(UnityEngine.Transform,UnityEngine.Vector2,UnityEngine.Vector2,UnityEngine.Vector2,System.Single,System.Single)">
+            <summary>
+                Creates a Valheim style woodpanel
+            </summary>
+            <param name="parent"></param>
+            <param name="anchorMin"></param>
+            <param name="anchorMax"></param>
+            <param name="position"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.CreateSpriteFromAtlas(UnityEngine.Rect,UnityEngine.Vector2,System.Single,System.UInt32,UnityEngine.SpriteMeshType,UnityEngine.Vector4)">
+            <summary>
+                Get sprite low level fashion from sactx-2048x2048-Uncompressed-UIAtlas atlas.
+            </summary>
+            <param name="rect">Rect on atlas texture</param>
+            <param name="pivot">pivot</param>
+            <param name="pixelsPerUnit"></param>
+            <param name="extrude"></param>
+            <param name="meshType"></param>
+            <param name="slice"></param>
+            <returns>The newly created sprite</returns>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.CreateSpriteFromAtlas2(UnityEngine.Rect,UnityEngine.Vector2,System.Single,System.UInt32,UnityEngine.SpriteMeshType,UnityEngine.Vector4)">
+            <summary>
+                Get sprite low level fashion from sactx-2048x2048-Uncompressed-UIAtlas atlas (not much used ingame or old
+                textures).
+            </summary>
+            <param name="rect">Rect on atlas texture</param>
+            <param name="pivot">pivot</param>
+            <param name="pixelsPerUnit"></param>
+            <param name="extrude"></param>
+            <param name="meshType"></param>
+            <param name="slice"></param>
+            <returns>The newly created sprite</returns>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.GetSprite(System.String)">
+            <summary>
+                Get a sprite by name.
+            </summary>
+            <param name="spriteName"></param>
+            <returns>The sprite with given name</returns>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.ApplyInputFieldStyle(UnityEngine.UI.InputField)">
+            <summary>
+                Apply Valheim style to an inputfield component.
+            </summary>
+            <param name="field"></param>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.ApplyToogleStyle(UnityEngine.UI.Toggle)">
+            <summary>
+                Apply Valheim style to a toggle.
+            </summary>
+            <param name="toggle"></param>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.CreateText(System.String,UnityEngine.Transform,UnityEngine.Vector2,UnityEngine.Vector2,UnityEngine.Vector2,UnityEngine.Font,System.Int32,UnityEngine.Color,System.Boolean,UnityEngine.Color,System.Single,System.Single,System.Boolean)">
+            <summary>
+            Create a Gameobject with a Text (and optional Outline and ContentSizeFitter) component
+            </summary>
+            <param name="text">Text to show</param>
+            <param name="parent">Parent transform</param>
+            <param name="anchorMin">Anchor min</param>
+            <param name="anchorMax">Anchor max</param>
+            <param name="position">Anchored position</param>
+            <param name="font">Font</param>
+            <param name="fontSize">Font size</param>
+            <param name="color">Font color</param>
+            <param name="outline">Add outline component</param>
+            <param name="outlineColor">Outline color</param>
+            <param name="width">Width</param>
+            <param name="height">Height</param>
+            <param name="addContentSizeFitter">Add ContentSizeFitter</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.CreateScrollView(UnityEngine.Transform,System.Boolean,System.Boolean,System.Single,System.Single,UnityEngine.UI.ColorBlock,UnityEngine.Color,System.Single,System.Single)">
+            <summary>
+            Create a complete scroll view
+            </summary>
+            <param name="parent">parent transform</param>
+            <param name="showHorizontalScrollbar">show horizontal scrollbar</param>
+            <param name="showVerticalScrollbar">show vertical scrollbar</param>
+            <param name="handleSize">size of the handle</param>
+            <param name="handleDistanceToBorder"></param>
+            <param name="handleColors">Colorblock for the handle</param>
+            <param name="slidingAreaBackgroundColor">Background color for the sliding area</param>
+            <param name="width">rect width</param>
+            <param name="height">rect height</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.CreateToggle(UnityEngine.Transform,UnityEngine.Vector2,System.Single,System.Single)">
+            <summary>
+            Create toggle field
+            </summary>
+            <param name="parent"></param>
+            <param name="position"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Managers.GUIManager.CreateKeyBindField(System.String,UnityEngine.Transform,System.Single,System.Single)">
+            <summary>
+            Create key binding field
+            </summary>
+            <param name="text"></param>
+            <param name="parent"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.Managers.InputManager">
+            <summary>
+               Manager for handling custom inputs registered by mods.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.InputManager.Instance">
+            <summary>
+                Singleton instance
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.InputManager.Init">
+            <summary>
+                Initialize the manager
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.InputManager.AddButton(System.String,Jotunn.Configs.ButtonConfig)">
+            <summary>
+                Add a custom button binding via config
+            </summary>
+            <param name="modguid"></param>
+            <param name="button"></param>
+        </member>
+        <member name="M:Jotunn.Managers.InputManager.AddButton(System.String,System.String,UnityEngine.KeyCode,System.Single,System.Single)">
+            <summary>
+                Add a custom button binding
+            </summary>
+            <param name="modguid"></param>
+            <param name="name"></param>
+            <param name="key"></param>
+            <param name="repeatDelay"></param>
+            <param name="repeatInterval"></param>
+        </member>
+        <member name="M:Jotunn.Managers.InputManager.AddButton(System.String,System.String,System.String,System.Boolean,System.Single,System.Single)">
+            <summary>
+                Add a custom button binding
+            </summary>
+            <param name="modguid"></param>
+            <param name="name"></param>
+            <param name="axis"></param>
+            <param name="inverted"></param>
+            <param name="repeatDelay"></param>
+            <param name="repeatInterval"></param>
+        </member>
+        <member name="T:Jotunn.Managers.ItemManager">
+            <summary>
+               Manager for handling all custom data added to the game related to items.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.ItemManager.Instance">
+            <summary>
+                The singleton instance of this manager.
+            </summary>
+        </member>
+        <member name="E:Jotunn.Managers.ItemManager.OnVanillaItemsAvailable">
+            <summary>
+                Event that gets fired after the vanilla items are in memory and available for cloning.
+                Your code will execute every time a new ObjectDB is copied (on every menu start).
+                If you want to execute just once you will need to unregister from the event after execution.
+            </summary>
+        </member>
+        <member name="E:Jotunn.Managers.ItemManager.OnItemsRegisteredFejd">
+            <summary>
+                Event that gets fired after all items were added to the ObjectDB on the FejdStartup screen.
+                Your code will execute every time a new ObjectDB is copied (on every menu start).
+                If you want to execute just once you will need to unregister from the event after execution.
+            </summary>
+        </member>
+        <member name="E:Jotunn.Managers.ItemManager.OnItemsRegistered">
+            <summary>
+                Event that gets fired after all items were added to the ObjectDB.
+                Your code will execute every time a new ObjectDB is created (on every game start).
+                If you want to execute just once you will need to unregister from the event after execution.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.ItemManager.Init">
+            <summary>
+                Registers all hooks.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.ItemManager.AddItem(Jotunn.Entities.CustomItem)">
+            <summary>
+                Add a <see cref="T:Jotunn.Entities.CustomItem"/> to the game.<br />
+                Checks if the custom item is valid and unique and adds it to the list of custom items.<br />
+                Also adds the prefab of the custom item to the <see cref="T:Jotunn.Managers.PrefabManager"/>.<br />
+                Custom items are added to the current <see cref="T:ObjectDB"/> on every <see cref="M:ObjectDB.Awake"/>.
+            </summary>
+            <param name="customItem">The custom item to add.</param>
+            <returns>true if the custom item was added to the manager.</returns>
+        </member>
+        <member name="M:Jotunn.Managers.ItemManager.AddRecipe(Jotunn.Entities.CustomRecipe)">
+            <summary>
+                Add a <see cref="T:Jotunn.Entities.CustomRecipe"/> to the game.<br />
+                Checks if the custom recipe is unique and adds it to the list of custom recipes.<br />
+                Custom recipes are added to the current <see cref="T:ObjectDB"/> on every <see cref="M:ObjectDB.Awake"/>.
+            </summary>
+            <param name="customRecipe">The custom recipe to add.</param>
+            <returns>true if the custom recipe was added to the manager.</returns>
+        </member>
+        <member name="M:Jotunn.Managers.ItemManager.AddRecipesFromJson(System.String)">
+            <summary>
+                Adds recipes defined in a JSON file at given path, relative to BepInEx/plugins
+            </summary>
+            <param name="path">JSON file path, relative to BepInEx/plugins folder</param>
+        </member>
+        <member name="M:Jotunn.Managers.ItemManager.AddStatusEffect(Jotunn.Entities.CustomStatusEffect)">
+            <summary>
+                Add a <see cref="T:Jotunn.Entities.CustomStatusEffect"/> to the game.<br />
+                Checks if the custom status effect is unique and adds it to the list of custom status effects.<br />
+                Custom status effects are added to the current <see cref="T:ObjectDB"/> on every <see cref="M:ObjectDB.Awake"/>.
+            </summary>
+            <param name="customStatusEffect">The custom status effect to add.</param>
+            <returns>true if the custom status effect was added to the manager.</returns>
+        </member>
+        <member name="M:Jotunn.Managers.ItemManager.AddItemConversion(Jotunn.Entities.CustomItemConversion)">
+            <summary>
+                Adds a new item conversion for any prefab that has a CookingStation component (such as a "piece_cookingstation").
+            </summary>
+            <param name="itemConversion">Item conversion details</param>
+            <returns>Whether the addition was successful or not</returns>
+        </member>
+        <member name="M:Jotunn.Managers.ItemManager.RegisterCustomDataFejd(On.ObjectDB.orig_CopyOtherDB,ObjectDB,ObjectDB)">
+            <summary>
+                Hook on <see cref="M:ObjectDB.CopyOtherDB(ObjectDB)"/> to add custom items to FejdStartup screen (aka main menu)
+            </summary>
+            <param name="orig"></param>
+            <param name="self"></param>
+            <param name="other"></param>
+        </member>
+        <member name="M:Jotunn.Managers.ItemManager.RegisterCustomData(On.ObjectDB.orig_Awake,ObjectDB)">
+            <summary>
+                Hook on <see cref="M:ObjectDB.Awake"/> to register all custom entities from this manager to the <see cref="T:ObjectDB"/>.
+            </summary>
+            <param name="orig"></param>
+            <param name="self"></param>
+        </member>
+        <member name="M:Jotunn.Managers.ItemManager.ReloadKnownRecipes(On.Player.orig_Load,Player,ZPackage)">
+            <summary>
+                Hook on <see cref="M:Player.Load(ZPackage)"/> to refresh recipes for the custom items.
+            </summary>
+            <param name="orig"></param>
+            <param name="self"></param>
+            <param name="pkg"></param>
+        </member>
+        <member name="T:Jotunn.Managers.LocalizationManager">
+            <summary>
+                Manager for handling localizations for all custom content added to the game.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.LocalizationManager.TokenFirstChar">
+            <summary>
+                Your token must start with this character.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.LocalizationManager.DefaultLanguage">
+            <summary>
+                Default language of the game.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.LocalizationManager.TranslationsFolderName">
+            <summary>
+                Name of the folder that will hold the custom .json translations files.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.LocalizationManager.CommunityTranslationFileName">
+            <summary>
+                Name of the community translation files that will be the first custom languages files loaded before any others.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.LocalizationManager.Instance">
+            <summary>
+                The singleton instance of this manager.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.LocalizationManager.DoQuoteLineSplit">
+            <summary>
+                Call into unity's DoQuoteLineSplit.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.LocalizationManager.Localizations">
+            <summary>
+                Dictionary holding all localizations.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.Init">
+            <summary>
+                Initialize localization manager.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.AddLocalization(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+                Registers a new Localization for a language.
+            </summary>
+            <param name="language">The language added</param>
+            <param name="localization">The localization for a language</param>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.AddLocalization(Jotunn.Configs.LocalizationConfig)">
+            <summary>
+                Add localization config to existing localizations
+            </summary>
+            <param name="config"></param>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.AddLanguageFilesFromPluginFolder">
+            <summary>
+                Search for and add localization files.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.AddToken(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+                Add a token and its value to the specified language (default to "English").
+            </summary>
+            <param name="token">token / key</param>
+            <param name="value">value that will be printed in the game</param>
+            <param name="language"></param>
+            <param name="forceReplace">replace the token if it already exists</param>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.AddToken(System.String,System.String,System.Boolean)">
+            <summary>
+                Add a token and its value to the "English" language.
+            </summary>
+            <param name="token">token / key</param>
+            <param name="value">value that will be printed in the game</param>
+            <param name="forceReplace">replace the token if it already exists</param>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.AddPath(System.String,System.Boolean)">
+            <summary>
+                Add a file via absolute path.
+            </summary>
+            <param name="path">Absolute path to file</param>
+            <param name="isJson">Is the language file a json file</param>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.AddLanguageFile(System.String)">
+            <summary>
+                Add a language file that matches Valheim's language format.
+            </summary>
+            <param name="fileContent">Entire file as string</param>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.AddJson(System.String,System.String)">
+            <summary>
+                Add a json language file (match crowdin format).
+            </summary>
+            <param name="language">Language for the json file, for example, "English"</param>
+            <param name="fileContent">Entire file as string</param>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.TryTranslate(System.String)">
+            <summary>
+                Tries to translate a word with <see cref="T:Localization"/>, handles null and tokenized input
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.LoadLanguageFile(System.String)">
+            <summary>
+                Load Unity style language file.
+            </summary>
+            <param name="fileContent"></param>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.GetLanguageDict(System.String)">
+            <summary>
+                Get the dictionary for a specific language.
+            </summary>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.LoadJsonLanguageFile(System.String,System.String)">
+            <summary>
+                Load community translation file.
+            </summary>
+            <param name="language"></param>
+            <param name="fileContent"></param>
+        </member>
+        <member name="M:Jotunn.Managers.LocalizationManager.AddTokens(Localization,System.String)">
+            <summary>
+                Add tokens to the respective localization.
+            </summary>
+            <param name="self"></param>
+            <param name="language"></param>
+        </member>
+        <member name="T:Jotunn.Managers.MockManager">
+            <summary>
+                Handles all logic to do with managing mocked prefabs added into the game.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.MockManager.Instance">
+            <summary>
+                The singleton instance of this manager.
+            </summary>
+        </member>
+        <member name="T:Jotunn.Managers.PieceManager">
+            <summary>
+                Manager for handling custom pieces added to the game.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.PieceManager.Instance">
+            <summary>
+                The singleton instance of this manager.
+            </summary>
+        </member>
+        <member name="E:Jotunn.Managers.PieceManager.OnPiecesRegistered">
+            <summary>
+                Event that gets fired after all pieces were added to their respective PieceTables.
+                Your code will execute every time a new ObjectDB is created (on every game start).
+                If you want to execute just once you will need to unregister from the event after execution.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.PieceManager.Init">
+            <summary>
+                Creates the piece table container and registers all hooks.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.PieceManager.AddPieceTable(UnityEngine.GameObject)">
+            <summary>
+                Add a new <see cref="T:PieceTable"/> from <see cref="T:UnityEngine.GameObject"/>.
+            </summary>
+            <param name="prefab">The prefab of the <see cref="T:PieceTable"/></param>
+        </member>
+        <member name="M:Jotunn.Managers.PieceManager.AddPieceTable(System.String)">
+            <summary>
+                Add a new <see cref="T:PieceTable"/> from string.<br />
+                Creates a <see cref="T:UnityEngine.GameObject"/> with a <see cref="T:PieceTable"/> component and adds it to the manager.
+            </summary>
+            <param name="name">Name of the new piece table.</param>
+        </member>
+        <member name="M:Jotunn.Managers.PieceManager.GetPieceTable(System.String)">
+            <summary>
+                Get a <see cref="T:PieceTable"/> by name.<br /><br />
+                Search hierarchy:<br />
+                <list type="number">
+                    <item>PieceTable with the exact name (e.g. "_HammerPieceTable")</item>
+                    <item>PieceTable via "item" name (e.g. "Hammer")</item>
+                </list>
+            </summary>
+            <param name="name">Prefab or item name of the PieceTable</param>
+            <returns>PieceTable prefab</returns>
+        </member>
+        <member name="M:Jotunn.Managers.PieceManager.AddPiece(Jotunn.Entities.CustomPiece)">
+            <summary>
+                Add a <see cref="T:Jotunn.Entities.CustomPiece"/> to the game.<br />
+                Checks if the custom piece is valid and unique and adds it to the list of custom pieces.<br />
+                Custom pieces are added to their respective <see cref="T:PieceTable"/>s after <see cref="M:ObjectDB.Awake"/>.
+            </summary>
+            <param name="customPiece">The custom piece to add.</param>
+            <returns>true if the custom piece was added to the manager.</returns>
+        </member>
+        <member name="M:Jotunn.Managers.PieceManager.GetPiece(System.String)">
+            <summary>
+                Get a custom piece by its name.
+            </summary>
+            <param name="pieceName">Name of the piece to search.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Managers.PieceManager.RemovePiece(System.String)">
+            <summary>
+                Remove a custom piece by its name.
+            </summary>
+            <param name="pieceName">Name of the piece to remove.</param>
+        </member>
+        <member name="M:Jotunn.Managers.PieceManager.LoadPieceTables">
+            <summary>
+                Loop all items in the game and get all PieceTables used
+            </summary>
+        </member>
+        <member name="T:Jotunn.Managers.PrefabManager">
+            <summary>
+                Manager for handling custom prefabs added to the game.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.PrefabManager.Instance">
+            <summary>
+                The singleton instance of this manager.
+            </summary>
+        </member>
+        <member name="E:Jotunn.Managers.PrefabManager.OnPrefabsRegistered">
+            <summary>
+                Event that gets fired after registering all custom prefabs to <see cref="T:ZNetScene"/>.
+                Your code will execute every time a new ZNetScene is created (on every game start). 
+                If you want to execute just once you will need to unregister from the event after execution.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.PrefabManager.PrefabContainer">
+            <summary>
+                Container for custom prefabs in the DontDestroyOnLoad scene.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Managers.PrefabManager.Prefabs">
+            <summary>
+                Dictionary of all added custom prefabs by name.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.Init">
+            <summary>
+                Creates the prefab container and registers all hooks.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.AddPrefab(UnityEngine.GameObject)">
+            <summary>
+                Add a custom prefab to the manager.<br />
+                Checks if a prefab with the same name is already added.<br />
+                Added prefabs get registered to the <see cref="T:ZNetScene"/> on <see cref="M:ZNetScene.Awake"/>.
+            </summary>
+            <param name="prefab">Prefab to add</param>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.CreateEmptyPrefab(System.String,System.Boolean)">
+            <summary>
+                Create a new prefab from an empty primitive.
+            </summary>
+            <param name="name">The name of the new GameObject</param>
+            <param name="addZNetView" >
+                When true a ZNetView component is added to the new GameObject for ZDO generation and networking. Default: true
+            </param>
+            <returns>The newly created empty prefab</returns>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.CreateClonedPrefab(System.String,System.String)">
+            <summary>
+                Create a copy of a given prefab without modifying the original.
+            </summary>
+            <param name="name">Name of the new prefab.</param>
+            <param name="baseName">Name of the vanilla prefab to copy from.</param>
+            <returns>Newly created prefab object</returns>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.CreateClonedPrefab(System.String,UnityEngine.GameObject)">
+            <summary>
+                Create a copy of a given prefab without modifying the original.
+            </summary>
+            <param name="name">Name of the new prefab.</param>
+            <param name="prefab">Prefab instance to copy.</param>
+            <returns>Newly created prefab object</returns>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.GetPrefab(System.String)">
+            <summary>
+                Get a prefab by its name.<br /><br />
+                Search hierarchy:
+                <list type="number">
+                    <item>Custom prefab with the exact name</item>
+                    <item>Vanilla prefab with the exact name if <see cref="T:ZNetScene"/> is already instantiated</item>
+                </list>
+            </summary>
+            <param name="name">Name of the prefab to search for.</param>
+            <returns>The existing prefab, or null if none exists with given name</returns>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.RemovePrefab(System.String)">
+            <summary>
+                Remove a custom prefab from the manager.
+            </summary>
+            <param name="name">Name of the prefab to remove</param>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.DestroyPrefab(System.String)">
+            <summary>
+                Destroy a custom prefab.<br />
+                Removes it from the manager and if instantiated also from the <see cref="T:ZNetScene"/>.
+            </summary>
+            <param name="name">The name of the prefab to destroy</param>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.RegisterAllToZNetScene(On.ZNetScene.orig_Awake,ZNetScene)">
+            <summary>
+                Register all custom prefabs to m_prefabs/m_namedPrefabs in <see cref="T:ZNetScene" />.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.RegisterToZNetScene(UnityEngine.GameObject)">
+            <summary>
+                Register a single prefab to the current <see cref="T:ZNetScene"/>.<br />
+                Checks for existance of the object via GetStableHashCode() and adds the prefab if it is not already added.
+            </summary>
+            <param name="gameObject"></param>
+        </member>
+        <member name="T:Jotunn.Managers.PrefabManager.Cache">
+            <summary>
+                The global cache of prefabs per scene.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.Cache.GetPrefab(System.Type,System.String)">
+            <summary>
+                Get an instance of an Unity Object from the current scene with the given name.
+            </summary>
+            <param name="type"><see cref="T:System.Type"/> to search for.</param>
+            <param name="name">Name of the actual object to search for.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.Cache.GetPrefab``1(System.String)">
+            <summary>
+                Get an instance of an Unity Object from the current scene by name.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Managers.PrefabManager.Cache.GetPrefabs(System.Type)">
+            <summary>
+                Get all instances of an Unity Object from the current scene by type.
+            </summary>
+            <param name="type"><see cref="T:System.Type"/> to search for.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.Managers.SkillManager">
+            <summary>
+               Manager for handling custom skills added to the game.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.SkillManager.Instance">
+            <summary>
+                Global singleton instance of the manager.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.SkillManager.Init">
+            <summary>
+                Initialize the manager
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.SkillManager.AddSkill(Jotunn.Configs.SkillConfig)">
+            <summary>
+                Add a new skill with given SkillConfig object.
+            </summary>
+            <param name="skillConfig">SkillConfig object representing new skill to register</param>
+            <returns>The SkillType of the newly added skill</returns>
+        </member>
+        <member name="M:Jotunn.Managers.SkillManager.AddSkill(System.String,System.String,System.String,System.Single,UnityEngine.Sprite)">
+            <summary>
+                Register a new skill with given parameters, and registers translations for it in the current localization.
+            </summary>
+            <param name="identifer">Unique identifier of the new skill, ex: "com.jotunn.testmod.testskill"</param>
+            <param name="name">Name of the new skill</param>
+            <param name="description">Description of the new skill</param>
+            <param name="increaseStep"></param>
+            <param name="icon">Icon for the skill</param>
+            <returns>The SkillType of the newly registered skill</returns>
+        </member>
+        <member name="M:Jotunn.Managers.SkillManager.AddSkillsFromJson(System.String)">
+            <summary>
+                Adds skills defined in a JSON file at given path, relative to BepInEx/plugins
+            </summary>
+            <param name="path">JSON file path, relative to BepInEx/plugins folder</param>
+        </member>
+        <member name="M:Jotunn.Managers.SkillManager.GetSkill(Skills.SkillType)">
+            <summary>
+                Gets a custom skill with given SkillType.
+            </summary>
+            <param name="skillType">SkillType to look for</param>
+            <returns>Custom skill with given SkillType</returns>
+        </member>
+        <member name="M:Jotunn.Managers.SkillManager.GetSkill(System.String)">
+            <summary>
+                Gets a custom skill with given skill identifier.
+            </summary>
+            <param name="identifier">String indentifer of SkillType to look for</param>
+            <returns>Custom skill with given SkillType</returns>
+        </member>
+        <member name="T:Jotunn.Managers.SynchronizationManager">
+            <summary>
+               Manager for handling synchronisation between client and server instances.
+            </summary>
+        </member>
+        <member name="E:Jotunn.Managers.SynchronizationManager.OnConfigurationSynchronized">
+            <summary>
+                Event, triggered after server configuration is applied to client
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.SynchronizationManager.Instance">
+            <summary>
+                Singleton instance
+            </summary>
+        </member>
+        <member name="P:Jotunn.Managers.SynchronizationManager.PlayerIsAdmin">
+            <summary>
+                Indicator if the current player has admin status on the current world, always true on local games
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.Init">
+            <summary>
+                Manager's main init
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.SceneManager_sceneLoaded(UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode)">
+            <summary>
+                Reset configuration unlock state
+            </summary>
+            <param name="scene"></param>
+            <param name="loadMode"></param>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.HookConfigurationManager">
+            <summary>
+                Hook ConfigurationManager's DisplayingWindowChanged to be able to react on window open/close.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.ConfigurationManager_DisplayingWindowChanged(System.Object,System.Object)">
+            <summary>
+                Window display state changed event.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.CacheConfigurationValues">
+            <summary>
+                Cache the synchronizable configuration values
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.ZNet_RPC_PeerInfo(On.ZNet.orig_RPC_PeerInfo,ZNet,ZRpc,ZPackage)">
+            <summary>
+                On RPC_PeerInfo on client, also ask server for admin status.
+            </summary>
+            <param name="orig"></param>
+            <param name="self"></param>
+            <param name="rpc"></param>
+            <param name="pkg"></param>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.RPC_Jotunn_ApplyConfig(System.Int64,ZPackage)">
+            <summary>
+                Apply a partial config to server and send to other clients.
+            </summary>
+            <param name="sender"></param>
+            <param name="configPkg"></param>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.RPC_Jotunn_IsAdmin(System.Int64,System.Boolean)">
+            <summary>
+                Determine Player's admin status.
+            </summary>
+            <param name="sender"></param>
+            <param name="isAdmin"></param>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.UnlockConfigurationEntries">
+            <summary>
+                Unlock configuration entries.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.LockConfigurationEntries">
+            <summary>
+                Lock configuration entries (on logout).
+            </summary>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.RPC_Jotunn_ConfigSync(System.Int64,ZPackage)">
+            <summary>
+                Send initial configuration data to client (full set).
+            </summary>
+            <param name="sender"></param>
+            <param name="configPkg"></param>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.ApplyConfigZPackage(ZPackage)">
+            <summary>
+                Apply received configuration values locally
+            </summary>
+            <param name="configPkg"></param>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.GenerateConfigZPackage(System.Collections.Generic.List{System.Tuple{System.String,System.String,System.String,System.String}})">
+            <summary>
+                Generate ZPackage from configuration tuples
+            </summary>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Managers.SynchronizationManager.GetSyncConfigValues">
+            <summary>
+                Get syncable configuration values as tuples
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.Utils.AssetUtils">
+            <summary>
+                Util functions related to loading assets at runtime.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Utils.AssetUtils.AssetBundlePathSeparator">
+            <summary>
+                Path separator for AssetBundles
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.AssetUtils.LoadTexture(System.String,System.Boolean)">
+            <summary>
+                Loads a <see cref="T:UnityEngine.Texture2D"/> from file at runtime.
+            </summary>
+            <param name="texturePath">Texture path relative to "plugins" BepInEx folder</param>
+            <param name="relativePath">Is the given path relative</param>
+            <returns>Texture2D loaded, or null if invalid path</returns>
+        </member>
+        <member name="M:Jotunn.Utils.AssetUtils.LoadSpriteFromFile(System.String)">
+            <summary>
+                Loads a <see cref="T:UnityEngine.Sprite"/> from file at runtime.
+            </summary>
+            <param name="spritePath">Texture path relative to "plugins" BepInEx folder</param>
+            <returns>Texture2D loaded, or null if invalid path</returns>
+        </member>
+        <member name="M:Jotunn.Utils.AssetUtils.LoadMesh(System.String)">
+            <summary>
+                Loads a mesh from a .obj file at runtime.
+            </summary>
+            <param name="meshPath">Mesh path relative to "plugins" BepInEx folder</param>
+            <returns>Texture2D loaded, or null if invalid path</returns>
+        </member>
+        <member name="M:Jotunn.Utils.AssetUtils.LoadAssetBundle(System.String)">
+            <summary>
+                Loads an asset bundle at runtime.
+            </summary>
+            <param name="bundlePath">Asset bundle path relative to "plugins" BepInEx folder</param>
+            <returns>AssetBundle loaded, or null if invalid path</returns>
+        </member>
+        <member name="M:Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources(System.String,System.Reflection.Assembly)">
+            <summary>
+                Load an assembly-embedded <see cref="T:UnityEngine.AssetBundle" />
+            </summary>
+            <param name="bundleName">Name of the bundle</param>
+            <param name="resourceAssembly">Executing assembly</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Utils.AssetUtils.LoadText(System.String)">
+            <summary>
+                Loads the contents of a file as a char string
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Utils.AssetUtils.LoadSprite(System.String)">
+            <summary>
+                Loads a <see cref="T:UnityEngine.Sprite"/> from a file path or an asset bundle (separated by <see cref="F:Jotunn.Utils.AssetUtils.AssetBundlePathSeparator"/>)
+            </summary>
+            <param name="assetPath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Utils.BepInExUtils.GetDependentPlugins(System.Boolean)">
+            <summary>
+                Get a dictionary of loaded plugins which depend on Jotunn.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.Utils.BoneReorder">
+            <summary>
+                Original code from https://github.com/GoldenJude.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.BoneReorder.ApplyOnEquipmentChanged">
+            <summary>
+                Corrects any bone disorder caused by unity incorrectly importing ripped assets.
+                Once enabled, bone reordering will occur whenever the equipment changes.
+                If one plug-in requests application of reordering, it will be applied globally for all EquipmentChanged events.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.BoneReorder.IsReorderingEnabled">
+            <summary>
+                The state of reordering bones OnEquipmentChanged.
+            </summary>
+            <returns>Returns true when bone reordering is enabled.</returns>
+        </member>
+        <member name="M:Jotunn.Utils.BoneReorder.ReorderBones(VisEquipment,System.Int32,System.Collections.Generic.List{UnityEngine.GameObject})">
+            <summary>
+                Reorders bone ordering caused by importing ripped assets into unity.
+                It effectively matches the bone ordering from the ItemPrefab (itemPrefabHash parameter).
+            </summary>
+            <param name="visEquipment"></param>
+            <param name="itemPrefabHash"></param>
+            <param name="instancesToFix">GameObjects that need to match the ordering from the ItemPrefab (itemPrefabHash parameter)</param>
+        </member>
+        <member name="M:Jotunn.Utils.BoneReorder.SetBones(UnityEngine.SkinnedMeshRenderer,System.String[],UnityEngine.Transform)">
+            <summary>
+            Reorders incorrect bone ordering caused by importing ripped assets into unity.
+            </summary>
+            <param name="skinnedMeshRenderer"></param>
+            <param name="boneNames"></param>
+            <param name="skeletonRoot"></param>
+        </member>
+        <member name="M:Jotunn.Utils.BoneReorder.GetBoneNames(UnityEngine.SkinnedMeshRenderer)">
+            <summary>
+                Returns a list of bone names, given a SkinnedMeshRenderer.
+            </summary>
+            <param name="skinnedMeshRenderer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Utils.BoneReorder.FindInChildren(UnityEngine.Transform,System.String)">
+            <summary>
+                Returns a transform matching the given name within the transforms children.
+            </summary>
+            <param name="transform"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.Utils.ConfigurationSynchronizationEventArgs">
+            <summary>
+                Event args class for configuration synchronization event
+            </summary>
+        </member>
+        <member name="P:Jotunn.Utils.ConfigurationSynchronizationEventArgs.InitialSynchronization">
+            <summary>
+                Is this the initial synchronization?
+            </summary>
+        </member>
+        <member name="T:Jotunn.Utils.HashUtils">
+            <summary>
+                A util class for computing various hashes
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.HashUtils.ComputeSha256Hash(System.String)">
+            <summary>
+                Compute a SHA256 hash from a given string
+            </summary>
+            <param name="rawData"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.Utils.ModCompatibility">
+            <summary>
+                Implementation of the mod compatibility features.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Utils.ModCompatibility.lastServerVersion">
+            <summary>
+                Stores the last server message.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.InitPatch">
+            <summary>
+                Initialize Patches
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.InitPatchEarly">
+            <summary>
+                Initialize early running patches
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.RPC_Jotunn_ReceiveVersionData(ZRpc,ZPackage)">
+            <summary>
+                Store server's message.
+            </summary>
+            <param name="sender"></param>
+            <param name="data"></param>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.ShowModCompatibilityErrorMessage">
+            <summary>
+                Create and show mod compatibility error message
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.CreateErrorMessage(Jotunn.Utils.ModCompatibility.ModuleVersionData,Jotunn.Utils.ModCompatibility.ModuleVersionData)">
+            <summary>
+                Create the error message(s) from the server and client message data
+            </summary>
+            <param name="server">server data</param>
+            <param name="client">client data</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.ClientVersionLowerMessage(System.Tuple{System.String,System.Version,Jotunn.Utils.CompatibilityLevel,Jotunn.Utils.VersionStrictness})">
+            <summary>
+                Generate message for client's mod version lower than server's version
+            </summary>
+            <param name="module">Module version data</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.ServerVersionLowerMessage(System.Tuple{System.String,System.Version,Jotunn.Utils.CompatibilityLevel,Jotunn.Utils.VersionStrictness},System.Tuple{System.String,System.Version,Jotunn.Utils.CompatibilityLevel,Jotunn.Utils.VersionStrictness})">
+            <summary>
+                Generate message for server's mod version lower than client's version
+            </summary>
+            <param name="module">server module data</param>
+            <param name="clientModule">client module data</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.GetEnforcableMods">
+            <summary>
+                Get module.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jotunn.Utils.ModCompatibility.ModuleVersionData">
+            <summary>
+                Deserialize version string into a usable format.
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.ModuleVersionData.#ctor(System.Collections.Generic.List{System.Tuple{System.String,System.Version,Jotunn.Utils.CompatibilityLevel,Jotunn.Utils.VersionStrictness}})">
+            <summary>
+                Create from module data
+            </summary>
+            <param name="versionData"></param>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.ModuleVersionData.#ctor(ZPackage)">
+            <summary>
+                Create from ZPackage
+            </summary>
+            <param name="pkg"></param>
+        </member>
+        <member name="P:Jotunn.Utils.ModCompatibility.ModuleVersionData.ValheimVersion">
+            <summary>
+                Valheim version
+            </summary>
+        </member>
+        <member name="P:Jotunn.Utils.ModCompatibility.ModuleVersionData.Modules">
+            <summary>
+                Module data
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.ModuleVersionData.Equals(Jotunn.Utils.ModCompatibility.ModuleVersionData)">
+            <inheritdoc />
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.ModuleVersionData.ToZPackage">
+            <summary>
+                Create ZPackage
+            </summary>
+            <returns>ZPackage</returns>
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.ModuleVersionData.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Jotunn.Utils.ModCompatibility.ModuleVersionData.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:Jotunn.Utils.CompatibilityLevel">
+            <summary>
+                Determines the level of compatibility of a mod which is enforced by Jötunn.
+                Servers disconnect clients with mods which enforce their compatibility when 
+                the version does not match as defined by the VersionStrictness attribute.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Utils.CompatibilityLevel.NoNeedForSync">
+            <summary>
+                Mod is not checked at all, VersionsStrictness does not apply.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Utils.CompatibilityLevel.OnlySyncWhenInstalled">
+            <summary>
+                Mod is checked only if the client and server have loaded it and ignores if just one side has it.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Utils.CompatibilityLevel.EveryoneMustHaveMod">
+            <summary>
+                Mod must be loaded on server and client. Version checking depends on the VersionStrictness.
+            </summary>
+        </member>
+        <member name="T:Jotunn.Utils.VersionStrictness">
+            <summary>
+                Enum used for telling whether or not the same mod version should be used by both the server and the clients.
+                This enum is only useful if CompatibilityLevel.EveryoneMustHaveMod or OnlySyncWhenInstalled was chosen.
+            </summary>
+        </member>
+        <member name="F:Jotunn.Utils.VersionStrictness.None">
+            <summary>
+                No version check is done
+            </summary>
+        </member>
+        <member name="F:Jotunn.Utils.VersionStrictness.Major">
+            <summary>
+                Mod must have the same Major version
+            </summary>
+        </member>
+        <member name="F:Jotunn.Utils.VersionStrictness.Minor">
+            <summary>
+                Mods must have the same Minor version
+            </summary>
+        </member>
+        <member name="F:Jotunn.Utils.VersionStrictness.Patch">
+            <summary>
+                Mods must have the same Patch version
+            </summary>
+        </member>
+        <member name="T:Jotunn.Utils.NetworkCompatibilityAttribute">
+            <summary>
+            Mod compatibility attribute<br />
+            <br/>
+            PLEASE READ<br />
+            Example usage:<br />
+            If your mod adds its own RPCs, EnforceModOnClients is likely a must (otherwise clients would just discard the messages from the server), same version you do have to determine, if your sent data changed<br />
+            If your mod adds items, you always should enforce mods on client and same version (there could be nasty side effects with different versions of an item)<br />
+            If your mod is just GUI changes (for example bigger inventory, additional equip slots) there is no need to set this attribute
+            </summary>
+        </member>
+        <member name="P:Jotunn.Utils.NetworkCompatibilityAttribute.EnforceModOnClients">
+            <summary>
+                Compatibility Level
+            </summary>
+        </member>
+        <member name="P:Jotunn.Utils.NetworkCompatibilityAttribute.EnforceSameVersion">
+            <summary>
+                Version Strictness
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.NetworkCompatibilityAttribute.#ctor(Jotunn.Utils.CompatibilityLevel,Jotunn.Utils.VersionStrictness)">
+            <summary>
+                Network Compatibility Attribute
+            </summary>
+            <param name="enforceMod"></param>
+            <param name="enforceVersion"></param>
+        </member>
+        <member name="T:Jotunn.Utils.PatchInitAttribute">
+            <summary>
+                Priority attribute for PatchInitalizer.
+            </summary>
+        </member>
+        <member name="P:Jotunn.Utils.PatchInitAttribute.Priority">
+            <summary>
+                The patch priority.
+                <para>
+                    negative - early
+                    <br />
+                    zero - neutral
+                    <br />
+                    positive - late
+                </para>
+            </summary>
+        </member>
+        <member name="M:Jotunn.Utils.PatchInitAttribute.#ctor(System.Int32)">
+            <summary>
+                Patch Init Attribute
+            </summary>
+            <param name="priority"><see cref="P:Jotunn.Utils.PatchInitAttribute.Priority"/></param>
+        </member>
+        <member name="T:Jotunn.Utils.Paths">
+            <summary>
+                Various Path constants used in Jötunn
+            </summary>
+        </member>
+        <member name="P:Jotunn.Utils.Paths.JotunnFolder">
+            <summary>
+                Path to the game's save path
+            </summary>
+        </member>
+        <member name="P:Jotunn.Utils.Paths.CustomItemDataFolder">
+            <summary>
+                Path to the custom item folder
+            </summary>
+        </member>
+        <member name="P:Jotunn.Utils.Paths.LanguageTranslationsFolder">
+            <summary>
+                Path to the global translation folder
+            </summary>
+        </member>
+        <member name="T:Jotunn.Utils.ReflectionHelper">
+            <summary>
+                Various utility methods aiding Reflection tasks.
+            </summary>
+        </member>
+        <member name="T:Jotunn.Utils.ReflectionHelper.Cache">
+            <summary>
+                Cache for Reflection tasks.
+            </summary>
+        </member>
+        <member name="T:Jotunn.Utils.WeightedList`2">
+            <summary>
+                Like a list but stores elements in the order specified by the weight.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="ItemType"></typeparam>
+        </member>
+        <member name="T:Jotunn.Utils.WeightedItem`1">
+            <summary>
+                Weighted item used in <see cref="T:Jotunn.Utils.WeightedList`2"/>
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:ConfigurationManagerAttributes">
+            <summary>
+                Class that specifies how a setting should be displayed inside the ConfigurationManager settings window.
+                
+                Usage:
+                This class template has to be copied inside the plugin's project and referenced by its code directly.
+                make a new instance, assign any fields that you want to override, and pass it as a tag for your setting.
+                
+                If a field is null (default), it will be ignored and won't change how the setting is displayed.
+                If a field is non-null (you assigned a value to it), it will override default behavior.
+            </summary>
+            
+            <example> 
+                Here's an example of overriding order of settings and marking one of the settings as advanced:
+                <code>
+                    // Override IsAdvanced and Order
+                    Config.AddSetting("X", "1", 1, new ConfigDescription("", null, new ConfigurationManagerAttributes { IsAdvanced = true, Order = 3 }));
+                    // Override only Order, IsAdvanced stays as the default value assigned by ConfigManager
+                    Config.AddSetting("X", "2", 2, new ConfigDescription("", null, new ConfigurationManagerAttributes { Order = 1 }));
+                    Config.AddSetting("X", "3", 3, new ConfigDescription("", null, new ConfigurationManagerAttributes { Order = 2 }));
+                </code>
+            </example>
+            
+            <remarks> 
+                You can read more and see examples in the readme at https://github.com/BepInEx/BepInEx.ConfigurationManager
+                You can optionally remove fields that you won't use from this class, it's the same as leaving them null.
+            </remarks>
+        </member>
+        <member name="M:ConfigurationManagerAttributes.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.ShowRangeAsPercent">
+            <summary>
+            Should the setting be shown as a percentage (only use with value range settings).
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.CustomDrawer">
+            <summary>
+                Custom setting editor (OnGUI code that replaces the default editor provided by ConfigurationManager).
+                See below for a deeper explanation. Using a custom drawer will cause many of the other fields to do nothing.
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.Browsable">
+            <summary>
+                Show this setting in the settings screen at all? If false, don't show.
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.Category">
+            <summary>
+                Category the setting is under. Null to be directly under the plugin.
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.DefaultValue">
+            <summary>
+                If set, a "Default" button will be shown next to the setting to allow resetting to default.
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.HideDefaultButton">
+            <summary>
+                Force the "Reset" button to not be displayed, even if a valid DefaultValue is available. 
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.HideSettingName">
+            <summary>
+                Force the setting name to not be displayed. Should only be used with a <see cref="F:ConfigurationManagerAttributes.CustomDrawer"/> to get more space.
+                Can be used together with <see cref="F:ConfigurationManagerAttributes.HideDefaultButton"/> to gain even more space.
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.Description">
+            <summary>
+                Optional description shown when hovering over the setting.
+                Not recommended, provide the description when creating the setting instead.
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.DispName">
+            <summary>
+                Name of the setting.
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.Order">
+            <summary>
+                Order of the setting on the settings list relative to other settings in a category.
+                0 by default, higher number is higher on the list.
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.ReadOnly">
+            <summary>
+                Only show the value, don't allow editing it.
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.IsAdvanced">
+            <summary>
+                If true, don't show the setting by default. User has to turn on showing advanced settings or search for it.
+            </summary>
+        </member>
+        <member name="P:ConfigurationManagerAttributes.IsAdminOnly">
+            <summary>
+                Whether a config is only writable by admins and gets overwritten on connecting clients
+            </summary>
+        </member>
+        <member name="P:ConfigurationManagerAttributes.UnlockSetting">
+            <summary>
+                Welp
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.ObjToStr">
+            <summary>
+                Custom converter from setting type to string for the built-in editor textboxes.
+            </summary>
+        </member>
+        <member name="F:ConfigurationManagerAttributes.StrToObj">
+            <summary>
+                Custom converter from string to setting type for the built-in editor textboxes.
+            </summary>
+        </member>
+        <member name="T:SimpleJson.JsonArray">
+            <summary>
+            Represents the json array.
+            </summary>
+        </member>
+        <member name="M:SimpleJson.JsonArray.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SimpleJson.JsonArray"/> class. 
+            </summary>
+        </member>
+        <member name="M:SimpleJson.JsonArray.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SimpleJson.JsonArray"/> class. 
+            </summary>
+            <param name="capacity">The capacity of the json array.</param>
+        </member>
+        <member name="M:SimpleJson.JsonArray.ToString">
+            <summary>
+            The json representation of the array.
+            </summary>
+            <returns>The json representation of the array.</returns>
+        </member>
+        <member name="T:SimpleJson.JsonObject">
+            <summary>
+            Represents the json object.
+            </summary>
+        </member>
+        <member name="F:SimpleJson.JsonObject._members">
+            <summary>
+            The internal member dictionary.
+            </summary>
+        </member>
+        <member name="M:SimpleJson.JsonObject.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:SimpleJson.JsonObject"/>.
+            </summary>
+        </member>
+        <member name="M:SimpleJson.JsonObject.#ctor(System.Collections.Generic.IEqualityComparer{System.String})">
+            <summary>
+            Initializes a new instance of <see cref="T:SimpleJson.JsonObject"/>.
+            </summary>
+            <param name="comparer">The <see cref="T:System.Collections.Generic.IEqualityComparer`1"/> implementation to use when comparing keys, or null to use the default <see cref="T:System.Collections.Generic.EqualityComparer`1"/> for the type of the key.</param>
+        </member>
+        <member name="P:SimpleJson.JsonObject.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:SimpleJson.JsonObject.Add(System.String,System.Object)">
+            <summary>
+            Adds the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:SimpleJson.JsonObject.ContainsKey(System.String)">
+            <summary>
+            Determines whether the specified key contains key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>
+                <c>true</c> if the specified key contains key; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:SimpleJson.JsonObject.Keys">
+            <summary>
+            Gets the keys.
+            </summary>
+            <value>The keys.</value>
+        </member>
+        <member name="M:SimpleJson.JsonObject.Remove(System.String)">
+            <summary>
+            Removes the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleJson.JsonObject.TryGetValue(System.String,System.Object@)">
+            <summary>
+            Tries the get value.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="P:SimpleJson.JsonObject.Values">
+            <summary>
+            Gets the values.
+            </summary>
+            <value>The values.</value>
+        </member>
+        <member name="P:SimpleJson.JsonObject.Item(System.String)">
+            <summary>
+            Gets or sets the <see cref="T:System.Object"/> with the specified key.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:SimpleJson.JsonObject.Add(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <summary>
+            Adds the specified item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:SimpleJson.JsonObject.Clear">
+            <summary>
+            Clears this instance.
+            </summary>
+        </member>
+        <member name="M:SimpleJson.JsonObject.Contains(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <summary>
+            Determines whether [contains] [the specified item].
+            </summary>
+            <param name="item">The item.</param>
+            <returns>
+            	<c>true</c> if [contains] [the specified item]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:SimpleJson.JsonObject.CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.Object}[],System.Int32)">
+            <summary>
+            Copies to.
+            </summary>
+            <param name="array">The array.</param>
+            <param name="arrayIndex">Index of the array.</param>
+        </member>
+        <member name="P:SimpleJson.JsonObject.Count">
+            <summary>
+            Gets the count.
+            </summary>
+            <value>The count.</value>
+        </member>
+        <member name="P:SimpleJson.JsonObject.IsReadOnly">
+            <summary>
+            Gets a value indicating whether this instance is read only.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is read only; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:SimpleJson.JsonObject.Remove(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <summary>
+            Removes the specified item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleJson.JsonObject.GetEnumerator">
+            <summary>
+            Gets the enumerator.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleJson.JsonObject.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:SimpleJson.JsonObject.ToString">
+            <summary>
+            Returns a json <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </summary>
+            <returns>
+            A json <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+            </returns>
+        </member>
+        <member name="T:SimpleJson.SimpleJson">
+            <summary>
+            This class encodes and decodes JSON strings.
+            Spec. details, see http://www.json.org/
+            
+            JSON uses Arrays and Objects. These correspond here to the datatypes JsonArray(IList&lt;object>) and JsonObject(IDictionary&lt;string,object>).
+            All numbers are parsed to doubles.
+            </summary>
+        </member>
+        <member name="M:SimpleJson.SimpleJson.DeserializeObject(System.String)">
+            <summary>
+            Parses the string json into a value
+            </summary>
+            <param name="json">A JSON string.</param>
+            <returns>An IList&lt;object>, a IDictionary&lt;string,object>, a double, a string, null, true, or false</returns>
+        </member>
+        <member name="M:SimpleJson.SimpleJson.TryDeserializeObject(System.String,System.Object@)">
+            <summary>
+            Try parsing the json string into a value.
+            </summary>
+            <param name="json">
+            A JSON string.
+            </param>
+            <param name="obj">
+            The object.
+            </param>
+            <returns>
+            Returns true if successfull otherwise false.
+            </returns>
+        </member>
+        <member name="M:SimpleJson.SimpleJson.SerializeObject(System.Object,SimpleJson.IJsonSerializerStrategy)">
+            <summary>
+            Converts a IDictionary&lt;string,object> / IList&lt;object> object into a JSON string
+            </summary>
+            <param name="json">A IDictionary&lt;string,object> / IList&lt;object></param>
+            <param name="jsonSerializerStrategy">Serializer strategy to use</param>
+            <returns>A JSON encoded string, or null if object 'json' is not serializable</returns>
+        </member>
+        <member name="M:SimpleJson.SimpleJson.IsNumeric(System.Object)">
+            <summary>
+            Determines if a given object is numeric in any way
+            (can be integer, double, null, etc).
+            </summary>
+        </member>
+    </members>
+</doc>

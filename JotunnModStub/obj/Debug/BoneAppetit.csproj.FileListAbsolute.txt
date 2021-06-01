@@ -15,7 +15,6 @@ C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\bin\Debug\Mono.Cecil.Rock
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\bin\Debug\MonoMod.xml
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\bin\Debug\MonoMod.RuntimeDetour.xml
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\bin\Debug\MonoMod.Utils.xml
-C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\obj\Debug\BoneAppetit.csprojAssemblyReference.cache
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\obj\Debug\BoneAppetit.csproj.CoreCompileInputs.cache
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\obj\Debug\BoneAppetit.csproj.CopyComplete
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\bin\Debug\BoneAppetit.dll.config
@@ -23,3 +22,4 @@ C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\bin\Debug\BoneAppetit.dll
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\bin\Debug\BoneAppetit.pdb
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\obj\Debug\BoneAppetit.dll
 C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\obj\Debug\BoneAppetit.pdb
+C:\Users\Kitten\source\repos\BoneAppetit\JotunnModStub\obj\Debug\BoneAppetit.csprojAssemblyReference.cache

@@ -11,19 +11,25 @@ using System;
 namespace Boneappetit
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [BepInDependency(Jotunn.Main.ModGuid)]
-    internal class Grills : BaseUnityPlugin
+    [BepInDependency(Jotunn.Main.ModGuid, "2.0.11")]
+    internal class BoneAppetit : BaseUnityPlugin
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
         public const string PluginVersion = "1.1.2";
-        public AssetBundle assetBundle;
+        private AssetBundle assetBundle;
         private AssetBundle customfood;
+        private Sprite CookingSprite;
+        private Skills.SkillType rkCookingSkill = 0;
+
         private void Awake()
         {
+            CreateConfigValues();
+            AddSkills();
             AssetLoad();
             LoadItem();
             LoadGriddle();
+            Oven();
             IceCream();
             PorkRind();
             Kabob();
@@ -37,16 +43,52 @@ namespace Boneappetit
             Latte();
 
         }
+        private void CreateConfigValues()
+        {
+            Config.SaveOnConfigSet = true;
+            Config.Bind("Server config", "BoolValue1", false, new ConfigDescription("Server side bool", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
+            {
+                if (attr.InitialSynchronization)
+                {
+                    Jotunn.Logger.LogMessage("Initial Config sync event received");
+                }
+                else
+                {
+                    Jotunn.Logger.LogMessage("Config sync event received");
+                }
+            };
+        }
+
 
         private void AssetLoad()
-        {
-            assetBundle = AssetUtils.LoadAssetBundleFromResources("grill", typeof(Grills).Assembly);
+            {
+            assetBundle = AssetUtils.LoadAssetBundleFromResources("grill", Assembly.GetExecutingAssembly());
             customfood = AssetUtils.LoadAssetBundleFromResources("customfood", Assembly.GetExecutingAssembly());
-
+           
         }
+        private Sprite CookingSprite()
+
+
+        void AddSkills()
+        {
+           
+            // Test adding a skill with a texture
+            Sprite CookingSkillSprite = Sprite.Create(CookingSprite, new Rect(0f, 0f, CookingSprite.width, CookingSprite.height), Vector2.zero);
+            rkCookingSkill = SkillManager.Instance.AddSkill(new SkillConfig
+            {
+                Identifier = "com.rockerkitten.boneappetit",
+                Name = "Cooking Skill",
+                Description = "Learn to cook like a Viking!",
+                Icon = cookingsprite,
+                IncreaseStep = 1f
+            });
+        }
+
 
         private void LoadItem()
         {
+
             //piece_grill
 
             var grillfab = assetBundle.LoadAsset<GameObject>("rk_grill");
@@ -84,6 +126,27 @@ namespace Boneappetit
                 });
             PieceManager.Instance.AddPiece(griddle);
         }
+        private void Oven()
+        {
+            //piece_griddle
+
+            var ovenfab = assetBundle.LoadAsset<GameObject>("rk_oven");
+            var oven = new CustomPiece(ovenfab,
+                new PieceConfig
+                {
+                    CraftingStation = "",
+                    AllowedInDungeons = false,
+                    Enabled = true,
+                    PieceTable = "_HammerPieceTable",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "SurtlingCore", Amount = 2, Recover = true },
+                        new RequirementConfig { Item = "TrophySurtling", Amount = 1, Recover = true },
+                        new RequirementConfig { Item = "Stone", Amount = 10, Recover = true }
+                    }
+                });
+            PieceManager.Instance.AddPiece(oven); 
+        }
         private void IceCream()
         {
             var icecream_prefab = customfood.LoadAsset<GameObject>("rk_icecream");
@@ -111,7 +174,7 @@ namespace Boneappetit
                 new ItemConfig
                 {
                     Name = "Pork Rinds",
-                    Amount = 2,
+                    Amount = 1,
                     CraftingStation = "rk_griddle",
                     Requirements = new[]
                     {
@@ -267,11 +330,11 @@ namespace Boneappetit
                  new ItemConfig
                  {
                      Name = "Coffee",
-                     Amount = 2,
+                     Amount = 1,
                      CraftingStation = "piece_cauldron",
                      Requirements = new[]
                      {
-                         new RequirementConfig { Item = "AncientSeedd", Amount = 1}
+                         new RequirementConfig { Item = "AncientSeed", Amount = 2}
                      }
                  });
 
@@ -284,7 +347,7 @@ namespace Boneappetit
             var latte = new CustomItem(latte_prefab, fixReference: false,
                 new ItemConfig
                 {
-                    Name = "Nikole's Spice Latte",
+                    Name = "Spice Latte",
                     Amount = 2,
                     CraftingStation = "piece_cauldron",
                     Requirements = new[]
