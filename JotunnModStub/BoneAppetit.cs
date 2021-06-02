@@ -19,14 +19,26 @@ namespace Boneappetit
         public const string PluginVersion = "1.1.2";
         private AssetBundle assetBundle;
         private AssetBundle customfood;
-        private Sprite CookingSprite;
+        public Sprite CookingSprite;
         private Skills.SkillType rkCookingSkill = 0;
+        public ConfigEntry<bool> IceCreamEnable;
+        public ConfigEntry<bool> PorkRindEnable;
+        public ConfigEntry<bool> KabobEnable;
+        public ConfigEntry<bool> FriedLoxEnable;
+        public ConfigEntry<bool> GlazedCarrotEnable;
+        public ConfigEntry<bool> BaconEnable;
+        public ConfigEntry<bool> SmokedFishEnable;
+        public ConfigEntry<bool> PancakesEnable;
+        public ConfigEntry<bool> PizzaEnable;
+        public ConfigEntry<bool> CoffeeEnable;
+        public ConfigEntry<bool> LatteEnable;
 
         private void Awake()
         {
-            CreateConfigValues();
-            AddSkills();
+            CreatConfigValues();
             AssetLoad();
+            AddSkills();
+            //LoadFood();
             LoadItem();
             LoadGriddle();
             Oven();
@@ -41,54 +53,115 @@ namespace Boneappetit
             Pizza();
             Coffee();
             Latte();
-
-        }
-        private void CreateConfigValues()
-        {
-            Config.SaveOnConfigSet = true;
-            Config.Bind("Server config", "BoolValue1", false, new ConfigDescription("Server side bool", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            
             SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
             {
                 if (attr.InitialSynchronization)
                 {
                     Jotunn.Logger.LogMessage("Initial Config sync event received");
+                   // LoadFood();
                 }
                 else
                 {
                     Jotunn.Logger.LogMessage("Config sync event received");
+
                 }
             };
+
+        }
+        private void CreatConfigValues()
+        {
+            Config.SaveOnConfigSet = true;
+           
+            IceCreamEnable = Config.Bind("Ice Cream", "Enable", true, new ConfigDescription("Ice Cream Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PorkRindEnable = Config.Bind("Pork Rind", "Enable", true, new ConfigDescription("Pork Rind Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            KabobEnable = Config.Bind("Kabob", "Enable", true, new ConfigDescription("Kabob Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            FriedLoxEnable = Config.Bind("Fried Lox", "Enable", true, new ConfigDescription("Fried Lox Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            GlazedCarrotEnable = Config.Bind("Glazed Carrots", "Enable", true, new ConfigDescription("Glazed Carrots Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            BaconEnable = Config.Bind("Bacon", "Enable", true, new ConfigDescription("Bacon Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            SmokedFishEnable = Config.Bind("Smoked Fish", "Enable", true, new ConfigDescription("Smoked Fish Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PancakesEnable = Config.Bind("Pancakes", "Enable", true, new ConfigDescription("Pancakes Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PizzaEnable = Config.Bind("Pizza", "Enable", true, new ConfigDescription("Pizza Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            CoffeeEnable = Config.Bind("Coffee", "Enable", true, new ConfigDescription("Coffee Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            LatteEnable = Config.Bind("Latte", "Enable", true, new ConfigDescription("Latte Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+
         }
 
 
         private void AssetLoad()
-            {
+        {
             assetBundle = AssetUtils.LoadAssetBundleFromResources("grill", Assembly.GetExecutingAssembly());
             customfood = AssetUtils.LoadAssetBundleFromResources("customfood", Assembly.GetExecutingAssembly());
-           
+            CookingSprite = customfood.LoadAsset<Sprite>("rkcookingsprite");
         }
-        private Sprite CookingSprite()
 
-
-        void AddSkills()
+        public void AddSkills()
         {
-           
+            #region Cooking Skill Config
+
+            #endregion
+
             // Test adding a skill with a texture
-            Sprite CookingSkillSprite = Sprite.Create(CookingSprite, new Rect(0f, 0f, CookingSprite.width, CookingSprite.height), Vector2.zero);
             rkCookingSkill = SkillManager.Instance.AddSkill(new SkillConfig
             {
-                Identifier = "com.rockerkitten.boneappetit",
+
+                Identifier = "rkCookingSkill",
                 Name = "Cooking Skill",
                 Description = "Learn to cook like a Viking!",
-                Icon = cookingsprite,
+                Icon = CookingSprite,
                 IncreaseStep = 1f
             });
         }
-
+       /* private void LoadFood()
+        {
+            #region Pork Rind Config
+            var prkrd = PrefabManager.Instance.GetPrefab("rk_porkrind").GetComponent<ItemDrop>();
+            enabled = (bool)PorkRindEnable.Value;
+            #endregion
+            #region Ice Cream Config
+            var icrm = PrefabManager.Instance.GetPrefab("rk_icecream").GetComponent<ItemDrop>();
+            enabled = (bool)IceCreamEnable.Value;
+            #endregion
+            #region Kabob Config
+            var kbb = PrefabManager.Instance.GetPrefab("rk_kabob").GetComponent<ItemDrop>();
+            enabled = (bool)KabobEnable.Value;
+            #endregion
+            #region Fried Lox Config
+            var flm = PrefabManager.Instance.GetPrefab("rk_friedloxmeat").GetComponent<ItemDrop>();
+            enabled = (bool)FriedLoxEnable.Value;
+            #endregion
+            #region Glazed Carrots Config
+            var glzdcrt = PrefabManager.Instance.GetPrefab("rk_glazedcarrots").GetComponent<ItemDrop>();
+            enabled = (bool)GlazedCarrotEnable.Value;
+            #endregion
+            #region Bacon Config
+            var bcn = PrefabManager.Instance.GetPrefab("rk_bacon").GetComponent<ItemDrop>();
+            enabled = (bool)BaconEnable.Value;
+            #endregion
+            #region Smoked Fish Config
+            var smkdfsh = PrefabManager.Instance.GetPrefab("rk_smokedfish").GetComponent<ItemDrop>();
+            enabled = (bool)SmokedFishEnable.Value;
+            #endregion
+            #region Pancake Config
+            var pnck = PrefabManager.Instance.GetPrefab("rk_pancake").GetComponent<ItemDrop>();
+            enabled = (bool)PancakesEnable.Value;
+            #endregion
+            #region Pizza Config
+            var pzz = PrefabManager.Instance.GetPrefab("rk_pizza").GetComponent<ItemDrop>();
+            enabled = (bool)PizzaEnable.Value;
+            #endregion
+            #region Coffee Config
+            var cff = PrefabManager.Instance.GetPrefab("rk_coffee").GetComponent<ItemDrop>();
+            enabled = (bool)CoffeeEnable.Value;
+            #endregion
+            #region Latte Config
+            var ltt = PrefabManager.Instance.GetPrefab("rk_latte").GetComponent<ItemDrop>();
+            enabled = (bool)LatteEnable.Value;
+            #endregion
+        }*/
 
         private void LoadItem()
         {
-
             //piece_grill
 
             var grillfab = assetBundle.LoadAsset<GameObject>("rk_grill");
@@ -145,7 +218,7 @@ namespace Boneappetit
                         new RequirementConfig { Item = "Stone", Amount = 10, Recover = true }
                     }
                 });
-            PieceManager.Instance.AddPiece(oven); 
+            PieceManager.Instance.AddPiece(oven);
         }
         private void IceCream()
         {
@@ -154,6 +227,7 @@ namespace Boneappetit
                 new ItemConfig
                 {
                     Name = "Ice Cream",
+                    Enabled = IceCreamEnable.Value,
                     Amount = 2,
                     CraftingStation = "piece_cauldron",
                     Requirements = new[]
@@ -174,6 +248,7 @@ namespace Boneappetit
                 new ItemConfig
                 {
                     Name = "Pork Rinds",
+                    Enabled = PorkRindEnable.Value,
                     Amount = 1,
                     CraftingStation = "rk_griddle",
                     Requirements = new[]
@@ -192,6 +267,7 @@ namespace Boneappetit
                 new ItemConfig
                 {
                     Name = "Kebab",
+                    Enabled = KabobEnable.Value,
                     Amount = 1,
                     CraftingStation = "rk_grill",
                     Requirements = new[]
@@ -212,7 +288,8 @@ namespace Boneappetit
             var friedlox = new CustomItem(friedlox_prefab, fixReference: false,
                 new ItemConfig
                 {
-                    Name = "Country Fried Lox Meat",
+                    Name = "Chicken Fried Lox Meat",
+                    Enabled = FriedLoxEnable.Value,
                     Amount = 1,
                     CraftingStation = "rk_grill",
                     Requirements = new[]
@@ -234,6 +311,7 @@ namespace Boneappetit
                 new ItemConfig
                 {
                     Name = "Honey Glazed Carrots",
+                    Enabled = GlazedCarrotEnable.Value,
                     Amount = 1,
                     CraftingStation = "rk_griddle",
                     Requirements = new[]
@@ -254,6 +332,7 @@ namespace Boneappetit
                 new ItemConfig
                 {
                     Name = "Bacon",
+                    Enabled = BaconEnable.Value,
                     Amount = 2,
                     CraftingStation = "rk_griddle",
                     Requirements = new[]
@@ -271,6 +350,7 @@ namespace Boneappetit
                 new ItemConfig
                 {
                     Name = "SmokedFish",
+                    Enabled = SmokedFishEnable.Value,
                     Amount = 1,
                     CraftingStation = "rk_griddle",
                     Requirements = new[]
@@ -289,6 +369,7 @@ namespace Boneappetit
                 new ItemConfig
                 {
                     Name = "Pancakes",
+                    Enabled = PancakesEnable.Value,
                     Amount = 1,
                     CraftingStation = "rk_grill",
                     Requirements = new[]
@@ -309,6 +390,7 @@ namespace Boneappetit
                 new ItemConfig
                 {
                     Name = "Pizza",
+                    Enabled = PizzaEnable.Value,
                     Amount = 1,
                     CraftingStation = "rk_grill",
                     Requirements = new[]
@@ -323,24 +405,25 @@ namespace Boneappetit
             ItemManager.Instance.AddItem(pizza);
         }
 
-         private void Coffee()
-         {
-             var coffee_prefab = customfood.LoadAsset<GameObject>("rk_coffee");
-             var coffee = new CustomItem(coffee_prefab, fixReference: false,
-                 new ItemConfig
-                 {
-                     Name = "Coffee",
-                     Amount = 1,
-                     CraftingStation = "piece_cauldron",
-                     Requirements = new[]
-                     {
+        private void Coffee()
+        {
+            var coffee_prefab = customfood.LoadAsset<GameObject>("rk_coffee");
+            var coffee = new CustomItem(coffee_prefab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Coffee",
+                    Enabled = CoffeeEnable.Value,
+                    Amount = 1,
+                    CraftingStation = "piece_cauldron",
+                    Requirements = new[]
+                    {
                          new RequirementConfig { Item = "AncientSeed", Amount = 2}
-                     }
-                 });
+                    }
+                });
 
-                ItemManager.Instance.AddItem(coffee);
+            ItemManager.Instance.AddItem(coffee);
 
-         }
+        }
         private void Latte()
         {
             var latte_prefab = customfood.LoadAsset<GameObject>("rk_latte");
@@ -348,6 +431,7 @@ namespace Boneappetit
                 new ItemConfig
                 {
                     Name = "Spice Latte",
+                    Enabled = LatteEnable.Value,
                     Amount = 2,
                     CraftingStation = "piece_cauldron",
                     Requirements = new[]
@@ -361,5 +445,6 @@ namespace Boneappetit
             ItemManager.Instance.AddItem(latte);
 
         }
+       
     }
 }
