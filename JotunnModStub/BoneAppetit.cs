@@ -32,11 +32,13 @@ namespace Boneappetit
         public ConfigEntry<bool> PizzaEnable;
         public ConfigEntry<bool> CoffeeEnable;
         public ConfigEntry<bool> LatteEnable;
+        public ConfigEntry<bool> SkillEnable;
 
         private void Awake()
         {
             CreatConfigValues();
             AssetLoad();
+           // LoadSounds();
             AddSkills();
             //LoadFood();
             LoadItem();
@@ -84,7 +86,7 @@ namespace Boneappetit
             PizzaEnable = Config.Bind("Pizza", "Enable", true, new ConfigDescription("Pizza Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             CoffeeEnable = Config.Bind("Coffee", "Enable", true, new ConfigDescription("Coffee Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             LatteEnable = Config.Bind("Latte", "Enable", true, new ConfigDescription("Latte Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
-
+            SkillEnable = Config.Bind("Skill", "Enable", true, new ConfigDescription("Skill Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
         }
 
 
@@ -95,22 +97,27 @@ namespace Boneappetit
             CookingSprite = customfood.LoadAsset<Sprite>("rkcookingsprite");
         }
 
+      /*  private void LoadSounds()
+        {
+            new buildsfx = Prefab.Cache.GetPrefab("JVLMock_sfx_stone");
+
+        }*/
         public void AddSkills()
         {
-            #region Cooking Skill Config
 
-            #endregion
-
+            if (SkillEnable.Value == true)
             // Test adding a skill with a texture
-            rkCookingSkill = SkillManager.Instance.AddSkill(new SkillConfig
             {
+                rkCookingSkill = SkillManager.Instance.AddSkill(new SkillConfig
+                {
 
-                Identifier = "rkCookingSkill",
-                Name = "Cooking Skill",
-                Description = "Learn to cook like a Viking!",
-                Icon = CookingSprite,
-                IncreaseStep = 1f
-            });
+                    Identifier = "rkCookingSkill",
+                    Name = "Cooking Skill",
+                    Description = "Learn to cook like a Viking!",
+                    Icon = CookingSprite,
+                    IncreaseStep = 1f,
+                });
+            }
         }
        /* private void LoadFood()
         {
