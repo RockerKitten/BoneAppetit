@@ -16,12 +16,12 @@ namespace Boneappetit
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "1.1.2";
+        public const string PluginVersion = "1.1.1";
         private AssetBundle assetBundle;
         private AssetBundle customfood;
         public Sprite CookingSprite;
         private Skills.SkillType rkCookingSkill = 0;
-        public ConfigEntry<bool> IceCreamEnable;
+        public ConfigEntry<bool> ConesEnable;
         public ConfigEntry<bool> PorkRindEnable;
         public ConfigEntry<bool> KabobEnable;
         public ConfigEntry<bool> FriedLoxEnable;
@@ -33,6 +33,7 @@ namespace Boneappetit
         public ConfigEntry<bool> CoffeeEnable;
         public ConfigEntry<bool> LatteEnable;
         public ConfigEntry<bool> SkillEnable;
+        public ConfigEntry<bool> PorridgeEnable;
 
         private void Awake()
         {
@@ -55,6 +56,10 @@ namespace Boneappetit
             Pizza();
             Coffee();
             Latte();
+            FireCream();
+            ElectricCream();
+            AcidCream();
+            Porridge();
             
             SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
             {
@@ -75,7 +80,7 @@ namespace Boneappetit
         {
             Config.SaveOnConfigSet = true;
            
-            IceCreamEnable = Config.Bind("Ice Cream", "Enable", true, new ConfigDescription("Ice Cream Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            ConesEnable = Config.Bind("Cones", "Enable", true, new ConfigDescription("All Cones Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             PorkRindEnable = Config.Bind("Pork Rind", "Enable", true, new ConfigDescription("Pork Rind Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             KabobEnable = Config.Bind("Kabob", "Enable", true, new ConfigDescription("Kabob Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             FriedLoxEnable = Config.Bind("Fried Lox", "Enable", true, new ConfigDescription("Fried Lox Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
@@ -87,6 +92,7 @@ namespace Boneappetit
             CoffeeEnable = Config.Bind("Coffee", "Enable", true, new ConfigDescription("Coffee Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             LatteEnable = Config.Bind("Latte", "Enable", true, new ConfigDescription("Latte Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             SkillEnable = Config.Bind("Skill", "Enable", true, new ConfigDescription("Skill Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PorridgeEnable = Config.Bind("Porridge", "Enable", true, new ConfigDescription("Porridge Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
         }
 
 
@@ -234,7 +240,7 @@ namespace Boneappetit
                 new ItemConfig
                 {
                     Name = "Ice Cream",
-                    Enabled = IceCreamEnable.Value,
+                    Enabled = ConesEnable.Value,
                     Amount = 2,
                     CraftingStation = "piece_cauldron",
                     Requirements = new[]
@@ -400,6 +406,7 @@ namespace Boneappetit
                     Enabled = PizzaEnable.Value,
                     Amount = 1,
                     CraftingStation = "rk_grill",
+                    MinStationLevel = 2,
                     Requirements = new[]
                     {
                         new RequirementConfig { Item = "Honey", Amount = 2},
@@ -452,6 +459,91 @@ namespace Boneappetit
             ItemManager.Instance.AddItem(latte);
 
         }
-       
+        private void FireCream()
+        {
+            var firecream_prefab = customfood.LoadAsset<GameObject>("rk_firecream");
+            var firecream = new CustomItem(firecream_prefab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Fire Cream",
+                    Enabled = ConesEnable.Value,
+                    Amount = 2,
+                    CraftingStation = "piece_cauldron",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "TrophySurtling", Amount = 4},
+                        new RequirementConfig { Item = "Raspberry", Amount = 8},
+                        new RequirementConfig { Item = "Honey", Amount = 2}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(firecream);
+
+        }
+        private void ElectricCream()
+        {
+            var electriccream_prefab = customfood.LoadAsset<GameObject>("rk_electriccream");
+            var electriccream = new CustomItem(electriccream_prefab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Electric Cream",
+                    Enabled = ConesEnable.Value,
+                    Amount = 2,
+                    CraftingStation = "piece_cauldron",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "Crystal", Amount = 4},
+                        new RequirementConfig { Item = "Cloudberry", Amount = 8},
+                        new RequirementConfig { Item = "Honey", Amount = 2}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(electriccream);
+
+        }
+        private void AcidCream()
+        {
+            var acidcream_prefab = customfood.LoadAsset<GameObject>("rk_acidcream");
+            var acidcream = new CustomItem(acidcream_prefab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Acid Cream Cone",
+                    Enabled = ConesEnable.Value,
+                    Amount = 2,
+                    CraftingStation = "piece_cauldron",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "Guck", Amount = 4},
+                        new RequirementConfig { Item = "MushroomYellow", Amount = 8},
+                        new RequirementConfig { Item = "Honey", Amount = 2}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(acidcream);
+
+        }
+        private void Porridge()
+        {
+            var porridge_prefab = customfood.LoadAsset<GameObject>("rk_porridge");
+            var porridge = new CustomItem(porridge_prefab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Porridge",
+                    Enabled = PorridgeEnable.Value,
+                    Amount = 1,
+                    CraftingStation = "rk_grill",
+                    MinStationLevel = 2,
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "Barley", Amount = 2},
+                        new RequirementConfig { Item = "Cloudberry", Amount = 4},
+                        new RequirementConfig { Item = "Honey", Amount = 2}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(porridge);
+
+        }
+
     }
 }
