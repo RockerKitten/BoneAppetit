@@ -471,7 +471,7 @@ namespace Boneappetit
                     CraftingStation = "piece_cauldron",
                     Requirements = new[]
                     {
-                        new RequirementConfig { Item = "TrophySurtling", Amount = 4},
+                        new RequirementConfig { Item = "SurtlingCore", Amount = 4},
                         new RequirementConfig { Item = "Raspberry", Amount = 8},
                         new RequirementConfig { Item = "Honey", Amount = 2}
                     }
