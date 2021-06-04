@@ -224,6 +224,7 @@ namespace Boneappetit
                     AllowedInDungeons = false,
                     Enabled = true,
                     PieceTable = "_HammerPieceTable",
+                    ExtendStation = "rk_grill",
                     Requirements = new[]
                     {
                         new RequirementConfig { Item = "SurtlingCore", Amount = 2, Recover = true },
@@ -329,9 +330,9 @@ namespace Boneappetit
                     CraftingStation = "rk_griddle",
                     Requirements = new[]
                     {
-                        new RequirementConfig { Item = "Carrot", Amount = 2},
+                        new RequirementConfig { Item = "Carrot", Amount = 3},
                         new RequirementConfig { Item = "Honey", Amount = 2},
-                        new RequirementConfig { Item = "Dandelion", Amount = 1 }
+                        new RequirementConfig { Item = "Dandelion", Amount = 2}
                     }
                 });
 
@@ -406,7 +407,6 @@ namespace Boneappetit
                     Enabled = PizzaEnable.Value,
                     Amount = 1,
                     CraftingStation = "rk_grill",
-                    MinStationLevel = 2,
                     Requirements = new[]
                     {
                         new RequirementConfig { Item = "Honey", Amount = 2},
@@ -532,7 +532,6 @@ namespace Boneappetit
                     Enabled = PorridgeEnable.Value,
                     Amount = 1,
                     CraftingStation = "rk_grill",
-                    MinStationLevel = 2,
                     Requirements = new[]
                     {
                         new RequirementConfig { Item = "Barley", Amount = 2},
