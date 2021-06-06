@@ -75,8 +75,6 @@ namespace Boneappetit
             CreatConfigValues();
             AssetLoad();
             //AddSkills();
-
-
             ItemManager.OnVanillaItemsAvailable += LoadSounds;
             SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
             {
