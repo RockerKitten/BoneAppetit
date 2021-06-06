@@ -34,39 +34,33 @@ namespace Boneappetit
         public ConfigEntry<bool> LatteEnable;
         public ConfigEntry<bool> SkillEnable;
         public ConfigEntry<bool> PorridgeEnable;
+        public ConfigEntry<bool> IceCreamEnable;
+        private GameObject grillfab;
+        private CustomPiece grill;
+        private GameObject icecream_prefab;
+        private CustomItem icecream;
+
+        private GameObject sfxhammer;
+        private GameObject vfx_Place_wood_roof;
+        private GameObject vfx_Place_wood_wall_half;
+        private GameObject sfxcook;
+        private EffectList effectList;
+        private EffectList effectList2;
+        private EffectList cookingsound;
 
         private void Awake()
         {
             CreatConfigValues();
             AssetLoad();
-           // LoadSounds();
-            AddSkills();
-            //LoadFood();
-            LoadItem();
-            LoadGriddle();
-            Oven();
-            IceCream();
-            PorkRind();
-            Kabob();
-            FriedLox();
-            GlazedCarrot();
-            Bacon();
-            SmokedFish();
-            Pancakes();
-            Pizza();
-            Coffee();
-            Latte();
-            FireCream();
-            ElectricCream();
-            AcidCream();
-            Porridge();
+            ItemManager.OnVanillaItemsAvailable += LoadSounds;
+           
             
             SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
             {
                 if (attr.InitialSynchronization)
                 {
                     Jotunn.Logger.LogMessage("Initial Config sync event received");
-                   // LoadFood();
+                    LoadFood();
                 }
                 else
                 {
@@ -92,6 +86,7 @@ namespace Boneappetit
             CoffeeEnable = Config.Bind("Coffee", "Enable", true, new ConfigDescription("Coffee Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             LatteEnable = Config.Bind("Latte", "Enable", true, new ConfigDescription("Latte Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             SkillEnable = Config.Bind("Skill", "Enable", true, new ConfigDescription("Skill Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            IceCreamEnable = Config.Bind("IceCream", "Enable", true, new ConfigDescription("IceCream Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             PorridgeEnable = Config.Bind("Porridge", "Enable", true, new ConfigDescription("Porridge Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
         }
 
@@ -103,11 +98,7 @@ namespace Boneappetit
             CookingSprite = customfood.LoadAsset<Sprite>("rkcookingsprite");
         }
 
-      /*  private void LoadSounds()
-        {
-            new buildsfx = Prefab.Cache.GetPrefab("JVLMock_sfx_stone");
 
-        }*/
         public void AddSkills()
         {
 
@@ -125,60 +116,104 @@ namespace Boneappetit
                 });
             }
         }
-       /* private void LoadFood()
+
+        private void LoadSounds()
+        {
+            try
+            {
+                sfxhammer = PrefabManager.Cache.GetPrefab<GameObject>("sfx_build_hammer_stone");
+                vfx_Place_wood_roof = PrefabManager.Cache.GetPrefab<GameObject>("vfx_Place_wood_roof");
+                vfx_Place_wood_wall_half = PrefabManager.Cache.GetPrefab<GameObject>("vfx_Place_wood_wall_half");
+                sfxcook = PrefabManager.Cache.GetPrefab<GameObject>("sfx_cooking_station_done");
+                effectList = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxhammer }, new EffectList.EffectData { m_prefab = vfx_Place_wood_roof } } };
+                effectList2 = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxhammer }, new EffectList.EffectData { m_prefab = vfx_Place_wood_wall_half } } };
+                cookingsound = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxcook, m_enabled = true } } };
+                var GrillFX = grillfab.GetComponent<CraftingStation>();
+                GrillFX.m_craftItemEffects = cookingsound;
+
+                AddSkills();
+                LoadFood();
+                LoadItem();
+                LoadGriddle();
+                Oven();
+                IceCream();
+                PorkRind();
+                Kabob();
+                FriedLox();
+                GlazedCarrot();
+                Bacon();
+                SmokedFish();
+                Pancakes();
+                Pizza();
+                Coffee();
+                Latte();
+                FireCream();
+                ElectricCream();
+                AcidCream();
+                Porridge();
+            }
+            catch (Exception exc)
+            {
+                Jotunn.Logger.LogError($"Error while running OnVanillaAdd: {exc.Message}");
+            }
+            finally
+            {
+                ItemManager.OnVanillaItemsAvailable -= LoadSounds;
+            }
+        }
+        private void LoadFood()
         {
             #region Pork Rind Config
-            var prkrd = PrefabManager.Instance.GetPrefab("rk_porkrind").GetComponent<ItemDrop>();
-            enabled = (bool)PorkRindEnable.Value;
+            var prkrd = PrefabManager.Instance.GetPrefab("rk_porkrind").GetComponent<Recipe>();
+            prkrd.m_enabled = (bool)PorkRindEnable.Value;
             #endregion
-            #region Ice Cream Config
-            var icrm = PrefabManager.Instance.GetPrefab("rk_icecream").GetComponent<ItemDrop>();
-            enabled = (bool)IceCreamEnable.Value;
+            #region Ice Cream Config //this is hte one I setup how I think should work
+            icecream.Recipe.Recipe.m_enabled = (bool)IceCreamEnable.Value;
             #endregion
             #region Kabob Config
-            var kbb = PrefabManager.Instance.GetPrefab("rk_kabob").GetComponent<ItemDrop>();
+            var kbb = PrefabManager.Instance.GetPrefab("rk_kabob").GetComponent<Recipe>();
             enabled = (bool)KabobEnable.Value;
             #endregion
             #region Fried Lox Config
-            var flm = PrefabManager.Instance.GetPrefab("rk_friedloxmeat").GetComponent<ItemDrop>();
+            var flm = PrefabManager.Instance.GetPrefab("rk_friedloxmeat").GetComponent<Recipe>();
             enabled = (bool)FriedLoxEnable.Value;
             #endregion
             #region Glazed Carrots Config
-            var glzdcrt = PrefabManager.Instance.GetPrefab("rk_glazedcarrots").GetComponent<ItemDrop>();
+            var glzdcrt = PrefabManager.Instance.GetPrefab("rk_glazedcarrots").GetComponent<Recipe>();
             enabled = (bool)GlazedCarrotEnable.Value;
             #endregion
             #region Bacon Config
-            var bcn = PrefabManager.Instance.GetPrefab("rk_bacon").GetComponent<ItemDrop>();
+            var bcn = PrefabManager.Instance.GetPrefab("rk_bacon").GetComponent<Recipe>();
             enabled = (bool)BaconEnable.Value;
             #endregion
             #region Smoked Fish Config
-            var smkdfsh = PrefabManager.Instance.GetPrefab("rk_smokedfish").GetComponent<ItemDrop>();
+            var smkdfsh = PrefabManager.Instance.GetPrefab("rk_smokedfish").GetComponent<Recipe>();
             enabled = (bool)SmokedFishEnable.Value;
             #endregion
             #region Pancake Config
-            var pnck = PrefabManager.Instance.GetPrefab("rk_pancake").GetComponent<ItemDrop>();
+            var pnck = PrefabManager.Instance.GetPrefab("rk_pancake").GetComponent<Recipe>();
             enabled = (bool)PancakesEnable.Value;
             #endregion
             #region Pizza Config
-            var pzz = PrefabManager.Instance.GetPrefab("rk_pizza").GetComponent<ItemDrop>();
+            var pzz = PrefabManager.Instance.GetPrefab("rk_pizza").GetComponent<Recipe>();
             enabled = (bool)PizzaEnable.Value;
             #endregion
             #region Coffee Config
-            var cff = PrefabManager.Instance.GetPrefab("rk_coffee").GetComponent<ItemDrop>();
+            var cff = PrefabManager.Instance.GetPrefab("rk_coffee").GetComponent<Recipe>();
             enabled = (bool)CoffeeEnable.Value;
             #endregion
             #region Latte Config
-            var ltt = PrefabManager.Instance.GetPrefab("rk_latte").GetComponent<ItemDrop>();
-            enabled = (bool)LatteEnable.Value;
+            var ltt = PrefabManager.Instance.GetPrefab("rk_latte").GetComponent<CustomRecipe>();
+            ltt.Recipe.m_enabled = (bool)LatteEnable.Value;
             #endregion
-        }*/
+        }
 
         private void LoadItem()
         {
             //piece_grill
 
-            var grillfab = assetBundle.LoadAsset<GameObject>("rk_grill");
-            var grill = new CustomPiece(grillfab,
+            grillfab = assetBundle.LoadAsset<GameObject>("rk_grill");
+            grill = new CustomPiece(grillfab,
                 new PieceConfig
                 {
                     CraftingStation = "forge",
@@ -192,6 +227,8 @@ namespace Boneappetit
                     }
                 });
             PieceManager.Instance.AddPiece(grill);
+            var grillpiece = grillfab.GetComponent<Piece>();
+            grillpiece.m_placeEffect = effectList2;
         }
         private void LoadGriddle()
         {
@@ -210,6 +247,9 @@ namespace Boneappetit
                         new RequirementConfig { Item = "Stone", Amount = 10, Recover = true }
                     }
                 });
+            var griddlepiece = griddlefab.GetComponent<Piece>();
+            griddlepiece.m_placeEffect = effectList;
+
             PieceManager.Instance.AddPiece(griddle);
         }
         private void Oven()
@@ -236,8 +276,8 @@ namespace Boneappetit
         }
         private void IceCream()
         {
-            var icecream_prefab = customfood.LoadAsset<GameObject>("rk_icecream");
-            var icecream = new CustomItem(icecream_prefab, fixReference: false,
+            icecream_prefab = customfood.LoadAsset<GameObject>("rk_icecream");
+            icecream = new CustomItem(icecream_prefab, fixReference: false,
                 new ItemConfig
                 {
                     Name = "Ice Cream",
