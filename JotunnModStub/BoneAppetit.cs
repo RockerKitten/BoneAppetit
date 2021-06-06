@@ -186,8 +186,8 @@ namespace Boneappetit
                 FireCream();
                 ElectricCream();
                 AcidCream();
-                Porridge();
-            }
+            Porridge();
+        }
             catch (Exception ex)
             {
                 Jotunn.Logger.LogError($"Error while running OnVanillaLoad: {ex.Message}");
@@ -269,11 +269,8 @@ namespace Boneappetit
                         new RequirementConfig { Item = "Stone", Amount = 10, Recover = true }
                     }
                 });
-            var oventhing = ovenfab.GetComponent<Piece>();
-            oventhing.m_placeEffect = buildstone;
-
-            var ovenstation = ovenfab.GetComponent<CraftingStation>();
-            ovenstation.m_craftItemEffects = cookingsound;
+            var ovenpiece = ovenfab.GetComponent<Piece>();
+            ovenpiece.m_placeEffect = buildstone;
 
             PieceManager.Instance.AddPiece(oven);
         }
