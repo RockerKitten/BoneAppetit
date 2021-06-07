@@ -11,17 +11,16 @@ using System;
 namespace Boneappetit
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [BepInDependency(Jotunn.Main.ModGuid, "2.0.11")]
+    [BepInDependency(Jotunn.Main.ModGuid, "2.0.12")]
     internal class BoneAppetit : BaseUnityPlugin
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "1.1.1";
+        public const string PluginVersion = "2.0.1";
         private AssetBundle assetBundle;
         private AssetBundle customfood;
         //public Sprite CookingSprite;
         //private Skills.SkillType rkCookingSkill = 0;
-        public ConfigEntry<bool> ConesEnable;
         public ConfigEntry<bool> PorkRindEnable;
         public ConfigEntry<bool> KabobEnable;
         public ConfigEntry<bool> FriedLoxEnable;
@@ -34,9 +33,13 @@ namespace Boneappetit
         public ConfigEntry<bool> LatteEnable;
         public ConfigEntry<bool> SkillEnable;
 
-        public ConfigEntry<bool> IceCreamEnable { get; private set; }
+        public ConfigEntry<bool> ConesEnable { get; private set; }
 
         public ConfigEntry<bool> PorridgeEnable;
+        public ConfigEntry<bool> PBJEnable;
+        public ConfigEntry<bool> CakeEnable;
+        public ConfigEntry<bool> GrillOriginal;
+
         private EffectList buildstone;
         private EffectList cookingsound;
         private GameObject icecream_prefab;
@@ -69,6 +72,10 @@ namespace Boneappetit
         private GameObject acidcream_prefab;
         private GameObject porridge_prefab;
         private CustomItem porridge;
+        private GameObject pbj_prefab;
+        private CustomItem pbj;
+        private GameObject cake_prefab;
+        private CustomItem cake;
 
         private void Awake()
         {
@@ -94,7 +101,7 @@ namespace Boneappetit
         private void CreatConfigValues()
         {
             Config.SaveOnConfigSet = true;
-           
+
             ConesEnable = Config.Bind("Cones", "Enable", true, new ConfigDescription("All Cones Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             PorkRindEnable = Config.Bind("Pork Rind", "Enable", true, new ConfigDescription("Pork Rind Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             KabobEnable = Config.Bind("Kabob", "Enable", true, new ConfigDescription("Kabob Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
@@ -107,13 +114,15 @@ namespace Boneappetit
             CoffeeEnable = Config.Bind("Coffee", "Enable", true, new ConfigDescription("Coffee Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             LatteEnable = Config.Bind("Latte", "Enable", true, new ConfigDescription("Latte Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             SkillEnable = Config.Bind("Skill", "Enable", true, new ConfigDescription("Skill Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
-            IceCreamEnable = Config.Bind("Ice Cream", "Enable", true, new ConfigDescription("Ice Cream Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             PorridgeEnable = Config.Bind("Porridge", "Enable", true, new ConfigDescription("Porridge Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PBJEnable = Config.Bind("PBJ", "Enable", true, new ConfigDescription("PBJ Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            CakeEnable = Config.Bind("Cake", "Enable", true, new ConfigDescription("Birthday Cake Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            GrillOriginal = Config.Bind("Original", "Enable", true, new ConfigDescription("Use original grill", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
         }
 
         private void LoadFood()
         {
-            icecream.Recipe.Recipe.m_enabled = IceCreamEnable.Value;
+            icecream.Recipe.Recipe.m_enabled = ConesEnable.Value;
             porkrind.Recipe.Recipe.m_enabled = PorkRindEnable.Value;
             kabob.Recipe.Recipe.m_enabled = KabobEnable.Value;
             friedlox.Recipe.Recipe.m_enabled = FriedLoxEnable.Value;
@@ -124,10 +133,12 @@ namespace Boneappetit
             pizza.Recipe.Recipe.m_enabled = PizzaEnable.Value;
             coffee.Recipe.Recipe.m_enabled = CoffeeEnable.Value;
             latte.Recipe.Recipe.m_enabled = LatteEnable.Value;
-            firecream.Recipe.Recipe.m_enabled = IceCreamEnable.Value;
-            electriccream.Recipe.Recipe.m_enabled = IceCreamEnable.Value; //idfk where the rest is going off what I see here
-            acidcream.Recipe.Recipe.m_enabled = IceCreamEnable.Value; //cuz it gets used for all your ice cream
+            firecream.Recipe.Recipe.m_enabled = ConesEnable.Value;
+            electriccream.Recipe.Recipe.m_enabled = ConesEnable.Value; //idfk where the rest is going off what I see here
+            acidcream.Recipe.Recipe.m_enabled = ConesEnable.Value; //cuz it gets used for all your ice cream
             porridge.Recipe.Recipe.m_enabled = PorridgeEnable.Value;
+            pbj.Recipe.Recipe.m_enabled = PBJEnable.Value;
+            cake.Recipe.Recipe.m_enabled = CakeEnable.Value;
         }
         private void AssetLoad()
         {
@@ -184,8 +195,10 @@ namespace Boneappetit
                 FireCream();
                 ElectricCream();
                 AcidCream();
-            Porridge();
-        }
+                Porridge();
+                PBJ();
+                Cake();
+            }
             catch (Exception ex)
             {
                 Jotunn.Logger.LogError($"Error while running OnVanillaLoad: {ex.Message}");
@@ -198,9 +211,10 @@ namespace Boneappetit
         }
         private void LoadItem()
         {
+            var grillfab = GrillOriginal.Value ? assetBundle.LoadAsset<GameObject>("rk_grill") : customfood.LoadAsset<GameObject>("rk_grill");
+
             //piece_grill
 
-            var grillfab = assetBundle.LoadAsset<GameObject>("rk_grill");
             var grill = new CustomPiece(grillfab,
                 new PieceConfig
                 {
@@ -213,7 +227,7 @@ namespace Boneappetit
                         new RequirementConfig { Item = "Stone", Amount = 10, Recover = true },
                         new RequirementConfig { Item = "Iron", Amount = 1, Recover = true }
                     }
-                   
+
                 });
             var grillthing = grillfab.GetComponent<Piece>();
             grillthing.m_placeEffect = buildstone;
@@ -222,7 +236,7 @@ namespace Boneappetit
             grillstation.m_craftItemEffects = cookingsound;
             PieceManager.Instance.AddPiece(grill);
 
-        }
+        } 
         private void LoadGriddle()
         {
             //piece_griddle
@@ -583,6 +597,51 @@ namespace Boneappetit
               ItemManager.Instance.AddItem(porridge);
 
           }
+        private void PBJ()
+        {
+            pbj_prefab = customfood.LoadAsset<GameObject>("rk_pbj");
+            pbj = new CustomItem(pbj_prefab, fixReference: false,
+               new ItemConfig
+               {
+                   Name = "Jimmy's PBJ",
+                   Enabled = PBJEnable.Value,
+                   Amount = 4,
+                   CraftingStation = "rk_grill",
+                   MinStationLevel = 1,
+                   Requirements = new[]
+                   {
+                          new RequirementConfig { Item = "Bread", Amount = 1},
+                          new RequirementConfig { Item = "QueensJam", Amount = 1},
+                          new RequirementConfig { Item = "Flax", Amount = 4}
+                   }
+               });
+
+            ItemManager.Instance.AddItem(pbj);
+
+        }
+        private void Cake()
+        {
+            cake_prefab = customfood.LoadAsset<GameObject>("rk_birthday");
+            cake = new CustomItem(cake_prefab, fixReference: false,
+               new ItemConfig
+               {
+                   Name = "Birthday Cake",
+                   Enabled = CakeEnable.Value,
+                   Amount = 1,
+                   CraftingStation = "rk_grill",
+                   MinStationLevel = 2,
+                   Requirements = new[]
+                   {
+                          new RequirementConfig { Item = "BarleyFlour", Amount = 2},
+                          new RequirementConfig { Item = "Honey", Amount = 4},
+                          new RequirementConfig { Item = "Cloudberry", Amount = 4}
+                   }
+               });
+
+            ItemManager.Instance.AddItem(cake);
+
+        }
 
     }
+
 }
