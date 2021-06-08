@@ -12,15 +12,16 @@ namespace Boneappetit
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     [BepInDependency(Jotunn.Main.ModGuid, "2.0.12")]
+    [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     internal class BoneAppetit : BaseUnityPlugin
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
         public const string PluginVersion = "2.0.1";
         private AssetBundle assetBundle;
-        private AssetBundle customfood;
-        //public Sprite CookingSprite;
-        //private Skills.SkillType rkCookingSkill = 0;
+        private AssetBundle customFood;
+        public Sprite CookingSprite;
+        private Skills.SkillType rkCookingSkill = 0;
         public ConfigEntry<bool> PorkRindEnable;
         public ConfigEntry<bool> KabobEnable;
         public ConfigEntry<bool> FriedLoxEnable;
@@ -40,8 +41,8 @@ namespace Boneappetit
         public ConfigEntry<bool> CakeEnable;
         public ConfigEntry<bool> GrillOriginal;
 
-        private EffectList buildstone;
-        private EffectList cookingsound;
+        private EffectList buildStone;
+        private EffectList cookingSound;
         private GameObject icecream_prefab;
         private CustomItem icecream;
         private GameObject porkrind_prefab;
@@ -81,7 +82,7 @@ namespace Boneappetit
         {
             CreatConfigValues();
             AssetLoad();
-            //AddSkills();
+            AddSkills();
             ItemManager.OnVanillaItemsAvailable += LoadSounds;
             SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
             {
@@ -143,12 +144,13 @@ namespace Boneappetit
         private void AssetLoad()
         {
             assetBundle = AssetUtils.LoadAssetBundleFromResources("grill", Assembly.GetExecutingAssembly());
-            customfood = AssetUtils.LoadAssetBundleFromResources("customfood", Assembly.GetExecutingAssembly());
-            //CookingSprite = customfood.LoadAsset<Sprite>("rkcookingsprite");
+            customFood = AssetUtils.LoadAssetBundleFromResources("customfood", Assembly.GetExecutingAssembly());
+            CookingSprite = customFood.LoadAsset<Sprite>("rkcookingsprite");
+           
         }
 
 
-        /*public void AddSkills()
+        public void AddSkills()
         {
 
             if (SkillEnable.Value == true)
@@ -164,7 +166,7 @@ namespace Boneappetit
                     IncreaseStep = 1f,
                 });
             }
-        }*/
+        }
         private void LoadSounds()
         {
             try
@@ -173,8 +175,10 @@ namespace Boneappetit
                 var vfxstone = PrefabManager.Cache.GetPrefab<GameObject>("vfx_Place_stone_wall_2x1");
                 var sfxcook = PrefabManager.Cache.GetPrefab<GameObject>("sfx_cooking_station_done");
 
-                buildstone = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxstone }, new EffectList.EffectData { m_prefab = vfxstone } } };
-                cookingsound = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxcook } } };
+                var sfxvol = AudioMan.instance.m_ambientLoopSource;
+
+                buildStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxstone }, new EffectList.EffectData { m_prefab = vfxstone } } };
+                cookingSound = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxcook } } };
 
                 Jotunn.Logger.LogMessage("Loaded Game VFX and SFX");
                 Jotunn.Logger.LogMessage("Prepping Kitchen...");
@@ -198,6 +202,8 @@ namespace Boneappetit
                 Porridge();
                 PBJ();
                 Cake();
+
+                Jotunn.Logger.LogMessage("Load Complete. Bone Appetit yall.");
             }
             catch (Exception ex)
             {
@@ -211,11 +217,11 @@ namespace Boneappetit
         }
         private void LoadItem()
         {
-            var grillfab = GrillOriginal.Value ? assetBundle.LoadAsset<GameObject>("rk_grill") : customfood.LoadAsset<GameObject>("rk_grill");
+            var grillFab = GrillOriginal.Value ? assetBundle.LoadAsset<GameObject>("rk_grill") : customFood.LoadAsset<GameObject>("rk_grill");
 
             //piece_grill
 
-            var grill = new CustomPiece(grillfab,
+            var grill = new CustomPiece(grillFab,
                 new PieceConfig
                 {
                     CraftingStation = "forge",
@@ -229,11 +235,11 @@ namespace Boneappetit
                     }
 
                 });
-            var grillthing = grillfab.GetComponent<Piece>();
-            grillthing.m_placeEffect = buildstone;
+            var grillThing = grillFab.GetComponent<Piece>();
+            grillThing.m_placeEffect = buildStone;
 
-            var grillstation = grillfab.GetComponent<CraftingStation>();
-            grillstation.m_craftItemEffects = cookingsound;
+            var grillStation = grillFab.GetComponent<CraftingStation>();
+            grillStation.m_craftItemEffects = cookingSound;
             PieceManager.Instance.AddPiece(grill);
 
         } 
@@ -255,10 +261,10 @@ namespace Boneappetit
                     }
                 });
             var griddlething = griddlefab.GetComponent<Piece>();
-            griddlething.m_placeEffect = buildstone;
+            griddlething.m_placeEffect = buildStone;
 
             var griddlestation = griddlefab.GetComponent<CraftingStation>();
-            griddlestation.m_craftItemEffects = cookingsound;
+            griddlestation.m_craftItemEffects = cookingSound;
             PieceManager.Instance.AddPiece(griddle);
         }
         private void Oven()
@@ -282,13 +288,13 @@ namespace Boneappetit
                     }
                 });
             var ovenpiece = ovenfab.GetComponent<Piece>();
-            ovenpiece.m_placeEffect = buildstone;
+            ovenpiece.m_placeEffect = buildStone;
 
             PieceManager.Instance.AddPiece(oven);
         }
         private void IceCream()
         {
-            icecream_prefab = customfood.LoadAsset<GameObject>("rk_icecream");
+            icecream_prefab = customFood.LoadAsset<GameObject>("rk_icecream");
             icecream = new CustomItem(icecream_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -309,7 +315,7 @@ namespace Boneappetit
         }
         private void PorkRind()
         {
-            porkrind_prefab = customfood.LoadAsset<GameObject>("rk_porkrind");
+            porkrind_prefab = customFood.LoadAsset<GameObject>("rk_porkrind");
             porkrind = new CustomItem(porkrind_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -328,7 +334,7 @@ namespace Boneappetit
         }
         private void Kabob()
         {
-            kabob_prefab = customfood.LoadAsset<GameObject>("rk_kabob");
+            kabob_prefab = customFood.LoadAsset<GameObject>("rk_kabob");
             kabob = new CustomItem(kabob_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -350,7 +356,7 @@ namespace Boneappetit
         }
         private void FriedLox()
         {
-            friedlox_prefab = customfood.LoadAsset<GameObject>("rk_friedloxmeat");
+            friedlox_prefab = customFood.LoadAsset<GameObject>("rk_friedloxmeat");
             friedlox = new CustomItem(friedlox_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -372,7 +378,7 @@ namespace Boneappetit
         }
         private void GlazedCarrot()
         {
-            glazedcarrot_prefab = customfood.LoadAsset<GameObject>("rk_glazedcarrots");
+            glazedcarrot_prefab = customFood.LoadAsset<GameObject>("rk_glazedcarrots");
             glazedcarrot = new CustomItem(glazedcarrot_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -393,7 +399,7 @@ namespace Boneappetit
         }
         private void Bacon()
         {
-            bacon_prefab = customfood.LoadAsset<GameObject>("rk_bacon");
+            bacon_prefab = customFood.LoadAsset<GameObject>("rk_bacon");
             bacon = new CustomItem(bacon_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -411,7 +417,7 @@ namespace Boneappetit
         }
         private void SmokedFish()
         {
-            smokedfish_prefab = customfood.LoadAsset<GameObject>("rk_smokedfish");
+            smokedfish_prefab = customFood.LoadAsset<GameObject>("rk_smokedfish");
             smokedfish = new CustomItem(smokedfish_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -430,7 +436,7 @@ namespace Boneappetit
         }
         private void Pancakes()
         {
-            pancake_prefab = customfood.LoadAsset<GameObject>("rk_pancake");
+            pancake_prefab = customFood.LoadAsset<GameObject>("rk_pancake");
             pancake = new CustomItem(pancake_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -451,7 +457,7 @@ namespace Boneappetit
         }
         private void Pizza()
         {
-             pizza_prefab = customfood.LoadAsset<GameObject>("rk_pizza");
+             pizza_prefab = customFood.LoadAsset<GameObject>("rk_pizza");
              pizza = new CustomItem(pizza_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -474,7 +480,7 @@ namespace Boneappetit
 
         private void Coffee()
         {
-             coffee_prefab = customfood.LoadAsset<GameObject>("rk_coffee");
+             coffee_prefab = customFood.LoadAsset<GameObject>("rk_coffee");
              coffee = new CustomItem(coffee_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -493,7 +499,7 @@ namespace Boneappetit
         }
         private void Latte()
         {
-             latte_prefab = customfood.LoadAsset<GameObject>("rk_latte");
+             latte_prefab = customFood.LoadAsset<GameObject>("rk_latte");
              latte = new CustomItem(latte_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -514,7 +520,7 @@ namespace Boneappetit
         }
         private void FireCream()
         {
-            firecream_prefab = customfood.LoadAsset<GameObject>("rk_firecream");
+            firecream_prefab = customFood.LoadAsset<GameObject>("rk_firecream");
             firecream = new CustomItem(firecream_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -535,7 +541,7 @@ namespace Boneappetit
         }
         private void ElectricCream()
         {
-            electriccream_prefab = customfood.LoadAsset<GameObject>("rk_electriccream");
+            electriccream_prefab = customFood.LoadAsset<GameObject>("rk_electriccream");
             electriccream = new CustomItem(electriccream_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -556,7 +562,7 @@ namespace Boneappetit
         }
         private void AcidCream()
         {
-            acidcream_prefab = customfood.LoadAsset<GameObject>("rk_acidcream");
+            acidcream_prefab = customFood.LoadAsset<GameObject>("rk_acidcream");
             acidcream = new CustomItem(acidcream_prefab, fixReference: false,
                 new ItemConfig
                 {
@@ -577,7 +583,7 @@ namespace Boneappetit
         }
         private void Porridge()
           {
-               porridge_prefab = customfood.LoadAsset<GameObject>("rk_porridge");
+               porridge_prefab = customFood.LoadAsset<GameObject>("rk_porridge");
                porridge = new CustomItem(porridge_prefab, fixReference: false,
                   new ItemConfig
                   {
@@ -599,7 +605,7 @@ namespace Boneappetit
           }
         private void PBJ()
         {
-            pbj_prefab = customfood.LoadAsset<GameObject>("rk_pbj");
+            pbj_prefab = customFood.LoadAsset<GameObject>("rk_pbj");
             pbj = new CustomItem(pbj_prefab, fixReference: false,
                new ItemConfig
                {
@@ -621,7 +627,7 @@ namespace Boneappetit
         }
         private void Cake()
         {
-            cake_prefab = customfood.LoadAsset<GameObject>("rk_birthday");
+            cake_prefab = customFood.LoadAsset<GameObject>("rk_birthday");
             cake = new CustomItem(cake_prefab, fixReference: false,
                new ItemConfig
                {
@@ -639,9 +645,9 @@ namespace Boneappetit
                });
 
             ItemManager.Instance.AddItem(cake);
-
+           
         }
-
+        
     }
 
 }
