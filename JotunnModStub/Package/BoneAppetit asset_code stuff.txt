@@ -1,0 +1,176 @@
+check list for items
+
+convex collider on item layer
+corrected name, sprite, and stats on top layer
+mesh as child of attach layer
+size
+added to asset bundle "customfood"
+
+itme mesh needs to be read/write
+
+I did have a thought about the people having trouble with neuro's textures on a server. could it be the order that things are being loaded/called on on the server that's causing the issues? all of them who have had problems could get around it by loading in twice. is it possible the game is trying to load texture files before they are synced and then throwing the errors because it doesn't see it when it expects to? I have no idea in what order anything is loaded or synced, but 
+
+
+                    m_minStationLevel = 2,
+					
+					
+					
+					/*private void CreatConfigValues()
+        {
+            Config.SaveOnConfigSet = true;
+
+            ConesEnable = Config.Bind("Cones", "Enable", true, new ConfigDescription("All Cones Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PorkRindEnable = Config.Bind("Pork Rind", "Enable", true, new ConfigDescription("Pork Rind Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            KabobEnable = Config.Bind("Kabob", "Enable", true, new ConfigDescription("Kabob Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            FriedLoxEnable = Config.Bind("Fried Lox", "Enable", true, new ConfigDescription("Fried Lox Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            GlazedCarrotEnable = Config.Bind("Glazed Carrots", "Enable", true, new ConfigDescription("Glazed Carrots Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            BaconEnable = Config.Bind("Bacon", "Enable", true, new ConfigDescription("Bacon Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            SmokedFishEnable = Config.Bind("Smoked Fish", "Enable", true, new ConfigDescription("Smoked Fish Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PancakesEnable = Config.Bind("Pancakes", "Enable", true, new ConfigDescription("Pancakes Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PizzaEnable = Config.Bind("Pizza", "Enable", true, new ConfigDescription("Pizza Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            CoffeeEnable = Config.Bind("Coffee", "Enable", true, new ConfigDescription("Coffee Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            LatteEnable = Config.Bind("Latte", "Enable", true, new ConfigDescription("Latte Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            SkillEnable = Config.Bind("Skill", "Enable", true, new ConfigDescription("Not yet implimented", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            CakeEnable = Config.Bind("Birthday Cake", "Enable", true, new ConfigDescription("Birthday Cake Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PBJEnable = Config.Bind("PBJ", "Enable", true, new ConfigDescription("PBJ Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PorridgeEnable = Config.Bind("Porridge", "Enable", true, new ConfigDescription("Porridge Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+        }*/
+		
+		
+		
+		 /*public void AddSkills()
+        {
+
+            if (SkillEnable.Value == true)
+            // Test adding a skill with a texture
+            {
+                rkCookingSkill = SkillManager.Instance.AddSkill(new SkillConfig
+                {
+
+                    Identifier = "rkCookingSkill",
+                    Name = "Cooking Skill",
+                    Description = "Learn to cook like a Viking!",
+                    Icon = CookingSprite,
+                    IncreaseStep = 1f,
+                });
+            }
+        }*/
+		
+		
+		 /*SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
+            {
+                if (attr.InitialSynchronization)
+                {
+                    Jotunn.Logger.LogMessage("Initial Config sync event received");
+                    // LoadFood();
+                }
+                else
+                {
+                    Jotunn.Logger.LogMessage("Config sync event received");
+
+                }
+            };*/
+        }
+        /*private void CreatConfigValues()
+        {
+            Config.SaveOnConfigSet = true;
+
+            ConesEnable = Config.Bind("Cones", "Enable", true, new ConfigDescription("All Cones Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PorkRindEnable = Config.Bind("Pork Rind", "Enable", true, new ConfigDescription("Pork Rind Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            KabobEnable = Config.Bind("Kabob", "Enable", true, new ConfigDescription("Kabob Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            FriedLoxEnable = Config.Bind("Fried Lox", "Enable", true, new ConfigDescription("Fried Lox Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            GlazedCarrotEnable = Config.Bind("Glazed Carrots", "Enable", true, new ConfigDescription("Glazed Carrots Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            BaconEnable = Config.Bind("Bacon", "Enable", true, new ConfigDescription("Bacon Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            SmokedFishEnable = Config.Bind("Smoked Fish", "Enable", true, new ConfigDescription("Smoked Fish Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PancakesEnable = Config.Bind("Pancakes", "Enable", true, new ConfigDescription("Pancakes Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PizzaEnable = Config.Bind("Pizza", "Enable", true, new ConfigDescription("Pizza Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            CoffeeEnable = Config.Bind("Coffee", "Enable", true, new ConfigDescription("Coffee Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            LatteEnable = Config.Bind("Latte", "Enable", true, new ConfigDescription("Latte Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            SkillEnable = Config.Bind("Skill", "Enable", true, new ConfigDescription("Not yet implimented", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            CakeEnable = Config.Bind("Birthday Cake", "Enable", true, new ConfigDescription("Birthday Cake Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PBJEnable = Config.Bind("PBJ", "Enable", true, new ConfigDescription("PBJ Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PorridgeEnable = Config.Bind("Porridge", "Enable", true, new ConfigDescription("Porridge Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+        }*/
+		
+		/*private void CreatConfigValues()
+        {
+            Config.SaveOnConfigSet = true;
+
+            ConesEnable = Config.Bind("Cones", "Enable", true, new ConfigDescription("All Cones Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PorkRindEnable = Config.Bind("Pork Rind", "Enable", true, new ConfigDescription("Pork Rind Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            KabobEnable = Config.Bind("Kabob", "Enable", true, new ConfigDescription("Kabob Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            FriedLoxEnable = Config.Bind("Fried Lox", "Enable", true, new ConfigDescription("Fried Lox Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            GlazedCarrotEnable = Config.Bind("Glazed Carrots", "Enable", true, new ConfigDescription("Glazed Carrots Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            BaconEnable = Config.Bind("Bacon", "Enable", true, new ConfigDescription("Bacon Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            SmokedFishEnable = Config.Bind("Smoked Fish", "Enable", true, new ConfigDescription("Smoked Fish Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PancakesEnable = Config.Bind("Pancakes", "Enable", true, new ConfigDescription("Pancakes Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PizzaEnable = Config.Bind("Pizza", "Enable", true, new ConfigDescription("Pizza Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            CoffeeEnable = Config.Bind("Coffee", "Enable", true, new ConfigDescription("Coffee Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            LatteEnable = Config.Bind("Latte", "Enable", true, new ConfigDescription("Latte Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            SkillEnable = Config.Bind("Skill", "Enable", true, new ConfigDescription("Not yet implimented", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            CakeEnable = Config.Bind("Birthday Cake", "Enable", true, new ConfigDescription("Birthday Cake Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PBJEnable = Config.Bind("PBJ", "Enable", true, new ConfigDescription("PBJ Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            PorridgeEnable = Config.Bind("Porridge", "Enable", true, new ConfigDescription("Porridge Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+        }
+*/
+
+public ConfigEntry<bool> ConesEnable;
+        public ConfigEntry<bool> PorkRindEnable;
+        public ConfigEntry<bool> KabobEnable;
+        public ConfigEntry<bool> FriedLoxEnable;
+        public ConfigEntry<bool> GlazedCarrotEnable;
+        public ConfigEntry<bool> BaconEnable;
+        public ConfigEntry<bool> SmokedFishEnable;
+        public ConfigEntry<bool> PancakesEnable;
+        public ConfigEntry<bool> PizzaEnable;
+        public ConfigEntry<bool> CoffeeEnable;
+        public ConfigEntry<bool> LatteEnable;
+        public ConfigEntry<bool> SkillEnable;
+        public ConfigEntry<bool> PorridgeEnable;
+        public ConfigEntry<bool> CakeEnable;
+        public ConfigEntry<bool> PBJEnable;
+		
+		
+		SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
+            {
+                if (attr.InitialSynchronization)
+                {
+                    Jotunn.Logger.LogMessage("Initial Config sync event received");
+                    // LoadFood();
+                }
+                else
+                {
+                    Jotunn.Logger.LogMessage("Config sync event received");
+
+                }
+            };
+        }
+		 /*SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
+            {
+                if (attr.InitialSynchronization)
+                {
+                    Jotunn.Logger.LogMessage("Initial Config sync event received");
+                    // LoadFood();
+                }
+                else
+                {
+                    Jotunn.Logger.LogMessage("Config sync event received");
+
+                }
+            };*/
+			
+			 public ConfigEntry<bool> ConesEnable;
+        public ConfigEntry<bool> PorkRindEnable;
+        public ConfigEntry<bool> KabobEnable;
+        public ConfigEntry<bool> FriedLoxEnable;
+        public ConfigEntry<bool> GlazedCarrotEnable;
+        public ConfigEntry<bool> BaconEnable;
+        public ConfigEntry<bool> SmokedFishEnable;
+        public ConfigEntry<bool> PancakesEnable;
+        public ConfigEntry<bool> PizzaEnable;
+        public ConfigEntry<bool> CoffeeEnable;
+        public ConfigEntry<bool> LatteEnable;
+        public ConfigEntry<bool> SkillEnable;
+        public ConfigEntry<bool> PorridgeEnable;
+        public ConfigEntry<bool> CakeEnable;
+        public ConfigEntry<bool> PBJEnable;

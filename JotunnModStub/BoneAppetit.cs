@@ -18,10 +18,10 @@ namespace Boneappetit
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
         public const string PluginVersion = "2.0.1";
-        private AssetBundle assetBundle;
-        private AssetBundle customFood;
+        public AssetBundle assetBundle;
+        public AssetBundle customFood;
         public Sprite CookingSprite;
-        private Skills.SkillType rkCookingSkill = 0;
+        public Skills.SkillType rkCookingSkill = 0;
         public ConfigEntry<bool> PorkRindEnable;
         public ConfigEntry<bool> KabobEnable;
         public ConfigEntry<bool> FriedLoxEnable;
@@ -41,44 +41,44 @@ namespace Boneappetit
         public ConfigEntry<bool> CakeEnable;
         public ConfigEntry<bool> GrillOriginal;
 
-        private EffectList buildStone;
-        private EffectList cookingSound;
-        private GameObject icecream_prefab;
-        private CustomItem icecream;
-        private GameObject porkrind_prefab;
-        private CustomItem porkrind;
-        private GameObject kabob_prefab;
-        private CustomItem kabob;
-        private GameObject friedlox_prefab;
-        private CustomItem friedlox;
-        private GameObject glazedcarrot_prefab;
-        private CustomItem glazedcarrot;
-        private GameObject bacon_prefab;
-        private CustomItem bacon;
-        private GameObject smokedfish_prefab;
-        private CustomItem smokedfish;
-        private GameObject pancake_prefab;
-        private CustomItem pancake;
-        private GameObject pizza_prefab;
-        private CustomItem pizza;
-        private GameObject coffee_prefab;
-        private CustomItem coffee;
-        private GameObject latte_prefab;
-        private CustomItem latte;
-        private GameObject firecream_prefab;
-        private CustomItem firecream;
-        private CustomItem electriccream;
-        private GameObject electriccream_prefab;
-        private CustomItem acidcream;
-        private GameObject acidcream_prefab;
-        private GameObject porridge_prefab;
-        private CustomItem porridge;
-        private GameObject pbj_prefab;
-        private CustomItem pbj;
-        private GameObject cake_prefab;
-        private CustomItem cake;
+        public EffectList buildStone;
+        public EffectList cookingSound;
+        public GameObject icecream_prefab;
+        public CustomItem icecream;
+        public GameObject porkrind_prefab;
+        public CustomItem porkrind;
+        public GameObject kabob_prefab;
+        public CustomItem kabob;
+        public GameObject friedlox_prefab;
+        public CustomItem friedlox;
+        public GameObject glazedcarrot_prefab;
+        public CustomItem glazedcarrot;
+        public GameObject bacon_prefab;
+        public CustomItem bacon;
+        public GameObject smokedfish_prefab;
+        public CustomItem smokedfish;
+        public GameObject pancake_prefab;
+        public CustomItem pancake;
+        public GameObject pizza_prefab;
+        public CustomItem pizza;
+        public GameObject coffee_prefab;
+        public CustomItem coffee;
+        public GameObject latte_prefab;
+        public CustomItem latte;
+        public GameObject firecream_prefab;
+        public CustomItem firecream;
+        public CustomItem electriccream;
+        public GameObject electriccream_prefab;
+        public CustomItem acidcream;
+        public GameObject acidcream_prefab;
+        public GameObject porridge_prefab;
+        public CustomItem porridge;
+        public GameObject pbj_prefab;
+        public CustomItem pbj;
+        public GameObject cake_prefab;
+        public CustomItem cake;
 
-        private void Awake()
+        public void Awake()
         {
             CreatConfigValues();
             AssetLoad();
@@ -99,7 +99,7 @@ namespace Boneappetit
             };
 
         }
-        private void CreatConfigValues()
+        public void CreatConfigValues()
         {
             Config.SaveOnConfigSet = true;
 
@@ -121,7 +121,7 @@ namespace Boneappetit
             GrillOriginal = Config.Bind("Original", "Enable", true, new ConfigDescription("Use original grill", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
         }
 
-        private void LoadFood()
+        public void LoadFood()
         {
             icecream.Recipe.Recipe.m_enabled = ConesEnable.Value;
             porkrind.Recipe.Recipe.m_enabled = PorkRindEnable.Value;
@@ -141,12 +141,14 @@ namespace Boneappetit
             pbj.Recipe.Recipe.m_enabled = PBJEnable.Value;
             cake.Recipe.Recipe.m_enabled = CakeEnable.Value;
         }
-        private void AssetLoad()
+        public void AssetLoad()
         {
             assetBundle = AssetUtils.LoadAssetBundleFromResources("grill", Assembly.GetExecutingAssembly());
             customFood = AssetUtils.LoadAssetBundleFromResources("customfood", Assembly.GetExecutingAssembly());
             CookingSprite = customFood.LoadAsset<Sprite>("rkcookingsprite");
-           
+            //fireclip = customFood.LoadAsset<AudioClip>("")
+
+
         }
 
 
@@ -167,15 +169,16 @@ namespace Boneappetit
                 });
             }
         }
-        private void LoadSounds()
+        public void LoadSounds()
         {
             try
             {
                 var sfxstone = PrefabManager.Cache.GetPrefab<GameObject>("sfx_build_hammer_stone");
                 var vfxstone = PrefabManager.Cache.GetPrefab<GameObject>("vfx_Place_stone_wall_2x1");
                 var sfxcook = PrefabManager.Cache.GetPrefab<GameObject>("sfx_cooking_station_done");
+                
 
-                var sfxvol = AudioMan.instance.m_ambientLoopSource;
+                //var sfxvol = AudioMan.instance.m_ambientLoopSource;
 
                 buildStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxstone }, new EffectList.EffectData { m_prefab = vfxstone } } };
                 cookingSound = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxcook } } };
@@ -231,7 +234,7 @@ namespace Boneappetit
                     Requirements = new[]
                     {
                         new RequirementConfig { Item = "Stone", Amount = 10, Recover = true },
-                        new RequirementConfig { Item = "Iron", Amount = 1, Recover = true }
+                        new RequirementConfig { Item = "Iron", Amount = 2, Recover = true }
                     }
 
                 });
@@ -242,7 +245,7 @@ namespace Boneappetit
             grillStation.m_craftItemEffects = cookingSound;
             PieceManager.Instance.AddPiece(grill);
 
-        } 
+        }
         private void LoadGriddle()
         {
             //piece_griddle

@@ -1,0 +1,9 @@
+-Installing VS 2019-
+1. Download Visual Studio Community 2019 (this will sometimes be refered to as our "IDE" short for Integrated Development Environment) https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16
+2. Install VS 2019 (vs_Community.exe) and choose to install the ".Net desktop develoment", "Game development with Unity", ".NET Core Cross Platform Development", and under individual components ".NET Framework 4.6.2
+
+-Download and Install .Net (if not already done)-
+1. Download .Net 4.6.2 for developers if you already had VS 2019 installed and didn't get this, or couldn't find it.
+
+-Installing Unity-
+1.download and install utiny ripper 
