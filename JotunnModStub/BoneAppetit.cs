@@ -33,16 +33,32 @@ namespace Boneappetit
         public ConfigEntry<bool> CoffeeEnable;
         public ConfigEntry<bool> LatteEnable;
         public ConfigEntry<bool> SkillEnable;
-
+        public ConfigEntry<bool> SmokelessEnable;
+        public ConfigEntry<bool> HaggisEnable;
+        public ConfigEntry<bool> CandiedTurnipEnable;
+        public ConfigEntry<bool> MoochiEnable;
         public ConfigEntry<bool> ConesEnable { get; private set; }
-
+        public ConfigEntry<bool> Nut_EllaEnable;
+        public ConfigEntry<bool> BrothEnable;
+        public ConfigEntry<bool> FishStewEnable;
+        public ConfigEntry<bool> ButterEnable;
+        public ConfigEntry<bool> BloodSausageEnable;
+        public ConfigEntry<bool> OmletteEnable;
+        public ConfigEntry<bool> BurgerEnable;
         public ConfigEntry<bool> PorridgeEnable;
         public ConfigEntry<bool> PBJEnable;
+        public ConfigEntry<bool> BoiledEggEnable;
         public ConfigEntry<bool> CakeEnable;
         public ConfigEntry<bool> GrillOriginal;
+        public ConfigEntry<bool> CarrotSticksEnable;
 
         public EffectList buildStone;
         public EffectList cookingSound;
+        public EffectList breakStone;
+        public EffectList hitStone;
+        public EffectList buildKitten;
+        public EffectList hearthAddFuel;
+        public EffectList fireAddFuel;
         public GameObject icecream_prefab;
         public CustomItem icecream;
         public GameObject porkrind_prefab;
@@ -77,13 +93,44 @@ namespace Boneappetit
         public CustomItem pbj;
         public GameObject cake_prefab;
         public CustomItem cake;
+        public AudioSource fireVol;
+        public GameObject haggisFab;
+        public CustomItem haggis;
+        public GameObject candiedTurnipFab;
+        public CustomItem candiedTurnip;
+        public GameObject moochiFab;
+        public CustomItem moochi;
+        public GameObject omletteFab;
+        public CustomItem omlette;
+        public GameObject fishStewFab;
+        public CustomItem fishStew;
+        public GameObject brothFab;
+        public CustomItem broth;
+        public GameObject butterFab;
+        public CustomItem butter;
+        public GameObject bloodsausageFab;
+        public CustomItem bloodsausage;
+        public GameObject burgerFab;
+        public CustomItem burger;
+        public GameObject nut_ellaFab;
+        public CustomItem nut_ella;
+        public GameObject boiledeggFab;
+        public CustomItem boiledegg;
+        public GameObject carrotstickFab;
+        public CustomItem carrotstick;
+        public GameObject boarFab;
+        public GameObject hatchlingFab;
+        public GameObject seagullFab;
+
+
 
         public void Awake()
         {
             CreatConfigValues();
             AssetLoad();
-            AddSkills();
+            //AddSkills();
             ItemManager.OnVanillaItemsAvailable += LoadSounds;
+
             SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
             {
                 if (attr.InitialSynchronization)
@@ -118,7 +165,21 @@ namespace Boneappetit
             PorridgeEnable = Config.Bind("Porridge", "Enable", true, new ConfigDescription("Porridge Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             PBJEnable = Config.Bind("PBJ", "Enable", true, new ConfigDescription("PBJ Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             CakeEnable = Config.Bind("Cake", "Enable", true, new ConfigDescription("Birthday Cake Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            HaggisEnable = Config.Bind("Haggis", "Enable", true, new ConfigDescription("Haggis Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            CandiedTurnipEnable = Config.Bind("Candied Turnip", "Enable", true, new ConfigDescription("Candied Turnip Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            MoochiEnable = Config.Bind("Moochi", "Enable", true, new ConfigDescription("Moochi Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            Nut_EllaEnable = Config.Bind("Nut_Ella", "Enable", true, new ConfigDescription("Nut_Ella Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            BurgerEnable = Config.Bind("Burger", "Enable", true, new ConfigDescription("Burger Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            OmletteEnable = Config.Bind("Omlette", "Enable", true, new ConfigDescription("Omlette Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            BrothEnable = Config.Bind("Broth", "Enable", true, new ConfigDescription("Broth Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            FishStewEnable = Config.Bind("Fish Stew", "Enable", true, new ConfigDescription("Fish Stew Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            ButterEnable = Config.Bind("Butter", "Enable", true, new ConfigDescription("Butter Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            BloodSausageEnable = Config.Bind("Blood Sausage", "Enable", true, new ConfigDescription("Blood Sausage Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            BoiledEggEnable = Config.Bind("Boiled Egg", "Enable", true, new ConfigDescription("Boiled Egg Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            CarrotSticksEnable = Config.Bind("Carrot Sticks", "Enable", true, new ConfigDescription("Carrot Sticks Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             GrillOriginal = Config.Bind("Original", "Enable", true, new ConfigDescription("Use original grill", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            SmokelessEnable = Config.Bind("Smokeless", "Enalbe", true, new ConfigDescription("Enable to allow building of smokeless fires", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+
         }
 
         public void LoadFood()
@@ -140,6 +201,19 @@ namespace Boneappetit
             porridge.Recipe.Recipe.m_enabled = PorridgeEnable.Value;
             pbj.Recipe.Recipe.m_enabled = PBJEnable.Value;
             cake.Recipe.Recipe.m_enabled = CakeEnable.Value;
+            haggis.Recipe.Recipe.m_enabled = HaggisEnable.Value;
+            candiedTurnip.Recipe.Recipe.m_enabled = CandiedTurnipEnable.Value;
+            moochi.Recipe.Recipe.m_enabled = MoochiEnable.Value;
+            nut_ella.Recipe.Recipe.m_enabled = Nut_EllaEnable.Value;
+            burger.Recipe.Recipe.m_enabled = BurgerEnable.Value;
+            omlette.Recipe.Recipe.m_enabled = OmletteEnable.Value;
+            broth.Recipe.Recipe.m_enabled = BrothEnable.Value;
+            fishStew.Recipe.Recipe.m_enabled = FishStewEnable.Value;
+            butter.Recipe.Recipe.m_enabled = ButterEnable.Value;
+            bloodsausage.Recipe.Recipe.m_enabled = BloodSausageEnable.Value;
+            boiledegg.Recipe.Recipe.m_enabled = BoiledEggEnable.Value;
+            carrotstick.Recipe.Recipe.m_enabled = CarrotSticksEnable.Value;
+
         }
         public void AssetLoad()
         {
@@ -149,42 +223,41 @@ namespace Boneappetit
             //fireclip = customFood.LoadAsset<AudioClip>("")
 
 
+
         }
-
-
-        public void AddSkills()
-        {
-
-            if (SkillEnable.Value == true)
-            // Test adding a skill with a texture
-            {
-                rkCookingSkill = SkillManager.Instance.AddSkill(new SkillConfig
-                {
-
-                    Identifier = "rkCookingSkill",
-                    Name = "Cooking Skill",
-                    Description = "Learn to cook like a Viking!",
-                    Icon = CookingSprite,
-                    IncreaseStep = 1f,
-                });
-            }
-        }
+        
         public void LoadSounds()
         {
-            try
-            {
+            //try
+            //{
                 var sfxstone = PrefabManager.Cache.GetPrefab<GameObject>("sfx_build_hammer_stone");
                 var vfxstone = PrefabManager.Cache.GetPrefab<GameObject>("vfx_Place_stone_wall_2x1");
                 var sfxcook = PrefabManager.Cache.GetPrefab<GameObject>("sfx_cooking_station_done");
+                var sfxbreak = PrefabManager.Cache.GetPrefab<GameObject>("sfx_rock_destroyed");
+                var kittenPoof = assetBundle.LoadAsset<GameObject>("vfx_rainbowkitten");
+                var vfxadd = PrefabManager.Cache.GetPrefab<GameObject>("vfx_FireAddFuel");
+                var sfxadd = PrefabManager.Cache.GetPrefab<GameObject>("sfx_FireAddFuel");
+                var sfxstonehit = PrefabManager.Cache.GetPrefab<GameObject>("sfx_Rock_Hit");
+                var vfxaddfuel = PrefabManager.Cache.GetPrefab<GameObject>("vfx_HearthAddFuel");
                 
+                
+                boarFab = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
+                hatchlingFab = PrefabManager.Cache.GetPrefab<GameObject>("Hatchling");
+                seagullFab = PrefabManager.Cache.GetPrefab<GameObject>("Seagal");
+            //var sfxvol = AudioMan.instance.m_ambientLoopSource;
 
-                //var sfxvol = AudioMan.instance.m_ambientLoopSource;
 
                 buildStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxstone }, new EffectList.EffectData { m_prefab = vfxstone } } };
                 cookingSound = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxcook } } };
+                breakStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxbreak } } };
+                hitStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxstonehit } } };
+                buildKitten = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxstone }, new EffectList.EffectData { m_prefab = kittenPoof } } };
+                hearthAddFuel = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = vfxaddfuel }, new EffectList.EffectData { m_prefab = sfxadd } } };
+                fireAddFuel = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = vfxadd }, new EffectList.EffectData { m_prefab = sfxadd } } };
 
                 Jotunn.Logger.LogMessage("Loaded Game VFX and SFX");
                 Jotunn.Logger.LogMessage("Prepping Kitchen...");
+                //AddCharacterDrops();
                 LoadItem();
                 LoadGriddle();
                 Oven();
@@ -205,19 +278,132 @@ namespace Boneappetit
                 Porridge();
                 PBJ();
                 Cake();
+                LoadFire();
+                LoadHearth();
+                Haggis();
+                CandiedTurnip();
+                Moochi();
+                Broth();
+                FishStew();
+                Butter();
+                BloodSausage();
+                Burger();
+                Omlette();
+                Nut_Ella();
+                BoiledEgg();
+                Prepstation();
+                CarrotSticks();
+            //if (ZNet.instance == null)
+            //{
+              //  return;
+            //}
+            //else
+            //{
+                 NewDrops();
+                //Jotunn.Logger.LogMessage("New Drops Added"); };
 
+                fireVol = AudioMan.instance.m_ambientLoopSource;
                 Jotunn.Logger.LogMessage("Load Complete. Bone Appetit yall.");
-            }
+            /*}
             catch (Exception ex)
             {
                 Jotunn.Logger.LogError($"Error while running OnVanillaLoad: {ex.Message}");
             }
             finally
-            {
+            {*/
                 ItemManager.OnVanillaItemsAvailable -= LoadSounds;
-            }
+            NewDrops();
+            //ItemManager.OnVanillaItemsAvailable -= AddCharacterDrops;
+            //}
 
         }
+        public void NewDrops()
+
+        {
+
+            //boarFab = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
+            //hatchlingFab = PrefabManager.Cache.GetPrefab<GameObject>("Hatchling");
+            //seagullFab = PrefabManager.Cache.GetPrefab<GameObject>("Seagal");
+            var porkFab = customFood.LoadAsset<GameObject>("rk_pork");
+            //boarFab = ZNetScene.instance.GetPrefab("Boar");
+            //hatchlingFab = ZNetScene.instance.GetPrefab("Hatchling");
+            //seagullFab = ZNetScene.instance.GetPrefab("Seagal");
+
+            //var boar = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
+            boarFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
+            {
+                m_prefab = porkFab,
+                m_amountMin = 1,
+                m_amountMax = 1,
+                m_chance = 100f,
+                m_levelMultiplier = true,
+                m_onePerPlayer = false,
+
+            });
+
+           /*
+            Var deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
+
+            var hatchling = hatchlingFab.GetComponent<CharacterDrop>();
+                hatchling.m_drops.Add(new CharacterDrop.Drop()
+                {
+                    m_prefab = deggFab,
+                    m_amountMin = 1,
+                    m_amountMax = 1,
+                    m_chance = 0.8f,
+                    m_levelMultiplier = true,
+                    m_onePerPlayer = false,
+
+                });*/
+
+            var eggFab = customFood.LoadAsset<GameObject>("rk_egg");
+            
+            var seagul = seagullFab.GetComponent<DropOnDestroyed>();
+            seagul.m_dropWhenDestroyed.m_drops.Add(new DropTable.DropData
+            {
+                m_item = eggFab,
+                m_stackMin = 1,
+                m_stackMax = 1,
+                m_weight = 1f,
+            });
+
+            seagul.m_dropWhenDestroyed.m_oneOfEach = true;
+            seagul.m_dropWhenDestroyed.m_dropMax = 2;
+            seagul.m_dropWhenDestroyed.m_dropMin = 2;
+
+
+            //var seaweedFab = customFood.LoadAsset<GameObject>("rk_seaweed");
+            /*var neck = PrefabManager.Instance.GetPrefab("Neck");
+             neck.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
+             {
+                 m_prefab = seaweedFab,
+                 m_amountMin = 1,
+                 m_amountMax = 1,
+                 m_chance = 0.8f,
+                 m_levelMultiplier = true,
+                 m_onePerPlayer = false,
+             });
+            
+            ItemManager.OnVanillaItemsAvailable -= AddCharacterDrops;*/
+            }
+
+        /*public void AddSkills()
+        {
+
+            if (SkillEnable.Value == true)
+            // Test adding a skill with a texture
+            {
+                rkCookingSkill = SkillManager.Instance.AddSkill(new SkillConfig
+                {
+
+                    Identifier = "rkCookingSkill",
+                    Name = "Gore-mand",
+                    Description = "Learn to cook and eat like a Viking!",
+                    Icon = CookingSprite,
+                    IncreaseStep = 1f,
+                });
+            }*/
+        //}
         private void LoadItem()
         {
             var grillFab = GrillOriginal.Value ? assetBundle.LoadAsset<GameObject>("rk_grill") : customFood.LoadAsset<GameObject>("rk_grill");
@@ -239,7 +425,11 @@ namespace Boneappetit
 
                 });
             var grillThing = grillFab.GetComponent<Piece>();
-            grillThing.m_placeEffect = buildStone;
+            grillThing.m_placeEffect = buildKitten;
+
+            var grillBreak = grillFab.GetComponent<WearNTear>();
+            grillBreak.m_hitEffect = hitStone;
+            grillBreak.m_destroyedEffect = breakStone;
 
             var grillStation = grillFab.GetComponent<CraftingStation>();
             grillStation.m_craftItemEffects = cookingSound;
@@ -268,12 +458,16 @@ namespace Boneappetit
 
             var griddlestation = griddlefab.GetComponent<CraftingStation>();
             griddlestation.m_craftItemEffects = cookingSound;
+
+            var griddleBreak = griddlefab.GetComponent<WearNTear>();
+            griddleBreak.m_destroyedEffect = breakStone;
+            griddleBreak.m_hitEffect = hitStone;
+
             PieceManager.Instance.AddPiece(griddle);
         }
         private void Oven()
         {
-            //piece_griddle
-
+           
             var ovenfab = assetBundle.LoadAsset<GameObject>("rk_oven");
             var oven = new CustomPiece(ovenfab,
                 new PieceConfig
@@ -295,6 +489,35 @@ namespace Boneappetit
 
             PieceManager.Instance.AddPiece(oven);
         }
+        private void Prepstation()
+        {
+            var prepFab = assetBundle.LoadAsset<GameObject>("rk_prep");
+            var prep = new CustomPiece(prepFab,
+                new PieceConfig
+                {
+                    PieceTable = "_HammerPieceTable",
+                    AllowedInDungeons = false,
+                    CraftingStation = "forge",
+                    Enabled = true,
+                    Requirements = new[]
+                    {
+                        new RequirementConfig {Item = "Wood", Amount = 4, Recover = true},
+                        new RequirementConfig {Item = "Tin", Amount = 5, Recover = true},
+                        new RequirementConfig {Item = "Stone", Amount = 3, Recover = true}
+                    }
+                });
+            var prepBuild = prepFab.GetComponent<Piece>();
+            prepBuild.m_placeEffect = buildKitten;
+
+            var prepDestroy = prepFab.GetComponent<WearNTear>();
+            prepDestroy.m_hitEffect = hitStone;
+            prepDestroy.m_destroyedEffect = breakStone;
+
+            fireVol = prepFab.GetComponentInChildren<AudioSource>();
+
+            PieceManager.Instance.AddPiece(prep);
+
+        }
         private void IceCream()
         {
             icecream_prefab = customFood.LoadAsset<GameObject>("rk_icecream");
@@ -304,17 +527,197 @@ namespace Boneappetit
                     Name = "Ice Cream",
                     Enabled = ConesEnable.Value,
                     Amount = 2,
-                    CraftingStation = "piece_cauldron",
+                    CraftingStation = "rk_prep",
                     Requirements = new[]
                     {
                         new RequirementConfig { Item = "FreezeGland", Amount = 4},
                         new RequirementConfig { Item = "Blueberries", Amount = 8},
-                        new RequirementConfig { Item = "Honey", Amount = 2}
+                        new RequirementConfig { Item = "Honey", Amount = 2},
+                        new RequirementConfig {Item = "rk_dragonegg", Amount = 1}
                     }
                 });
 
             ItemManager.Instance.AddItem(icecream);
 
+        }
+        private void Nut_Ella()
+        {
+            nut_ellaFab = customFood.LoadAsset<GameObject>("rk_nut_ella");
+            nut_ella = new CustomItem(nut_ellaFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Nut-Ella",
+                    Enabled = Nut_EllaEnable.Value,
+                    Amount = 1,
+                    CraftingStation = "rk_prep",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "BeechSeed", Amount = 6},
+                        new RequirementConfig { Item = "rk_butter", Amount = 1}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(nut_ella);
+        }
+        private void CarrotSticks()
+        {
+            carrotstickFab = customFood.LoadAsset<GameObject>("rk_carrotsticks");
+            carrotstick = new CustomItem(carrotstickFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Carrot Sticks",
+                    Enabled = CarrotSticksEnable.Value,
+                    Amount = 1,
+                    CraftingStation = "rk_prep",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "rk_carrots", Amount = 2},
+                        new RequirementConfig {Item = "rk_nut_ella", Amount = 1}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(carrotstick);
+        }
+        private void BoiledEgg()
+        {
+            boiledeggFab = customFood.LoadAsset<GameObject>("rk_boiledegg");
+            boiledegg = new CustomItem(boiledeggFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Boiled Egg",
+                    Enabled = BoiledEggEnable.Value,
+                    Amount = 1,
+                    CraftingStation = "rk_prep",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "rk_egg", Amount = 2}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(boiledegg);
+        }
+        private void Butter()
+        {
+            butterFab = customFood.LoadAsset<GameObject>("rk_butter");
+            butter = new CustomItem(butterFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Carrot Butter",
+                    Enabled = ButterEnable.Value,
+                    Amount = 2,
+                    CraftingStation = "rk_prep",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "CarrotSeeds", Amount = 8}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(butter);
+        }
+        private void Broth()
+        {
+            brothFab = customFood.LoadAsset<GameObject>("rk_broth");
+            broth = new CustomItem(brothFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Bone Broth",
+                    Enabled = BrothEnable.Value,
+                    Amount = 1,
+                    CraftingStation = "rk_prep",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "BoneFragments", Amount = 2},
+                        new RequirementConfig {Item = "rk_butter", Amount = 1}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(broth);
+        }
+        private void FishStew()
+        {
+            fishStewFab = customFood.LoadAsset<GameObject>("rk_fishstew");
+            fishStew = new CustomItem(fishStewFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Fish Stew",
+                    Enabled = FishStewEnable.Value,
+                    Amount = 1,
+                    CraftingStation = "rk_grill",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "rk_broth", Amount = 2},
+                        new RequirementConfig { Item = "RawFish", Amount = 2},
+                        new RequirementConfig { Item = "Thistle", Amount = 2},
+                        new RequirementConfig {Item = "rk_egg", Amount = 2}
+
+                    }
+                });
+
+            ItemManager.Instance.AddItem(fishStew);
+        }
+        private void Burger()
+        {
+            burgerFab = customFood.LoadAsset<GameObject>("rk_burger");
+            burger = new CustomItem(burgerFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Burger",
+                    Enabled = BurgerEnable.Value,
+                    Amount = 2,
+                    CraftingStation = "rk_grill",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "RawMeat", Amount = 2},
+                        new RequirementConfig { Item = "LoxMeat", Amount = 2},
+                        new RequirementConfig { Item = "Turnip", Amount = 2},
+                        new RequirementConfig {Item = "Bread", Amount = 1}
+
+                    }
+                });
+
+            ItemManager.Instance.AddItem(burger);
+        }
+        private void BloodSausage()
+        {
+            bloodsausageFab = customFood.LoadAsset<GameObject>("rk_bloodsausage");
+            bloodsausage = new CustomItem(bloodsausageFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Blood Sausage",
+                    Enabled = BurgerEnable.Value,
+                    Amount = 2,
+                    CraftingStation = "rk_grill",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "Entrails", Amount = 2},
+                        new RequirementConfig { Item = "Bloodbag", Amount = 2},
+                        new RequirementConfig { Item = "Turnip", Amount = 1},
+                        new RequirementConfig {Item = "rk_pork", Amount = 2}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(bloodsausage);
+        }
+        private void Omlette()
+        {
+            omletteFab = customFood.LoadAsset<GameObject>("rk_omlette");
+            omlette = new CustomItem(omletteFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Omlette",
+                    Enabled = BurgerEnable.Value,
+                    Amount = 1,
+                    CraftingStation = "rk_grill",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "rk_egg", Amount = 2},
+                        new RequirementConfig { Item = "Thistle", Amount = 2},
+                        new RequirementConfig {Item = "rk_pork", Amount = 1},
+                        new RequirementConfig {Item = "rk_butter", Amount = 1}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(bloodsausage);
         }
         private void PorkRind()
         {
@@ -328,11 +731,77 @@ namespace Boneappetit
                     CraftingStation = "rk_griddle",
                     Requirements = new[]
                     {
-                        new RequirementConfig { Item = "LeatherScraps", Amount = 1}
+                        new RequirementConfig { Item = "LeatherScraps", Amount = 1},
+                        new RequirementConfig {Item = "rk_pork", Amount = 1}
                     }
                 });
 
             ItemManager.Instance.AddItem(porkrind);
+
+        }
+        private void Haggis()
+        {
+            haggisFab = customFood.LoadAsset<GameObject>("rk_haggis");
+            haggis = new CustomItem(haggisFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Haggis",
+                    Enabled = HaggisEnable.Value,
+                    Amount = 1,
+                    CraftingStation = "rk_grill",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "RawMeat", Amount = 1},
+                        new RequirementConfig { Item = "Carrot", Amount = 2},
+                        new RequirementConfig { Item = "Entrals", Amount = 2},
+                        new RequirementConfig { Item = "Turnip", Amount = 2}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(haggis);
+
+        }
+        private void CandiedTurnip()
+        {
+             candiedTurnipFab = customFood.LoadAsset<GameObject>("rk_candiedturnip");
+            candiedTurnip = new CustomItem(candiedTurnipFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Candied Turnip",
+                    Enabled = CandiedTurnipEnable.Value,
+                    Amount = 1,
+                    CraftingStation = "rk_grill",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "Thistle", Amount = 1},
+                        new RequirementConfig { Item = "Honey", Amount = 2},
+                        new RequirementConfig { Item = "Turnip", Amount = 2}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(candiedTurnip);
+
+        }
+        private void Moochi()
+        {
+            moochiFab = customFood.LoadAsset<GameObject>("rk_moochi");
+            moochi = new CustomItem(moochiFab, fixReference: false,
+                new ItemConfig
+                {
+                    Name = "Moochi",
+                    Enabled = MoochiEnable.Value,
+                    Amount = 1,
+                    CraftingStation = "rk_prep",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "rk_dragonegg", Amount = 1},
+                        new RequirementConfig { Item = "Honey", Amount = 2},
+                        new RequirementConfig { Item = "FreezeGland", Amount = 1},
+                        new RequirementConfig {Item = "Blueberries", Amount = 4}
+                    }
+                });
+
+            ItemManager.Instance.AddItem(moochi);
 
         }
         private void Kabob()
@@ -372,7 +841,7 @@ namespace Boneappetit
                         new RequirementConfig { Item = "LoxMeat", Amount = 2},
                         new RequirementConfig { Item = "BarleyFlour", Amount = 2},
                         new RequirementConfig { Item = "Thistle", Amount = 1},
-                        new RequirementConfig { Item = "Cloudberry", Amount = 2}
+                        new RequirementConfig { Item = "rk_butter", Amount = 2}
                     }
                 });
 
@@ -412,7 +881,7 @@ namespace Boneappetit
                     CraftingStation = "rk_griddle",
                     Requirements = new[]
                     {
-                        new RequirementConfig { Item = "RawMeat", Amount = 1}
+                        new RequirementConfig { Item = "rk_pork", Amount = 1}
                     }
                 });
 
@@ -447,11 +916,13 @@ namespace Boneappetit
                     Enabled = PancakesEnable.Value,
                     Amount = 1,
                     CraftingStation = "rk_grill",
+                    MinStationLevel = 2,
                     Requirements = new[]
                     {
                         new RequirementConfig { Item = "Honey", Amount = 2},
                         new RequirementConfig { Item = "BarleyFlour", Amount = 3},
-                        new RequirementConfig { Item = "Cloudberry", Amount = 5}
+                        new RequirementConfig { Item = "rk_butter", Amount = 5},
+                        new RequirementConfig {Item = "rk_egg", Amount = 2}
                     }
                 });
 
@@ -473,7 +944,7 @@ namespace Boneappetit
                     {
                         new RequirementConfig { Item = "Honey", Amount = 2},
                         new RequirementConfig { Item = "BarleyFlour", Amount = 3},
-                        new RequirementConfig { Item = "Mushroom", Amount = 2},
+                        new RequirementConfig { Item = "rk_egg", Amount = 2},
                         new RequirementConfig { Item = "CookedMeat", Amount = 2}
                     }
                 });
@@ -490,7 +961,7 @@ namespace Boneappetit
                     Name = "Coffee",
                     Enabled = CoffeeEnable.Value,
                     Amount = 1,
-                    CraftingStation = "piece_cauldron",
+                    CraftingStation = "rk_prep",
                     Requirements = new[]
                     {
                          new RequirementConfig { Item = "AncientSeed", Amount = 2}
@@ -509,7 +980,7 @@ namespace Boneappetit
                     Name = "Spice Latte",
                     Enabled = LatteEnable.Value,
                     Amount = 2,
-                    CraftingStation = "piece_cauldron",
+                    CraftingStation = "rk_prep",
                     Requirements = new[]
                     {
                          new RequirementConfig { Item = "Crystal", Amount = 2},
@@ -530,12 +1001,13 @@ namespace Boneappetit
                     Name = "Fire Cream",
                     Enabled = ConesEnable.Value,
                     Amount = 2,
-                    CraftingStation = "piece_cauldron",
+                    CraftingStation = "rk_prep",
                     Requirements = new[]
                     {
                         new RequirementConfig { Item = "SurtlingCore", Amount = 4},
                         new RequirementConfig { Item = "Raspberry", Amount = 8},
-                        new RequirementConfig { Item = "Honey", Amount = 2}
+                        new RequirementConfig { Item = "Honey", Amount = 2},
+                        new RequirementConfig {Item = "rk_dragonegg", Amount = 2}
                     }
                 });
 
@@ -551,12 +1023,13 @@ namespace Boneappetit
                     Name = "Electric Cream",
                     Enabled = ConesEnable.Value,
                     Amount = 2,
-                    CraftingStation = "piece_cauldron",
+                    CraftingStation = "rk_prep",
                     Requirements = new[]
                     {
                         new RequirementConfig { Item = "Crystal", Amount = 4},
                         new RequirementConfig { Item = "Cloudberry", Amount = 8},
-                        new RequirementConfig { Item = "Honey", Amount = 2}
+                        new RequirementConfig { Item = "Honey", Amount = 2},
+                        new RequirementConfig {Item = "rk_dragonegg", Amount = 2}
                     }
                 });
 
@@ -572,12 +1045,13 @@ namespace Boneappetit
                     Name = "Acid Cream Cone",
                     Enabled = ConesEnable.Value,
                     Amount = 2,
-                    CraftingStation = "piece_cauldron",
+                    CraftingStation = "rk_prep",
                     Requirements = new[]
                     {
                         new RequirementConfig { Item = "Guck", Amount = 4},
                         new RequirementConfig { Item = "MushroomYellow", Amount = 8},
-                        new RequirementConfig { Item = "Honey", Amount = 2}
+                        new RequirementConfig { Item = "Honey", Amount = 2},
+                        new RequirementConfig {Item = "rk_dragonegg", Amount = 2}
                     }
                 });
 
@@ -599,7 +1073,8 @@ namespace Boneappetit
                       {
                           new RequirementConfig { Item = "Barley", Amount = 2},
                           new RequirementConfig { Item = "Cloudberry", Amount = 4},
-                          new RequirementConfig { Item = "Honey", Amount = 2}
+                          new RequirementConfig { Item = "Honey", Amount = 2},
+                          new RequirementConfig {Item = "rk_butter", Amount = 1}
                       }
                   });
 
@@ -621,7 +1096,7 @@ namespace Boneappetit
                    {
                           new RequirementConfig { Item = "Bread", Amount = 1},
                           new RequirementConfig { Item = "QueensJam", Amount = 1},
-                          new RequirementConfig { Item = "Flax", Amount = 4}
+                          new RequirementConfig { Item = "rk_nut_ella", Amount = 4}
                    }
                });
 
@@ -643,14 +1118,73 @@ namespace Boneappetit
                    {
                           new RequirementConfig { Item = "BarleyFlour", Amount = 2},
                           new RequirementConfig { Item = "Honey", Amount = 4},
-                          new RequirementConfig { Item = "Cloudberry", Amount = 4}
+                          new RequirementConfig { Item = "Cloudberry", Amount = 4},
+                        new RequirementConfig {Item = "rk_egg", Amount = 2}
                    }
                });
 
             ItemManager.Instance.AddItem(cake);
            
         }
-        
+        //private void Haggis()
+        private void LoadFire()
+        {
+            var fireFab = assetBundle.LoadAsset<GameObject>("rk_campfire");
+            var fire = new CustomPiece(fireFab,
+                new PieceConfig
+                {
+                    CraftingStation = "",
+                    AllowedInDungeons = false,
+                    Enabled = SmokelessEnable.Value,
+                    PieceTable = "_HammerPieceTable",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "Stone", Amount = 5, Recover = true },
+                        new RequirementConfig { Item = "Wood", Amount = 2, Recover = true}
+                    }
+                });
+            var firebuild = fireFab.GetComponent<Piece>();
+            firebuild.m_placeEffect = buildStone;
+
+            var firedecay = fireFab.GetComponent <WearNTear>();
+            firedecay.m_destroyedEffect = breakStone;
+
+            var addFuel = fireFab.GetComponent<Fireplace>();
+            addFuel.m_fuelAddedEffects = fireAddFuel;
+
+            fireVol = fireFab.GetComponentInChildren<AudioSource>();
+
+            PieceManager.Instance.AddPiece(fire);
+        }
+        private void LoadHearth()
+        {
+            var fireFab = assetBundle.LoadAsset<GameObject>("rk_hearth");
+            var fire = new CustomPiece(fireFab,
+                new PieceConfig
+                {
+                    CraftingStation = "piece_stonecutter",
+                    AllowedInDungeons = false,
+                    Enabled = SmokelessEnable.Value,
+                    PieceTable = "_HammerPieceTable",
+                    Requirements = new[]
+                    {
+                        new RequirementConfig { Item = "Stone", Amount = 15, Recover = true }
+                    }
+                });
+            var firebuild = fireFab.GetComponent<Piece>();
+            firebuild.m_placeEffect = buildStone;
+
+            var firedecay = fireFab.GetComponent<WearNTear>();
+            firedecay.m_destroyedEffect = breakStone;
+
+            var addFuel = fireFab.GetComponent<Fireplace>();
+            addFuel.m_fuelAddedEffects = hearthAddFuel;
+
+            fireVol = fireFab.GetComponentInChildren<AudioSource>();
+
+            PieceManager.Instance.AddPiece(fire);
+        }
+
     }
 
 }
