@@ -122,7 +122,7 @@ namespace Boneappetit
         public GameObject eggFab;
         public GameObject deggFab;
         public GameObject porkFab;
-
+        public GameObject feathers;
 
 
 
@@ -242,12 +242,13 @@ namespace Boneappetit
                 var sfxadd = PrefabManager.Cache.GetPrefab<GameObject>("sfx_FireAddFuel");
                 var sfxstonehit = PrefabManager.Cache.GetPrefab<GameObject>("sfx_Rock_Hit");
                 var vfxaddfuel = PrefabManager.Cache.GetPrefab<GameObject>("vfx_HearthAddFuel");
-
+                feathers = PrefabManager.Cache.GetPrefab<GameObject>("Feathers");
 
             //boarFab = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
             //hatchlingFab = PrefabManager.Cache.GetPrefab<GameObject>("Hatchling");
             //seagullFab = PrefabManager.Cache.GetPrefab<GameObject>("Seagal");
             //var sfxvol = AudioMan.instance.m_ambientLoopSource;
+
             
 
             buildStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxstone }, new EffectList.EffectData { m_prefab = vfxstone } } };
@@ -297,7 +298,7 @@ namespace Boneappetit
                 BoiledEgg();
                 Prepstation();
                 CarrotSticks();
-                 NewDrops();
+                 //NewDrops();
                 //Jotunn.Logger.LogMessage("New Drops Added"); };
 
                 fireVol = AudioMan.instance.m_ambientLoopSource;
@@ -310,7 +311,8 @@ namespace Boneappetit
             finally
             {*/
                 ItemManager.OnVanillaItemsAvailable -= LoadSounds;
-           
+            //PrefabManager.OnPrefabsRegistered -= NewDrops;
+
             //}
 
         }
@@ -321,13 +323,39 @@ namespace Boneappetit
                 var boarFab = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
                 var hatchlingFab = PrefabManager.Cache.GetPrefab<GameObject>("Hatchling");
                 var seagullFab = PrefabManager.Cache.GetPrefab<GameObject>("Seagal");
-               
-                //boarFab = ZNetScene.instance.GetPrefab("Boar");
-                //hatchlingFab = ZNetScene.instance.GetPrefab("Hatchling");
-                //seagullFab = ZNetScene.instance.GetPrefab("Seagal");
 
-                //var boar = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
-                boarFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
+            //boarFab = ZNetScene.instance.GetPrefab("Boar");
+            //hatchlingFab = ZNetScene.instance.GetPrefab("Hatchling");
+            //seagullFab = ZNetScene.instance.GetPrefab("Seagal");
+
+            DestroyImmediate(seagullFab.GetComponent<DropOnDestroyed>());
+            var seagul = seagullFab.AddComponent<DropOnDestroyed>();
+
+            seagul.m_dropWhenDestroyed.m_drops.Add(new DropTable.DropData
+
+            {
+                m_item = eggFab,
+                m_stackMin = 1,
+                m_stackMax = 1,
+                m_weight = 1f,
+            });
+            seagul.m_dropWhenDestroyed.m_drops.Add(new DropTable.DropData
+            {
+                m_item = feathers,
+                m_stackMin = 3,
+                m_stackMax = 3,
+                m_weight = 1f,
+            });
+            seagul.m_dropWhenDestroyed.m_oneOfEach = true;
+            seagul.m_dropWhenDestroyed.m_dropMax = 2;
+            seagul.m_dropWhenDestroyed.m_dropMin = 2;
+            seagul.m_dropWhenDestroyed.m_dropChance = 1;
+
+            seagul.m_spawnYStep = 0.3f;
+            seagul.m_spawnYOffset = 0.5f;
+
+            //var boar = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
+            boarFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
                 {
                     m_prefab = porkFab,
                     m_amountMin = 1,
@@ -338,7 +366,7 @@ namespace Boneappetit
 
                 });
 
-                /*hatchlingFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
+                hatchlingFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
                      {
                          m_prefab = deggFab,
                          m_amountMin = 1,
@@ -347,22 +375,9 @@ namespace Boneappetit
                          m_levelMultiplier = true,
                          m_onePerPlayer = false,
 
-                     });*/
+                     });
+           
 
-                var seagul = seagullFab.GetComponent<DropOnDestroyed>();
-                seagul.m_dropWhenDestroyed.m_drops.Add(new DropTable.DropData
-                {
-                    m_item = eggFab,
-                    m_stackMin = 1,
-                    m_stackMax = 1,
-                    m_weight = 1f,
-                });
-
-                seagul.m_dropWhenDestroyed.m_oneOfEach = true;
-                seagul.m_dropWhenDestroyed.m_dropMax = 2;
-                seagul.m_dropWhenDestroyed.m_dropMin = 2;
-
-            
             //var seaweedFab = customFood.LoadAsset<GameObject>("rk_seaweed");
             /*var neck = PrefabManager.Instance.GetPrefab("Neck");
              neck.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
@@ -376,7 +391,7 @@ namespace Boneappetit
              });
             
             ItemManager.OnVanillaItemsAvailable -= AddCharacterDrops;*/
-            }
+        }
 
         /*public void AddSkills()
         {
