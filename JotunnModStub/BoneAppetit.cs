@@ -224,8 +224,8 @@ namespace Boneappetit
             assetBundle = AssetUtils.LoadAssetBundleFromResources("grill", Assembly.GetExecutingAssembly());
             customFood = AssetUtils.LoadAssetBundleFromResources("customfood", Assembly.GetExecutingAssembly());
             CookingSprite = customFood.LoadAsset<Sprite>("rkcookingsprite");
-            feathers = PrefabManager.Cache.GetPrefab<GameObject>("Feathers");
-
+            //feathers = PrefabManager.Cache.GetPrefab<GameObject>("Feathers");
+            
             Jotunn.Logger.LogMessage("Prepping Kitchen...");
             LoadDropFab();
             LoadItem();
@@ -278,7 +278,7 @@ namespace Boneappetit
             var vfxaddfuel = PrefabManager.Cache.GetPrefab<GameObject>("vfx_HearthAddFuel");
 
             //var sfxvol = AudioMan.instance.m_ambientLoopSource;
-
+            
 
             buildStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxstone }, new EffectList.EffectData { m_prefab = vfxstone } } };
             cookingSound = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxcook } } };
@@ -302,9 +302,13 @@ namespace Boneappetit
             var hatchlingFab = PrefabManager.Instance.GetPrefab("Hatchling");
             var seagullFab = PrefabManager.Instance.GetPrefab("Seagal");
 
-            var porkFab = PrefabManager.Instance.GetPrefab("rk_pork");
+            /*var porkFab = PrefabManager.Instance.GetPrefab("rk_pork");
             var eggFab = PrefabManager.Instance.GetPrefab("rk_egg");
             var deggFab = PrefabManager.Instance.GetPrefab("rk_dragonegg");
+
+            PrefabManager.Instance.AddPrefab(porkFab);
+            PrefabManager.Instance.AddPrefab(deggFab);
+            PrefabManager.Instance.AddPrefab(eggFab);*/
 
             var seagul = seagullFab.AddComponent<DropOnDestroyed>();
 
@@ -345,6 +349,7 @@ namespace Boneappetit
                 m_onePerPlayer = false,
             });
 
+            
 
             //var seaweedFab = customFood.LoadAsset<GameObject>("rk_seaweed");
             /*var neck = PrefabManager.Instance.GetPrefab("Neck");
@@ -383,6 +388,7 @@ namespace Boneappetit
         {
             porkFab = customFood.LoadAsset<GameObject>("rk_pork");
             PrefabManager.Instance.AddPrefab(porkFab);
+            var pork = porkFab.
 
             eggFab = customFood.LoadAsset<GameObject>("rk_egg");
             PrefabManager.Instance.AddPrefab(eggFab);
