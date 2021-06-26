@@ -131,9 +131,12 @@ namespace Boneappetit
         {
             CreatConfigValues();
             AssetLoad();
+            //LoadDropFab();
             //AddSkills();
             ItemManager.OnVanillaItemsAvailable += LoadSounds;
             PrefabManager.OnPrefabsRegistered += NewDrops;
+            
+            //PrefabManager.OnPrefabsRegistered += DropMachine;
 
             SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
               {
@@ -150,6 +153,14 @@ namespace Boneappetit
               };
 
         }
+        /*public void LoadDropFab()
+        {
+            porkFab = customFood.LoadAsset<GameObject>("rk_pork");
+            PrefabManager.Instance.AddPrefab(porkFab);
+            deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
+            PrefabManager.Instance.AddPrefab(deggFab);
+            Jotunn.Logger.LogInfo("added Lelzcube");
+        }*/
         public void CreatConfigValues()
         {
             Config.SaveOnConfigSet = true;
@@ -225,9 +236,32 @@ namespace Boneappetit
             customFood = AssetUtils.LoadAssetBundleFromResources("customfood", Assembly.GetExecutingAssembly());
             CookingSprite = customFood.LoadAsset<Sprite>("rkcookingsprite");
             feathers = PrefabManager.Cache.GetPrefab<GameObject>("Feathers");
+        /*public void DropMachine()
+        {
+
+            var boarFab = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
+
+            var BoarDrop = boarFab.GetComponent<CharacterDrop>();
+            var pork = new CharacterDrop.Drop { m_prefab = porkFab, m_chance = 100 };
+
+            BoarDrop.m_drops.Add(pork);
+
+            var drakeFab = PrefabManager.Cache.GetPrefab<GameObject>("Hatchling");
+
+            var DrakeDrop = drakeFab.GetComponent<CharacterDrop>();
+            var degg = new CharacterDrop.Drop { m_prefab = deggFab, m_chance = 100 };
+
+            DrakeDrop.m_drops.Add(degg);
+            Jotunn.Logger.LogInfo("I added a boar to your boar cuz i heard  you like boars dog");
+
+
+
+        }*/
+                //feathers = PrefabManager.Cache.GetPrefab<GameObject>("Feathers");
 
             Jotunn.Logger.LogMessage("Prepping Kitchen...");
             LoadDropFab();
+            Jotunn.Logger.LogMessage("Big thanks to MeatwareMonster!");
             LoadItem();
             LoadGriddle();
             Oven();
@@ -301,11 +335,13 @@ namespace Boneappetit
             var boarFab = PrefabManager.Instance.GetPrefab("Boar");
             var hatchlingFab = PrefabManager.Instance.GetPrefab("Hatchling");
             var seagullFab = PrefabManager.Instance.GetPrefab("Seagal");
-
             var porkFab = PrefabManager.Instance.GetPrefab("rk_pork");
             var eggFab = PrefabManager.Instance.GetPrefab("rk_egg");
             var deggFab = PrefabManager.Instance.GetPrefab("rk_dragonegg");
 
+            var porkFab = PrefabManager.Instance.GetPrefab("rk_pork");
+            var eggFab = PrefabManager.Instance.GetPrefab("rk_egg");
+            var deggFab = PrefabManager.Instance.GetPrefab("rk_dragonegg");
             var seagul = seagullFab.AddComponent<DropOnDestroyed>();
 
             seagul.m_dropWhenDestroyed.m_drops.Add(new DropTable.DropData
@@ -334,7 +370,47 @@ namespace Boneappetit
                 m_levelMultiplier = true,
                 m_onePerPlayer = false,
             });
+            hatchlingFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
+            {
+                m_prefab = deggFab,
+                m_amountMin = 1,
+                m_amountMax = 1,
+                m_chance = 100f,
+                m_levelMultiplier = true,
+                m_onePerPlayer = false,
+            });
 
+            /*var seagul = seagullFab.AddComponent<DropOnDestroyed>();
+
+            seagul.m_dropWhenDestroyed.m_drops.Add(new DropTable.DropData
+
+            {
+                m_item = eggFab,
+                m_stackMin = 1,
+                m_stackMax = 1,
+                m_weight = 1f,
+            });
+           
+            seagul.m_dropWhenDestroyed.m_oneOfEach = true;
+            seagul.m_dropWhenDestroyed.m_dropMax = 2;
+            seagul.m_dropWhenDestroyed.m_dropMin = 2;
+            seagul.m_dropWhenDestroyed.m_dropChance = 1;
+
+            seagul.m_spawnYStep = 0.3f;
+            seagul.m_spawnYOffset = 0.5f;
+
+            //var boar = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
+            boarFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
+            {
+                m_prefab = porkFab,
+                m_amountMin = 1,
+                m_amountMax = 1,
+                m_chance = 100f,
+                m_levelMultiplier = true,
+                m_onePerPlayer = false,
+            });
+
+                
             hatchlingFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
             {
                 m_prefab = deggFab,
@@ -360,35 +436,34 @@ namespace Boneappetit
 
             ItemManager.OnVanillaItemsAvailable -= AddCharacterDrops;*/
             PrefabManager.OnPrefabsRegistered -= NewDrops;
-        }
 
-        /*public void AddSkills()
-        {
-
-            if (SkillEnable.Value == true)
-            // Test adding a skill with a texture
+            /*public void AddSkills()
             {
-                rkCookingSkill = SkillManager.Instance.AddSkill(new SkillConfig
+
+                if (SkillEnable.Value == true)
+                // Test adding a skill with a texture
                 {
+                    rkCookingSkill = SkillManager.Instance.AddSkill(new SkillConfig
+                    {
 
-                    Identifier = "rkCookingSkill",
-                    Name = "Gore-mand",
-                    Description = "Learn to cook and eat like a Viking!",
-                    Icon = CookingSprite,
-                    IncreaseStep = 1f,
-                });
-            }*/
-        //}
-        public void LoadDropFab()
-        {
-            porkFab = customFood.LoadAsset<GameObject>("rk_pork");
-            PrefabManager.Instance.AddPrefab(porkFab);
+                        Identifier = "rkCookingSkill",
+                        Name = "Gore-mand",
+                        Description = "Learn to cook and eat like a Viking!",
+                        Icon = CookingSprite,
+                        IncreaseStep = 1f,
+                    });
+                }*/
+            }
+            public void LoadDropFab()
+            {
+                porkFab = customFood.LoadAsset<GameObject>("rk_pork");
+                //PrefabManager.Instance.AddPrefab(porkFab);
 
-            eggFab = customFood.LoadAsset<GameObject>("rk_egg");
-            PrefabManager.Instance.AddPrefab(eggFab);
+                eggFab = customFood.LoadAsset<GameObject>("rk_egg");
+                //PrefabManager.Instance.AddPrefab(eggFab);
 
-            deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
-            PrefabManager.Instance.AddPrefab(deggFab);
+                deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
+            //PrefabManager.Instance.AddPrefab(deggFab);
 
         }
 
