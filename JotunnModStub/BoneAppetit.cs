@@ -125,7 +125,6 @@ namespace Boneappetit
         public GameObject eggFab;
         public GameObject deggFab;
         public GameObject porkFab;
-        public GameObject feathers;
 
         public void Awake()
         {
@@ -134,8 +133,8 @@ namespace Boneappetit
             //LoadDropFab();
             //AddSkills();
             ItemManager.OnVanillaItemsAvailable += LoadSounds;
-            PrefabManager.OnPrefabsRegistered += NewDrops;
-            
+            ItemManager.OnItemsRegistered += NewDrops;
+
             //PrefabManager.OnPrefabsRegistered += DropMachine;
 
             SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
@@ -153,14 +152,6 @@ namespace Boneappetit
               };
 
         }
-        /*public void LoadDropFab()
-        {
-            porkFab = customFood.LoadAsset<GameObject>("rk_pork");
-            PrefabManager.Instance.AddPrefab(porkFab);
-            deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
-            PrefabManager.Instance.AddPrefab(deggFab);
-            Jotunn.Logger.LogInfo("added Lelzcube");
-        }*/
         public void CreatConfigValues()
         {
             Config.SaveOnConfigSet = true;
@@ -235,29 +226,6 @@ namespace Boneappetit
             assetBundle = AssetUtils.LoadAssetBundleFromResources("grill", Assembly.GetExecutingAssembly());
             customFood = AssetUtils.LoadAssetBundleFromResources("customfood", Assembly.GetExecutingAssembly());
             CookingSprite = customFood.LoadAsset<Sprite>("rkcookingsprite");
-            feathers = PrefabManager.Cache.GetPrefab<GameObject>("Feathers");
-        /*public void DropMachine()
-        {
-
-            var boarFab = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
-
-            var BoarDrop = boarFab.GetComponent<CharacterDrop>();
-            var pork = new CharacterDrop.Drop { m_prefab = porkFab, m_chance = 100 };
-
-            BoarDrop.m_drops.Add(pork);
-
-            var drakeFab = PrefabManager.Cache.GetPrefab<GameObject>("Hatchling");
-
-            var DrakeDrop = drakeFab.GetComponent<CharacterDrop>();
-            var degg = new CharacterDrop.Drop { m_prefab = deggFab, m_chance = 100 };
-
-            DrakeDrop.m_drops.Add(degg);
-            Jotunn.Logger.LogInfo("I added a boar to your boar cuz i heard  you like boars dog");
-
-
-
-        }*/
-                //feathers = PrefabManager.Cache.GetPrefab<GameObject>("Feathers");
 
             Jotunn.Logger.LogMessage("Prepping Kitchen...");
             LoadDropFab();
@@ -339,10 +307,7 @@ namespace Boneappetit
             var eggFab = PrefabManager.Instance.GetPrefab("rk_egg");
             var deggFab = PrefabManager.Instance.GetPrefab("rk_dragonegg");
 
-            var porkFab = PrefabManager.Instance.GetPrefab("rk_pork");
-            var eggFab = PrefabManager.Instance.GetPrefab("rk_egg");
-            var deggFab = PrefabManager.Instance.GetPrefab("rk_dragonegg");
-            var seagul = seagullFab.AddComponent<DropOnDestroyed>();
+            var seagul = seagullFab.GetComponent<DropOnDestroyed>();
 
             seagul.m_dropWhenDestroyed.m_drops.Add(new DropTable.DropData
 
@@ -435,7 +400,7 @@ namespace Boneappetit
              });
 
             ItemManager.OnVanillaItemsAvailable -= AddCharacterDrops;*/
-            PrefabManager.OnPrefabsRegistered -= NewDrops;
+            ItemManager.OnItemsRegistered -= NewDrops;
 
             /*public void AddSkills()
             {
@@ -453,18 +418,17 @@ namespace Boneappetit
                         IncreaseStep = 1f,
                     });
                 }*/
-            }
-            public void LoadDropFab()
-            {
-                porkFab = customFood.LoadAsset<GameObject>("rk_pork");
-                //PrefabManager.Instance.AddPrefab(porkFab);
+        }
+        public void LoadDropFab()
+        {
+            porkFab = customFood.LoadAsset<GameObject>("rk_pork");
+            ItemManager.Instance.AddItem(new CustomItem(porkFab, true));
 
-                eggFab = customFood.LoadAsset<GameObject>("rk_egg");
-                //PrefabManager.Instance.AddPrefab(eggFab);
+            eggFab = customFood.LoadAsset<GameObject>("rk_egg");
+            ItemManager.Instance.AddItem(new CustomItem(eggFab, true));
 
-                deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
-            //PrefabManager.Instance.AddPrefab(deggFab);
-
+            deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
+            ItemManager.Instance.AddItem(new CustomItem(deggFab, true));
         }
 
         private void LoadItem()
