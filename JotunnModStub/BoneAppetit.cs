@@ -117,18 +117,15 @@ namespace Boneappetit
         public CustomItem burger;
         public GameObject nut_ellaFab;
         public CustomItem nut_ella;
-        public GameObject eggFab;
         public GameObject boiledeggFab;
         public CustomItem boiledegg;
         public GameObject carrotstickFab;
         public CustomItem carrotstick;
-      
+
         public GameObject eggFab;
         public GameObject deggFab;
         public GameObject porkFab;
         public GameObject feathers;
-
-
 
         public void Awake()
         {
@@ -138,19 +135,19 @@ namespace Boneappetit
             ItemManager.OnVanillaItemsAvailable += LoadSounds;
             PrefabManager.OnPrefabsRegistered += NewDrops;
 
-          SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
-            {
-                if (attr.InitialSynchronization)
-                {
-                    Jotunn.Logger.LogMessage("Initial Config sync event received");
-                    LoadFood();
-                }
-                else
-                {
-                    Jotunn.Logger.LogMessage("Config sync event received");
+            SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
+              {
+                  if (attr.InitialSynchronization)
+                  {
+                      Jotunn.Logger.LogMessage("Initial Config sync event received");
+                      LoadFood();
+                  }
+                  else
+                  {
+                      Jotunn.Logger.LogMessage("Config sync event received");
 
-                }
-            };
+                  }
+              };
 
         }
         public void CreatConfigValues()
@@ -227,18 +224,15 @@ namespace Boneappetit
             assetBundle = AssetUtils.LoadAssetBundleFromResources("grill", Assembly.GetExecutingAssembly());
             customFood = AssetUtils.LoadAssetBundleFromResources("customfood", Assembly.GetExecutingAssembly());
             CookingSprite = customFood.LoadAsset<Sprite>("rkcookingsprite");
-                feathers = PrefabManager.Cache.GetPrefab<GameObject>("Feathers");
-                
-            
-
+            feathers = PrefabManager.Cache.GetPrefab<GameObject>("Feathers");
 
             Jotunn.Logger.LogMessage("Prepping Kitchen...");
-                LoadDropFab();
+            LoadDropFab();
             LoadItem();
             LoadGriddle();
             Oven();
-                Butter();
-                Nut_Ella();
+            Butter();
+            Nut_Ella();
             IceCream();
             PorkRind();
             Kabob();
@@ -269,7 +263,6 @@ namespace Boneappetit
             BoiledEgg();
             Prepstation();
             CarrotSticks();
-            Egg();
         }
 
         public void LoadSounds()
@@ -296,7 +289,6 @@ namespace Boneappetit
             fireAddFuel = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = vfxadd }, new EffectList.EffectData { m_prefab = sfxadd } } };
 
             Jotunn.Logger.LogMessage("Loaded Game VFX and SFX");
-            Jotunn.Logger.LogMessage("Prepping Kitchen...");
 
             fireVol = AudioMan.instance.m_ambientLoopSource;
             Jotunn.Logger.LogMessage("Load Complete. Bone Appetit yall.");
@@ -305,17 +297,15 @@ namespace Boneappetit
 
         }
         public void NewDrops()
-
-          
-            {
+        {
             var boarFab = PrefabManager.Instance.GetPrefab("Boar");
             var hatchlingFab = PrefabManager.Instance.GetPrefab("Hatchling");
             var seagullFab = PrefabManager.Instance.GetPrefab("Seagal");
 
             var porkFab = PrefabManager.Instance.GetPrefab("rk_pork");
             var eggFab = PrefabManager.Instance.GetPrefab("rk_egg");
+            var deggFab = PrefabManager.Instance.GetPrefab("rk_dragonegg");
 
-            
             var seagul = seagullFab.AddComponent<DropOnDestroyed>();
 
             seagul.m_dropWhenDestroyed.m_drops.Add(new DropTable.DropData
@@ -326,7 +316,7 @@ namespace Boneappetit
                 m_stackMax = 1,
                 m_weight = 1f,
             });
-           
+
             seagul.m_dropWhenDestroyed.m_oneOfEach = true;
             seagul.m_dropWhenDestroyed.m_dropMax = 2;
             seagul.m_dropWhenDestroyed.m_dropMin = 2;
@@ -336,30 +326,25 @@ namespace Boneappetit
             seagul.m_spawnYOffset = 0.5f;
 
             boarFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
-                {
-                    m_prefab = porkFab,
-                    m_amountMin = 1,
-                    m_amountMax = 1,
-                    m_chance = 100f,
-                    m_levelMultiplier = true,
-                    m_onePerPlayer = false,
-                });
+            {
+                m_prefab = porkFab,
+                m_amountMin = 1,
+                m_amountMax = 1,
+                m_chance = 100f,
+                m_levelMultiplier = true,
+                m_onePerPlayer = false,
+            });
 
-            /*
-             Var deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
-             var hatchling = hatchlingFab.GetComponent<CharacterDrop>();
-                 hatchling.m_drops.Add(new CharacterDrop.Drop()
-                 {
-                     m_prefab = deggFab,
-                     m_amountMin = 1,
-                     m_amountMax = 1,
-                         m_chance = 100f,
-                         m_levelMultiplier = true,
-                         m_onePerPlayer = false,
+            hatchlingFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
+            {
+                m_prefab = deggFab,
+                m_amountMin = 1,
+                m_amountMax = 1,
+                m_chance = 100f,
+                m_levelMultiplier = true,
+                m_onePerPlayer = false,
+            });
 
-                 });*/
-                     });
-           
 
             //var seaweedFab = customFood.LoadAsset<GameObject>("rk_seaweed");
             /*var neck = PrefabManager.Instance.GetPrefab("Neck");
@@ -372,7 +357,7 @@ namespace Boneappetit
                  m_levelMultiplier = true,
                  m_onePerPlayer = false,
              });
-            
+
             ItemManager.OnVanillaItemsAvailable -= AddCharacterDrops;*/
             PrefabManager.OnPrefabsRegistered -= NewDrops;
         }
@@ -401,12 +386,12 @@ namespace Boneappetit
 
             eggFab = customFood.LoadAsset<GameObject>("rk_egg");
             PrefabManager.Instance.AddPrefab(eggFab);
-            
+
             deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
             PrefabManager.Instance.AddPrefab(deggFab);
-            
+
         }
-        
+
         private void LoadItem()
         {
             var grillFab = GrillOriginal.Value ? assetBundle.LoadAsset<GameObject>("rk_grill") : customFood.LoadAsset<GameObject>("rk_grill");
@@ -580,11 +565,6 @@ namespace Boneappetit
                 });
 
             ItemManager.Instance.AddItem(carrotstick);
-        }
-        private void Egg()
-        {
-            eggFab = customFood.LoadAsset<GameObject>("rk_egg");
-            PrefabManager.Instance.AddPrefab(eggFab);
         }
         private void BoiledEgg()
         {
@@ -940,22 +920,22 @@ namespace Boneappetit
         private void Pizza()
         {
             pizza_prefab = customFood.LoadAsset<GameObject>("rk_pizza");
-             pizza = new CustomItem(pizza_prefab, fixReference: true,
-               new ItemConfig
-               {
-                   Name = "Pizza",
-                   Enabled = PizzaEnable.Value,
-                   Amount = 1,
-                   CraftingStation = "rk_grill",
-                   MinStationLevel = 2,
-                   Requirements = new[]
-                   {
+            pizza = new CustomItem(pizza_prefab, fixReference: true,
+              new ItemConfig
+              {
+                  Name = "Pizza",
+                  Enabled = PizzaEnable.Value,
+                  Amount = 1,
+                  CraftingStation = "rk_grill",
+                  MinStationLevel = 2,
+                  Requirements = new[]
+                  {
                         new RequirementConfig { Item = "Honey", Amount = 2},
                         new RequirementConfig { Item = "BarleyFlour", Amount = 3},
                         new RequirementConfig { Item = "rk_egg", Amount = 2},
                         new RequirementConfig { Item = "CookedMeat", Amount = 2}
-                   }
-               });
+                  }
+              });
 
             ItemManager.Instance.AddItem(pizza);
         }
@@ -963,18 +943,18 @@ namespace Boneappetit
         private void Coffee()
         {
             coffee_prefab = customFood.LoadAsset<GameObject>("rk_coffee");
-             coffee = new CustomItem(coffee_prefab, fixReference: true,
-               new ItemConfig
-               {
-                   Name = "Coffee",
-                   Enabled = CoffeeEnable.Value,
-                   Amount = 1,
-                   CraftingStation = "rk_prep",
-                   Requirements = new[]
-                   {
+            coffee = new CustomItem(coffee_prefab, fixReference: true,
+              new ItemConfig
+              {
+                  Name = "Coffee",
+                  Enabled = CoffeeEnable.Value,
+                  Amount = 1,
+                  CraftingStation = "rk_prep",
+                  Requirements = new[]
+                  {
                          new RequirementConfig { Item = "AncientSeed", Amount = 2}
-                   }
-               });
+                  }
+              });
 
             ItemManager.Instance.AddItem(coffee);
 
@@ -982,20 +962,20 @@ namespace Boneappetit
         private void Latte()
         {
             latte_prefab = customFood.LoadAsset<GameObject>("rk_latte");
-             latte = new CustomItem(latte_prefab, fixReference: true,
-               new ItemConfig
-               {
-                   Name = "Spice Latte",
-                   Enabled = LatteEnable.Value,
-                   Amount = 2,
-                   CraftingStation = "rk_prep",
-                   Requirements = new[]
-                   {
+            latte = new CustomItem(latte_prefab, fixReference: true,
+              new ItemConfig
+              {
+                  Name = "Spice Latte",
+                  Enabled = LatteEnable.Value,
+                  Amount = 2,
+                  CraftingStation = "rk_prep",
+                  Requirements = new[]
+                  {
                          new RequirementConfig { Item = "Crystal", Amount = 2},
                          new RequirementConfig { Item = "Barley", Amount = 2},
                          new RequirementConfig { Item = "Honey", Amount = 10}
-                   }
-               });
+                  }
+              });
 
             ItemManager.Instance.AddItem(latte);
 
@@ -1069,22 +1049,22 @@ namespace Boneappetit
         private void Porridge()
         {
             porridge_prefab = customFood.LoadAsset<GameObject>("rk_porridge");
-               porridge = new CustomItem(porridge_prefab, fixReference: true,
-               new ItemConfig
-               {
-                   Name = "Porridge",
-                   Enabled = PorridgeEnable.Value,
-                   Amount = 1,
-                   CraftingStation = "rk_grill",
-                   MinStationLevel = 2,
-                   Requirements = new[]
-                   {
+            porridge = new CustomItem(porridge_prefab, fixReference: true,
+            new ItemConfig
+            {
+                Name = "Porridge",
+                Enabled = PorridgeEnable.Value,
+                Amount = 1,
+                CraftingStation = "rk_grill",
+                MinStationLevel = 2,
+                Requirements = new[]
+                {
                           new RequirementConfig { Item = "Barley", Amount = 2},
                           new RequirementConfig { Item = "Cloudberry", Amount = 4},
                           new RequirementConfig { Item = "Honey", Amount = 2},
                           new RequirementConfig {Item = "rk_butter", Amount = 1}
-                   }
-               });
+                }
+            });
 
             ItemManager.Instance.AddItem(porridge);
 
