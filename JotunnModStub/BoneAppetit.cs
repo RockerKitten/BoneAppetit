@@ -328,7 +328,7 @@ namespace Boneappetit
             //hatchlingFab = ZNetScene.instance.GetPrefab("Hatchling");
             //seagullFab = ZNetScene.instance.GetPrefab("Seagal");
 
-            DestroyImmediate(seagullFab.GetComponent<DropOnDestroyed>());
+            
             var seagul = seagullFab.AddComponent<DropOnDestroyed>();
 
             seagul.m_dropWhenDestroyed.m_drops.Add(new DropTable.DropData
@@ -339,13 +339,7 @@ namespace Boneappetit
                 m_stackMax = 1,
                 m_weight = 1f,
             });
-            seagul.m_dropWhenDestroyed.m_drops.Add(new DropTable.DropData
-            {
-                m_item = feathers,
-                m_stackMin = 3,
-                m_stackMax = 3,
-                m_weight = 1f,
-            });
+           
             seagul.m_dropWhenDestroyed.m_oneOfEach = true;
             seagul.m_dropWhenDestroyed.m_dropMax = 2;
             seagul.m_dropWhenDestroyed.m_dropMin = 2;
