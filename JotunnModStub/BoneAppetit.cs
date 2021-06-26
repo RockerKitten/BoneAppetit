@@ -1,12 +1,12 @@
-﻿using BepInEx;
-using UnityEngine;
-using BepInEx.Configuration;
-using Jotunn.Utils;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using Jotunn.Entities;
+using BepInEx;
+using BepInEx.Configuration;
 using Jotunn.Configs;
+using Jotunn.Entities;
 using Jotunn.Managers;
-using System;
+using Jotunn.Utils;
+using UnityEngine;
 
 namespace Boneappetit
 {
@@ -59,6 +59,9 @@ namespace Boneappetit
         public EffectList buildKitten;
         public EffectList hearthAddFuel;
         public EffectList fireAddFuel;
+
+        public Dictionary<string, GameObject> Prefabs = new Dictionary<string, GameObject>();
+
         public GameObject icecream_prefab;
         public CustomItem icecream;
         public GameObject porkrind_prefab;
@@ -118,13 +121,10 @@ namespace Boneappetit
         public CustomItem boiledegg;
         public GameObject carrotstickFab;
         public CustomItem carrotstick;
-      
+
         public GameObject eggFab;
         public GameObject deggFab;
         public GameObject porkFab;
-        public GameObject feathers;
-
-
 
         public void Awake()
         {
@@ -133,33 +133,25 @@ namespace Boneappetit
             //LoadDropFab();
             //AddSkills();
             ItemManager.OnVanillaItemsAvailable += LoadSounds;
-            PrefabManager.OnPrefabsRegistered += NewDrops;
-            
+            ItemManager.OnItemsRegistered += NewDrops;
+
             //PrefabManager.OnPrefabsRegistered += DropMachine;
 
             SynchronizationManager.OnConfigurationSynchronized += (obj, attr) =>
-            {
-                if (attr.InitialSynchronization)
-                {
-                    Jotunn.Logger.LogMessage("Initial Config sync event received");
-                    LoadFood();
-                }
-                else
-                {
-                    Jotunn.Logger.LogMessage("Config sync event received");
+              {
+                  if (attr.InitialSynchronization)
+                  {
+                      Jotunn.Logger.LogMessage("Initial Config sync event received");
+                      LoadFood();
+                  }
+                  else
+                  {
+                      Jotunn.Logger.LogMessage("Config sync event received");
 
-                }
-            };
+                  }
+              };
 
         }
-        /*public void LoadDropFab()
-        {
-            porkFab = customFood.LoadAsset<GameObject>("rk_pork");
-            PrefabManager.Instance.AddPrefab(porkFab);
-            deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
-            PrefabManager.Instance.AddPrefab(deggFab);
-            Jotunn.Logger.LogInfo("added Lelzcube");
-        }*/
         public void CreatConfigValues()
         {
             Config.SaveOnConfigSet = true;
@@ -234,136 +226,88 @@ namespace Boneappetit
             assetBundle = AssetUtils.LoadAssetBundleFromResources("grill", Assembly.GetExecutingAssembly());
             customFood = AssetUtils.LoadAssetBundleFromResources("customfood", Assembly.GetExecutingAssembly());
             CookingSprite = customFood.LoadAsset<Sprite>("rkcookingsprite");
-            //fireclip = customFood.LoadAsset<AudioClip>("")
-            feathers = PrefabManager.Cache.GetPrefab<GameObject>("Feathers");
 
-
+            Jotunn.Logger.LogMessage("Prepping Kitchen...");
+            LoadDropFab();
+            Jotunn.Logger.LogMessage("Big thanks to MeatwareMonster!");
+            LoadItem();
+            LoadGriddle();
+            Oven();
+            Butter();
+            Nut_Ella();
+            IceCream();
+            PorkRind();
+            Kabob();
+            FriedLox();
+            GlazedCarrot();
+            Bacon();
+            SmokedFish();
+            Pancakes();
+            Pizza();
+            Coffee();
+            Latte();
+            FireCream();
+            ElectricCream();
+            AcidCream();
+            Porridge();
+            PBJ();
+            Cake();
+            LoadFire();
+            LoadHearth();
+            Haggis();
+            CandiedTurnip();
+            Moochi();
+            Broth();
+            FishStew();
+            BloodSausage();
+            Burger();
+            Omlette();
+            BoiledEgg();
+            Prepstation();
+            CarrotSticks();
         }
-        /*public void DropMachine()
-        {
 
-            var boarFab = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
-
-            var BoarDrop = boarFab.GetComponent<CharacterDrop>();
-            var pork = new CharacterDrop.Drop { m_prefab = porkFab, m_chance = 100 };
-
-            BoarDrop.m_drops.Add(pork);
-
-            var drakeFab = PrefabManager.Cache.GetPrefab<GameObject>("Hatchling");
-
-            var DrakeDrop = drakeFab.GetComponent<CharacterDrop>();
-            var degg = new CharacterDrop.Drop { m_prefab = deggFab, m_chance = 100 };
-
-            DrakeDrop.m_drops.Add(degg);
-            Jotunn.Logger.LogInfo("I added a boar to your boar cuz i heard  you like boars dog");
-
-
-
-        }*/
         public void LoadSounds()
         {
-            //try
-            //{
-                var sfxstone = PrefabManager.Cache.GetPrefab<GameObject>("sfx_build_hammer_stone");
-                var vfxstone = PrefabManager.Cache.GetPrefab<GameObject>("vfx_Place_stone_wall_2x1");
-                var sfxcook = PrefabManager.Cache.GetPrefab<GameObject>("sfx_cooking_station_done");
-                var sfxbreak = PrefabManager.Cache.GetPrefab<GameObject>("sfx_rock_destroyed");
-                var kittenPoof = assetBundle.LoadAsset<GameObject>("vfx_rainbowkitten");
-                var vfxadd = PrefabManager.Cache.GetPrefab<GameObject>("vfx_FireAddFuel");
-                var sfxadd = PrefabManager.Cache.GetPrefab<GameObject>("sfx_FireAddFuel");
-                var sfxstonehit = PrefabManager.Cache.GetPrefab<GameObject>("sfx_Rock_Hit");
-                var vfxaddfuel = PrefabManager.Cache.GetPrefab<GameObject>("vfx_HearthAddFuel");
-                //feathers = PrefabManager.Cache.GetPrefab<GameObject>("Feathers");
+            var sfxstone = PrefabManager.Cache.GetPrefab<GameObject>("sfx_build_hammer_stone");
+            var vfxstone = PrefabManager.Cache.GetPrefab<GameObject>("vfx_Place_stone_wall_2x1");
+            var sfxcook = PrefabManager.Cache.GetPrefab<GameObject>("sfx_cooking_station_done");
+            var sfxbreak = PrefabManager.Cache.GetPrefab<GameObject>("sfx_rock_destroyed");
+            var kittenPoof = assetBundle.LoadAsset<GameObject>("vfx_rainbowkitten");
+            var vfxadd = PrefabManager.Cache.GetPrefab<GameObject>("vfx_FireAddFuel");
+            var sfxadd = PrefabManager.Cache.GetPrefab<GameObject>("sfx_FireAddFuel");
+            var sfxstonehit = PrefabManager.Cache.GetPrefab<GameObject>("sfx_Rock_Hit");
+            var vfxaddfuel = PrefabManager.Cache.GetPrefab<GameObject>("vfx_HearthAddFuel");
 
-            //boarFab = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
-            //hatchlingFab = PrefabManager.Cache.GetPrefab<GameObject>("Hatchling");
-            //seagullFab = PrefabManager.Cache.GetPrefab<GameObject>("Seagal");
             //var sfxvol = AudioMan.instance.m_ambientLoopSource;
 
-            
 
             buildStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxstone }, new EffectList.EffectData { m_prefab = vfxstone } } };
-                cookingSound = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxcook } } };
-                breakStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxbreak } } };
-                hitStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxstonehit } } };
-                buildKitten = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxstone }, new EffectList.EffectData { m_prefab = kittenPoof } } };
-                hearthAddFuel = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = vfxaddfuel }, new EffectList.EffectData { m_prefab = sfxadd } } };
-                fireAddFuel = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = vfxadd }, new EffectList.EffectData { m_prefab = sfxadd } } };
+            cookingSound = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxcook } } };
+            breakStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxbreak } } };
+            hitStone = new EffectList { m_effectPrefabs = new EffectList.EffectData[1] { new EffectList.EffectData { m_prefab = sfxstonehit } } };
+            buildKitten = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = sfxstone }, new EffectList.EffectData { m_prefab = kittenPoof } } };
+            hearthAddFuel = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = vfxaddfuel }, new EffectList.EffectData { m_prefab = sfxadd } } };
+            fireAddFuel = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = vfxadd }, new EffectList.EffectData { m_prefab = sfxadd } } };
 
-                Jotunn.Logger.LogMessage("Loaded Game VFX and SFX");
-                Jotunn.Logger.LogMessage("Prepping Kitchen...");
-            //AddCharacterDrops();
-                LoadDropFab();
-            Jotunn.Logger.LogMessage("Big thanks to MeatwareMonster!");
-                LoadItem();
-                LoadGriddle();
-                Oven();
-                Butter();
-                Nut_Ella();
-                IceCream();
-                PorkRind();
-                Kabob();
-                FriedLox();
-                GlazedCarrot();
-                Bacon();
-                SmokedFish();
-                Pancakes();
-                Pizza();
-                Coffee();
-                Latte();
-                FireCream();
-                ElectricCream();
-                AcidCream();
-                Porridge();
-                PBJ();
-                Cake();
-                LoadFire();
-                LoadHearth();
-                Haggis();
-                CandiedTurnip();
-                Moochi();
-                Broth();
-                FishStew();
-                BloodSausage();
-                Burger();
-                Omlette();
-                BoiledEgg();
-                Prepstation();
-                CarrotSticks();
-                 //NewDrops();
-                //Jotunn.Logger.LogMessage("New Drops Added"); };
+            Jotunn.Logger.LogMessage("Loaded Game VFX and SFX");
 
-                fireVol = AudioMan.instance.m_ambientLoopSource;
-                Jotunn.Logger.LogMessage("Load Complete. Bone Appetit yall.");
-            /*}
-            catch (Exception ex)
-            {
-                Jotunn.Logger.LogError($"Error while running OnVanillaLoad: {ex.Message}");
-            }
-            finally
-            {*/
-                ItemManager.OnVanillaItemsAvailable -= LoadSounds;
-            //PrefabManager.OnPrefabsRegistered -= NewDrops;
+            fireVol = AudioMan.instance.m_ambientLoopSource;
+            Jotunn.Logger.LogMessage("Load Complete. Bone Appetit yall.");
 
-            //}
+            ItemManager.OnVanillaItemsAvailable -= LoadSounds;
 
         }
         public void NewDrops()
-
-          
-            {
-                var boarFab = PrefabManager.Cache.GetPrefab<GameObject>("Boar");
-                var hatchlingFab = PrefabManager.Cache.GetPrefab<GameObject>("Hatchling");
-                var seagullFab = PrefabManager.Cache.GetPrefab<GameObject>("Seagal");
+        {
+            var boarFab = PrefabManager.Instance.GetPrefab("Boar");
+            var hatchlingFab = PrefabManager.Instance.GetPrefab("Hatchling");
+            var seagullFab = PrefabManager.Instance.GetPrefab("Seagal");
             var porkFab = PrefabManager.Instance.GetPrefab("rk_pork");
             var eggFab = PrefabManager.Instance.GetPrefab("rk_egg");
             var deggFab = PrefabManager.Instance.GetPrefab("rk_dragonegg");
 
-            //boarFab = ZNetScene.instance.GetPrefab("Boar");
-            //hatchlingFab = ZNetScene.instance.GetPrefab("Hatchling");
-            //seagullFab = ZNetScene.instance.GetPrefab("Seagal");
-
-            var seagul = seagullFab.AddComponent<DropOnDestroyed>();
+            var seagul = seagullFab.GetComponent<DropOnDestroyed>();
 
             seagul.m_dropWhenDestroyed.m_drops.Add(new DropTable.DropData
 
@@ -391,7 +335,6 @@ namespace Boneappetit
                 m_levelMultiplier = true,
                 m_onePerPlayer = false,
             });
-
             hatchlingFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
             {
                 m_prefab = deggFab,
@@ -434,16 +377,15 @@ namespace Boneappetit
 
                 
             hatchlingFab.GetComponent<CharacterDrop>().m_drops.Add(new CharacterDrop.Drop()
-                     {
-                         m_prefab = deggFab,
-                         m_amountMin = 1,
-                         m_amountMax = 1,
-                         m_chance = 100f,
-                         m_levelMultiplier = true,
-                         m_onePerPlayer = false,
+            {
+                m_prefab = deggFab,
+                m_amountMin = 1,
+                m_amountMax = 1,
+                m_chance = 100f,
+                m_levelMultiplier = true,
+                m_onePerPlayer = false,
+            });
 
-                     });
-           
 
             //var seaweedFab = customFood.LoadAsset<GameObject>("rk_seaweed");
             /*var neck = PrefabManager.Instance.GetPrefab("Neck");
@@ -456,9 +398,9 @@ namespace Boneappetit
                  m_levelMultiplier = true,
                  m_onePerPlayer = false,
              });
-            
+
             ItemManager.OnVanillaItemsAvailable -= AddCharacterDrops;*/
-            //}
+            ItemManager.OnItemsRegistered -= NewDrops;
 
             /*public void AddSkills()
             {
@@ -476,20 +418,19 @@ namespace Boneappetit
                         IncreaseStep = 1f,
                     });
                 }*/
-            }
-            public void LoadDropFab()
-            {
-                porkFab = customFood.LoadAsset<GameObject>("rk_pork");
-                //PrefabManager.Instance.AddPrefab(porkFab);
-
-                eggFab = customFood.LoadAsset<GameObject>("rk_egg");
-                //PrefabManager.Instance.AddPrefab(eggFab);
-
-                deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
-            //PrefabManager.Instance.AddPrefab(deggFab);
-
         }
-        
+        public void LoadDropFab()
+        {
+            porkFab = customFood.LoadAsset<GameObject>("rk_pork");
+            ItemManager.Instance.AddItem(new CustomItem(porkFab, true));
+
+            eggFab = customFood.LoadAsset<GameObject>("rk_egg");
+            ItemManager.Instance.AddItem(new CustomItem(eggFab, true));
+
+            deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
+            ItemManager.Instance.AddItem(new CustomItem(deggFab, true));
+        }
+
         private void LoadItem()
         {
             var grillFab = GrillOriginal.Value ? assetBundle.LoadAsset<GameObject>("rk_grill") : customFood.LoadAsset<GameObject>("rk_grill");
@@ -553,7 +494,7 @@ namespace Boneappetit
         }
         private void Oven()
         {
-           
+
             var ovenfab = assetBundle.LoadAsset<GameObject>("rk_oven");
             var oven = new CustomPiece(ovenfab,
                 new PieceConfig
@@ -849,7 +790,7 @@ namespace Boneappetit
         }
         private void CandiedTurnip()
         {
-             candiedTurnipFab = customFood.LoadAsset<GameObject>("rk_candiedturnip");
+            candiedTurnipFab = customFood.LoadAsset<GameObject>("rk_candiedturnip");
             candiedTurnip = new CustomItem(candiedTurnipFab, fixReference: true,
                 new ItemConfig
                 {
@@ -1017,63 +958,63 @@ namespace Boneappetit
         }
         private void Pizza()
         {
-             pizza_prefab = customFood.LoadAsset<GameObject>("rk_pizza");
-             pizza = new CustomItem(pizza_prefab, fixReference: true,
-                new ItemConfig
-                {
-                    Name = "Pizza",
-                    Enabled = PizzaEnable.Value,
-                    Amount = 1,
-                    CraftingStation = "rk_grill",
-                    MinStationLevel = 2,
-                    Requirements = new[]
-                    {
+            pizza_prefab = customFood.LoadAsset<GameObject>("rk_pizza");
+            pizza = new CustomItem(pizza_prefab, fixReference: true,
+              new ItemConfig
+              {
+                  Name = "Pizza",
+                  Enabled = PizzaEnable.Value,
+                  Amount = 1,
+                  CraftingStation = "rk_grill",
+                  MinStationLevel = 2,
+                  Requirements = new[]
+                  {
                         new RequirementConfig { Item = "Honey", Amount = 2},
                         new RequirementConfig { Item = "BarleyFlour", Amount = 3},
                         new RequirementConfig { Item = "rk_egg", Amount = 2},
                         new RequirementConfig { Item = "CookedMeat", Amount = 2}
-                    }
-                });
+                  }
+              });
 
             ItemManager.Instance.AddItem(pizza);
         }
 
         private void Coffee()
         {
-             coffee_prefab = customFood.LoadAsset<GameObject>("rk_coffee");
-             coffee = new CustomItem(coffee_prefab, fixReference: true,
-                new ItemConfig
-                {
-                    Name = "Coffee",
-                    Enabled = CoffeeEnable.Value,
-                    Amount = 1,
-                    CraftingStation = "rk_prep",
-                    Requirements = new[]
-                    {
+            coffee_prefab = customFood.LoadAsset<GameObject>("rk_coffee");
+            coffee = new CustomItem(coffee_prefab, fixReference: true,
+              new ItemConfig
+              {
+                  Name = "Coffee",
+                  Enabled = CoffeeEnable.Value,
+                  Amount = 1,
+                  CraftingStation = "rk_prep",
+                  Requirements = new[]
+                  {
                          new RequirementConfig { Item = "AncientSeed", Amount = 2}
-                    }
-                });
+                  }
+              });
 
             ItemManager.Instance.AddItem(coffee);
 
         }
         private void Latte()
         {
-             latte_prefab = customFood.LoadAsset<GameObject>("rk_latte");
-             latte = new CustomItem(latte_prefab, fixReference: true,
-                new ItemConfig
-                {
-                    Name = "Spice Latte",
-                    Enabled = LatteEnable.Value,
-                    Amount = 2,
-                    CraftingStation = "rk_prep",
-                    Requirements = new[]
-                    {
+            latte_prefab = customFood.LoadAsset<GameObject>("rk_latte");
+            latte = new CustomItem(latte_prefab, fixReference: true,
+              new ItemConfig
+              {
+                  Name = "Spice Latte",
+                  Enabled = LatteEnable.Value,
+                  Amount = 2,
+                  CraftingStation = "rk_prep",
+                  Requirements = new[]
+                  {
                          new RequirementConfig { Item = "Crystal", Amount = 2},
                          new RequirementConfig { Item = "Barley", Amount = 2},
                          new RequirementConfig { Item = "Honey", Amount = 10}
-                    }
-                });
+                  }
+              });
 
             ItemManager.Instance.AddItem(latte);
 
@@ -1145,28 +1086,28 @@ namespace Boneappetit
 
         }
         private void Porridge()
-          {
-               porridge_prefab = customFood.LoadAsset<GameObject>("rk_porridge");
-               porridge = new CustomItem(porridge_prefab, fixReference: true,
-                  new ItemConfig
-                  {
-                      Name = "Porridge",
-                      Enabled = PorridgeEnable.Value,
-                      Amount = 1,
-                      CraftingStation = "rk_grill",
-                      MinStationLevel = 2,
-                      Requirements = new[]
-                      {
+        {
+            porridge_prefab = customFood.LoadAsset<GameObject>("rk_porridge");
+            porridge = new CustomItem(porridge_prefab, fixReference: true,
+            new ItemConfig
+            {
+                Name = "Porridge",
+                Enabled = PorridgeEnable.Value,
+                Amount = 1,
+                CraftingStation = "rk_grill",
+                MinStationLevel = 2,
+                Requirements = new[]
+                {
                           new RequirementConfig { Item = "Barley", Amount = 2},
                           new RequirementConfig { Item = "Cloudberry", Amount = 4},
                           new RequirementConfig { Item = "Honey", Amount = 2},
                           new RequirementConfig {Item = "rk_butter", Amount = 1}
-                      }
-                  });
+                }
+            });
 
-              ItemManager.Instance.AddItem(porridge);
+            ItemManager.Instance.AddItem(porridge);
 
-          }
+        }
         private void PBJ()
         {
             pbj_prefab = customFood.LoadAsset<GameObject>("rk_pbj");
@@ -1210,7 +1151,7 @@ namespace Boneappetit
                });
 
             ItemManager.Instance.AddItem(cake);
-           
+
         }
         //private void Haggis()
         private void LoadFire()
@@ -1232,7 +1173,7 @@ namespace Boneappetit
             var firebuild = fireFab.GetComponent<Piece>();
             firebuild.m_placeEffect = buildStone;
 
-            var firedecay = fireFab.GetComponent <WearNTear>();
+            var firedecay = fireFab.GetComponent<WearNTear>();
             firedecay.m_destroyedEffect = breakStone;
 
             var addFuel = fireFab.GetComponent<Fireplace>();
