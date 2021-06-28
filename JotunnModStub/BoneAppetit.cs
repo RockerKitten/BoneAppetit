@@ -18,7 +18,7 @@ namespace Boneappetit
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "2.0.1";
+        public const string PluginVersion = "3.0.1";
         public AssetBundle assetBundle;
         public AssetBundle customFood;
         public Sprite CookingSprite;
@@ -373,7 +373,7 @@ namespace Boneappetit
                 m_prefab = porkFab,
                 m_amountMin = 1,
                 m_amountMax = 1,
-                m_chance = 100f,
+                m_chance = 1f,
                 m_levelMultiplier = true,
                 m_onePerPlayer = false,
             });
@@ -382,7 +382,7 @@ namespace Boneappetit
                 m_prefab = deggFab,
                 m_amountMin = 1,
                 m_amountMax = 1,
-                m_chance = 100f,
+                m_chance = 1f,
                 m_levelMultiplier = true,
                 m_onePerPlayer = false,
             });
@@ -788,7 +788,7 @@ namespace Boneappetit
                     }
                 });
 
-            ItemManager.Instance.AddItem(bloodsausage);
+            ItemManager.Instance.AddItem(omlette);
         }
         private void PorkRind()
         {

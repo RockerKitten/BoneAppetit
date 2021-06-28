@@ -29,6 +29,9 @@ v. 3.0.0	Added MasterChef 2.0 assets. Omlette, Nut-ella, Bloodsausage, Broth, Ca
 			More new food, Haggis, Moochi, Carrot Sticks, Boiled Eggs, and Candied Turnips.
 			Major balance pass, changed some recipes and food values, moved all food out of the cauldron and spread between Prep, griddle, and grill.
 			New Smokeless fires, for those of you struggling with FPS drops due to smoke particle physics, or who just want an indoor kitchen. There is now a campfire, and hearth that no longer produce particle smoke. (can be disabled in the config).
+v. 3.0.1	Hotfix for boar drops when using with CLLC calculate Amount
+			Fix for missing Omlette
+			Added smokeless Braziers by request.
 
 
 ## Installation:
