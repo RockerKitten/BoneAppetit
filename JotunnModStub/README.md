@@ -1,8 +1,9 @@
-Introducing the newest fad in Viking cuisine! Hope you enjoy, Bone Appetit!
+## Introducing the newest fad in Viking cuisine! Hope you enjoy, Bone Appetit!
 
 Description revamp coming soon!
 
-Changelog
+## Changelog:
+
 v. 1.0.0 	release includes 2 food crafting stations that require a fire underneath to cook on, and 5 new food items, one for each biome.
 v. 1.0.1 	hotfix for those not using V+
 v. 1.1.0 	fix for the grill making it difficult to load the fire underneath
@@ -22,51 +23,188 @@ v. 2.0.0	Code rework
 					Everything defaults to on, when loading for the first time.
 			Redid all "Flavor" text
 v. 2.0.1	Fixed "CloudBerry" so we can have CAKE! (Big thanks to PROXiCiDE for pointing this out to me)
+v. 3.0.0	Added MasterChef 2.0 assets. Omlette, Nut-ella, Bloodsausage, Broth, Carrot Butter, Burgers, and Fish Stew.
+			New Drops! You can now loot Pork from Boars, smaller Transportable Dragon Eggs from Drakes, and eggs from seagulls.
+			New food station, the Prep Staton. Unlocks with Tin.
+			More new food, Haggis, Moochi, Carrot Sticks, Boiled Eggs, and Candied Turnips.
+			Major balance pass, changed some recipes and food values, moved all food out of the cauldron and spread between Prep, griddle, and grill.
+			New Smokeless fires, for those of you struggling with FPS drops due to smoke particle physics, or who just want an indoor kitchen. There is now a campfire, and hearth that no longer produce particle smoke. (can be disabled in the config).
 
-Installation: place the dll  in the plugins folder, load the game to the start  screen and quit. this will generate the config for the first time.
-known issue: food may not show up to be crafted the verry first time you load in after install and config generation. please generate the config, quit and restart.
+
+## Installation:
+
+Place the dll  in the plugins folder, load the game to the start  screen and *quit*. this will generate the config for the first time.
+Known Issue: Food *WILL NOT* show up to be crafted the verry first time you load in after install and config generation. please ***generate the config, quit and restart.***
 			
 
 Note: this mod requires JVL (Jotunn the Valheim Lib) and it's dependent HookGenPatcher, it will not work without it.
 
-Cooking Stations
+
+### Cooking Stations:
+
 Griddle		- buildable with 10 stone and a hammer. Allows for custom food as soon as you find a place to build it.
 Grill  		- requires a forge, 1 iron and 10 stone to build. unlock higher tier grilled foods.
-Oven		- piece addon for the grill. (added in 2.0.0
+Oven		- piece addon for the grill. (added in 2.0.0) requires surtling cores, and surtling trophies.
+Prep Table	- New station in v3.0.0, all ice cream was moved here. requires Tin
 
-Food included in initial release
-Pork Rinds
-Honey Glazed Carrots
-Kabobs
-Ice Cream Cone
-Country Fried Lox Meat
+### Food By release:
 
-v. 1.1.0
-Smoked Fish
+note: all food that uses "drake egg" uses the new drake egg drop from Drakes. and "egg" is from seagulls.
 
-Food Menu Assets Courtesy of zarboz
+#### Initial Release v1.0.0
+
+- Pork Rinds 
+	- pork
+	- scraps
+- Honey Glazed Carrots 
+	- Carrots
+	- Honey
+	- Dandelion
+- Kabobs
+	- Raw meat
+	- Bone fragments
+	- Carrot
+	- Turnip
+- Ice Cream Cone
+	- freeze gland
+	- drake egg
+	- Honey
+	- blueberry
+- Country Fried Lox Meat
+	- lox meat
+	- butter
+	- barley flour
+	- egg (new seagull drop)
+
+
+#### v. 1.1.0
+
+- Smoked Fish
+	- raw fish
+
+
+##### Food Menu Assets Courtesy of zarboz
+
 -Bacon
+	- raw pork
 -Coffee
+	- ancient seeds
 -Pizza
+	- mushroom
+	- flour
+	- egg
+	- raw meat
 -Pancakes
+	- flour
+	- egg
+	- honey
+	- butter
 
-v. 2.0.0
-Porridge
-"Elemental" cream cones
-PBJ
-Cake
 
-new cooking station piece add on-
-Oven (requires "attaching" to the grill)
--gives the grill +1 level
+#### v. 2.0.0
 
-To Do/ Current Ideas
+- Porridge
+	- barley
+	- cloudberry
+	- honey
+	- butter
+- Fire cream cone
+	- SurtlingCore
+	- Raspberry
+	- honey
+	- drake egg
+- Electric cream cone
+	- Crystal
+	- Cloudberry
+	- Honey
+	- drake egg
+- Acid cream cone
+	- Guck
+	- MushroomYellow
+	- Honey
+	- drake egg
+- PBJ
+	- Queens Jam
+	- Bread
+	- Nut-ella
+- Cake
+	- egg
+	- flour
+	- cloud berry
+	- honey
+
+
+#### v. 3.0.0
+
+- Haggis
+	- entrails
+	- raw meat
+	- carrot
+	- turnip
+- Moochi
+	- freeze gland
+	- blueberry
+	- drake egg
+	- honey
+- Candied Turnips
+	- honey
+	- turnip
+	- thistle
+- Boiled Eggs
+	- eggs
+- Carrot Sticks
+	- carrots
+	- nut-ella
+
+
+##### Master Chef2.0 Assets
+
+- Omlette
+	- egg
+	- raw pork
+	- thistle
+	- butter
+- Broth
+	- bone fragments
+	- butter
+- Butter
+	- carrot seeds
+- Fish Stew
+	- raw fish
+	- broth
+	- thistle
+	- egg
+- Burger
+	- raw lox meat
+	- raw meat
+	- bread
+	- turnip
+- Bloodsausage
+	- entrails
+	- raw pork
+	- thistle
+	- blood bag
+- Nut-ella
+	- Beech Seeds
+	- butter
+
+
+### Cooking Stations by unlock
+
+Griddle - Stone
+Prep Station - Tin
+Grill - Iron
+Oven - Addon for grill (Grill level +1) -Surtling Cores, and Trophies
+
+
+##### To Do/ Current Ideas
+
 x-add food menu items (done)
--expand menu (In progress)
+x-expand menu (done untill H&H is released)
 -localizaion
--add another new processing station for food and expansions (started)
--add new food drops from creatures
--meals
+x-add another new processing station for food and expansions (done)
+x-add new food drops from creatures(done)
+-meals (delayed until H&H)
 x-config sync (done)
 
 This mod is routinely tested on a dedicated server with a great many other mods. To ensure your crafting stations don't disappear, and that food doesn't turn to dust, please put this on the dedicated server as well as ALL clients.
