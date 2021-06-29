@@ -18,7 +18,7 @@ namespace Boneappetit
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "3.0.1";
+        public const string PluginVersion = "3.0.2";
         public AssetBundle assetBundle;
         public AssetBundle customFood;
         public Sprite CookingSprite;
@@ -246,37 +246,7 @@ namespace Boneappetit
             LoadDropFab();
             Jotunn.Logger.LogMessage("Big thanks to MeatwareMonster!");
             
-            Butter();
-            Nut_Ella();
-            IceCream();
-            PorkRind();
-            Kabob();
-            FriedLox();
-            GlazedCarrot();
-            Bacon();
-            SmokedFish();
-            Pancakes();
-            Pizza();
-            Coffee();
-            Latte();
-            FireCream();
-            ElectricCream();
-            AcidCream();
-            Porridge();
-            PBJ();
-            Cake();
-            Haggis();
-            CandiedTurnip();
-            Moochi();
-            Broth();
-            FishStew();
-            BloodSausage();
-            Burger();
-            Omlette();
-            BoiledEgg();
-            CarrotSticks();
-            ChefHatt();
-            Mead();
+           
         }
 
         public void LoadSounds()
@@ -304,6 +274,37 @@ namespace Boneappetit
                 fireAddFuel = new EffectList { m_effectPrefabs = new EffectList.EffectData[2] { new EffectList.EffectData { m_prefab = vfxadd }, new EffectList.EffectData { m_prefab = sfxadd } } };
 
                 Jotunn.Logger.LogMessage("Loaded Game VFX and SFX");
+                Butter();
+                Nut_Ella();
+                IceCream();
+                PorkRind();
+                Kabob();
+                FriedLox();
+                GlazedCarrot();
+                Bacon();
+                SmokedFish();
+                Pancakes();
+                Pizza();
+                Coffee();
+                Latte();
+                FireCream();
+                ElectricCream();
+                AcidCream();
+                Porridge();
+                PBJ();
+                Cake();
+                Haggis();
+                CandiedTurnip();
+                Moochi();
+                Broth();
+                FishStew();
+                BloodSausage();
+                Burger();
+                Omlette();
+                BoiledEgg();
+                CarrotSticks();
+                ChefHatt();
+                Mead();
                 LoadItem();
                 LoadGriddle();
                 Oven();

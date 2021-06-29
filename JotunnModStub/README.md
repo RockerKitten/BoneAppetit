@@ -32,6 +32,8 @@ v. 3.0.0	Added MasterChef 2.0 assets. Omlette, Nut-ella, Bloodsausage, Broth, Ca
 v. 3.0.1	Hotfix for boar drops when using with CLLC calculate Amount
 			Fix for missing Omlette
 			Added smokeless Braziers by request.
+v. 3.0.2	Load order fix
+			maybe fix for prep table fire (hopefully)
 
 
 ## Installation:
