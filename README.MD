@@ -1,96 +1,227 @@
-# JötunnModStub
+## Introducing the newest fad in Viking cuisine! Hope you enjoy, Bone Appetit!
 
-A Valheim mod stub project using [Jötunn](https://github.com/Valheim-Modding/Jotunn) including build tools for debugging your code in Visual Studio and a basic Unity project stub. There is no actual plugin content included, just a bare minimum plugin class. 
+Description revamp coming soon!
 
-# Quick Setup Guide
+## Changelog:
 
-These are quick setup steps with no context provided. Please see Jötunns [Github Pages](https://valheim-modding.github.io/Jotunn/home/home.html) for more in depth documentation.
+-v. 1.0.0 	release includes 2 food crafting stations that require a fire underneath to cook on, and 5 new food items, one for each biome.
 
-## Development Environment Setup
+-v. 1.0.1 	hotfix for those not using V+
 
-How to setup the development enviroment for this project.
+-v. 1.1.0 	fix for the grill making it difficult to load the fire underneath
+			      fix for Fried Lox not auto picking up
+			      5 new foods. Pancakes, Smoked Fish, Bacon, Coffee, and Pizza
+            
+-v. 1.1.1	  updated visuals on bacon
+			      Fixed collider on Griddle
+			      Fixed attach point on kabob
+          
+-v. 2.0.0	  Code rework
+			      Updated Bacon Visuals (thicker) and fixed attach point
+			      Added "Elemental" Cream Cones updated visuals on Ice Cream
+			      First Rebalance pass
+			      Added Porridge
+			      Added A PJB for a special little boy by request.
+			      Added CONFIG!!! (only a true/false for enabling/disabling recipes, likely will stay this way) Server synced. 
+            
+			          ### -MAKE SURE YOU HAVE THE MOD AND CONFIG ON THE SERVER FOR THE SERVER SYNC TO WORK-
+  
+					  Everything defaults to on, when loading for the first time.
+			      Redid all "Flavor" text
+            
+-v. 2.0.1	  Fixed "CloudBerry" so we can have CAKE! (Big thanks to PROXiCiDE for pointing this out to me)
 
-1. Install [Visual Studio 2019](https://visualstudio.microsoft.com) and add the C# workload.
-2. Download this package: [BepInEx pack for Valheim](https://valheim.thunderstore.io/package/denikson/BepInExPack_Valheim/)
-3. Unpack into your Valheim root folder. You should now see a new folder called `<ValheimDir>\unstripped_corlib` and more additional stuff.
-6. Fork and clone this repository using git. That should create a new folder `JotunnModStub`. You can also [use the template function of github](https://github.com/Valheim-Modding/JotunnModStub/generate) to create a new, clean repo out of it and clone that.
-7. Create a new environment file `Environment.props` in the projects base path `<JotunnModStub>`. Paste this snippet and change the path according to your local Valheim installation.
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <!-- Needs to be your path to the base Valheim folder -->
-    <VALHEIM_INSTALL>F:\Steam\steamapps\common\Valheim</VALHEIM_INSTALL>
-  </PropertyGroup>
-</Project>
-```
-8. Open the Solution file `<JotunnModStub>\JotunnModStub.sln`. Right-click on the project or solution in the Solution Explorer and select `Manage NuGet packages...`. It should prompt you a message at the top that some NuGet-Packages are missing. Click "Restore" and restart Visual Studio when finished.
-9. Rename the Solution/Project and everything related so that it resembles your own projects name. This includes the assembly information as well as the Unity project.
+-v. 3.0.0	  Added MasterChef 2.0 assets. Omlette, Nut-ella, Bloodsausage, Broth, Carrot Butter, Burgers, and Fish Stew.
+			      New Drops! You can now loot Pork from Boars, smaller Transportable Dragon Eggs from Drakes, and eggs from seagulls.
+			      New food station, the Prep Staton. Unlocks with Tin.
+			      More new food, Haggis, Moochi, Carrot Sticks, Boiled Eggs, and Candied Turnips.
+			      Major balance pass, changed some recipes and food values, moved all food out of the cauldron and spread between Prep, griddle, and grill.
+			      New Smokeless fires, for those of you struggling with FPS drops due to smoke particle physics, or who just want an indoor kitchen. There is now a campfire, and               hearth that no longer produce particle smoke. (can be disabled in the config).
+v. 3.0.1	  Hotfix for boar drops when using with CLLC calculate Amount
+			      Fix for missing Omlette
+			      Added smokeless Braziers by request.
+v. 3.0.2	  Load order fix
+			       maybe fix for prep table fire (hopefully)
 
-### Build automations
 
-Included in this repo is a PowerShell script `publish.ps1`. The script is referenced in the project file as a post-build event. Depending on the chosen configuration in Visual Studio the script executes the following actions.
+## Installation:
 
-### Building Debug
+Place the dll  in the plugins folder, load the game to the start  screen and *quit*. this will generate the config for the first time.
+Known Issue: Food *WILL NOT* show up to be crafted the verry first time you load in after install and config generation. please ***generate the config, quit and restart.***
+			
 
-* The compiled dll file for this project is copied to `<ValheimDir>\BepInEx\plugins`.
-* A .mdb file is generated for the compiled project dll and copied to `<ValheimDir>\BepInEx\plugins`.
-* `<JotunnModStub>\libraries\Debug\mono-2.0-bdwgc.dll` is copied to `<ValheimDir>\MonoBleedingEdge\EmbedRuntime` replacing the original file (a backup is created before).
+Note: this mod requires JVL (Jotunn the Valheim Lib) and it's dependent HookGenPatcher, it will not work without it.
 
-### Building Release
 
-* A compressed file with the binaries is created in `<JotunnModStub>\Packages`ready for upload to ThunderStore. Dont forget to include your information in the manifest.json and to change this readme file.
+### Cooking Stations:
 
-## Developing Assets with Unity
+Griddle		- buildable with 10 stone and a hammer. Allows for custom food as soon as you find a place to build it.
+Grill  		- requires a forge, 1 iron and 10 stone to build. unlock higher tier grilled foods.
+Oven		- piece addon for the grill. (added in 2.0.0) requires surtling cores, and surtling trophies.
+Prep Table	- New station in v3.0.0, all ice cream was moved here. requires Tin
 
-New Assets can be created with Unity and imported into Valheim using the mod. A Unity project is included in this repository under `<JotunnModStub>\JotunnModUnity`.
+### Food By release:
 
-### Unity Editor Setup
+note: all food that uses "drake egg" uses the new drake egg drop from Drakes. and "egg" is from seagulls.
 
-1. [Download](https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.exe) UnityHub directly from Unity or install it with the Visual Studio Installer via `Individual Components` -> `Visual Studio Tools for Unity`.
-2. You will need an Unity account to register your PC and get a free licence. Create the account, login with it in Unity Hub and get your licence via `Settings` -> `Licence Management`.
-3. Install Unity Editor version 2019.4.24f.
-4. Open Unity and add the JotunnModUnity project.
-5. Install the `AssetBundle Browser` package in the Unity Editor via `Window`-> `Package Manager`.
-6. Copy all `assembly_*.dll` from `<ValheimDir>\valheim_Data\Managed` into `<JotunnModStub>\JotunnModUnity\Assets\Assemblies`. **Do this directly in the filesystem - don't import the dlls in Unity**.
-7. Go back to the Unity Editor and press `Ctrl+R`. This should reload all files and add the Valheim assemblies under `Assets\Assemblies`
-8. **Warning:** These assembly files are copyrighted material and you can theoretically get into trouble when you distribute them in your github repository. To avoid that there is a .gitignore file in the Unity project folder. Keep that when you clone or copy this repository.
+#### Initial Release v1.0.0
 
-## Debugging with dnSpy
+- Pork Rinds 
+	- pork
+	- scraps
+- Honey Glazed Carrots 
+	- Carrots
+	- Honey
+	- Dandelion
+- Kabobs
+	- Raw meat
+	- Bone fragments
+	- Carrot
+	- Turnip
+- Ice Cream Cone
+	- freeze gland
+	- drake egg
+	- Honey
+	- blueberry
+- Country Fried Lox Meat
+	- lox meat
+	- butter
+	- barley flour
+	- egg (new seagull drop)
 
-Thanks to mono and unity-mono being open source, we patched and compiled our own mono runtime to enable actual live debugging of the game and the mod itself with dnSpy.
 
-1. Download [dnSpy-net-win64](https://github.com/dnSpy/dnSpy/releases) and extract the exe.
-2. Load all assemblies from `<ValheimDir>\unstripped_corlib` into dnSpy (just drag&drop the folder onto it).
-3. Load all `assembly_*` from `<ValheimDir>\valheim_Data\Managed` into dnSpy (*do not load the publicized ones, they will not be loaded into the process and therefore can not be debugged*).
-4. Load `JotunnModStub.dll` from `<ValheimDir>\BepInEx\plugins` into dnSpy.
-5. Copy `<JotunnModStub>\libraries\Debug\mono-2.0-bdwgc.dll` into `<ValheimDir>\MonoBleedingEdge\EmbedRuntime` and overwrite the existing file.
-6. Now go to `Debug` -> `Start Debugging` and select Unity debug engine. Select your valheim.exe as the executable and hit OK.
-7. If you did set some breakpoints, the game will halt when it hits the breakpoint in memory and dnSpy will show you the objects in memory and much more useful stuff.
+#### v. 1.1.0
 
-## Debugging with Visual Studio
+- Smoked Fish
+	- raw fish
 
-Your own code can be debugged in source with Visual Studio itself. You cannot debug game disassemblies as with dnSpy, though.
 
-1. Install Visual Studio Tools for Unity (can be done in Visual Studio installer via `Individual Components` -> `Visual Studio Tools for Unity`)
-3. Build the project with target `Debug`. The publish.ps1 PowerShell script from this repo...
-   * copies the generated mod .dll and .pdb to \<ValheimDir>\BepInEx\plugins after a successful build
-   * automatically generates a JotunnModStub.dll.mdb file, which is needed for Unity/mono debugging. It should be in \<ValheimDir>\BepInEx\plugins, too.
-   * copies the patched mono-2.0-bdwgc.dll from .\libraries\Debug to \<ValheimDir>\MonoBleedingEdge\EmbedRuntime and makes a backup copy of the original.
-4. Start Valheim (either directly from Steam or hit F5 in Visual Studio when Steam is running)
-5. Go to `Debug` -> `Attach Unity debugger`
-6. Since the patched mono dll does not open the same port as Unity Dev builds, you have to click on `Input IP`. It should fill in your local IP automatically. you just have to change the port to `55555`and the debugger should connect.
+##### Food Menu Assets Courtesy of zarboz
 
-## Actions after a game update
+-Bacon
+	- raw pork
+-Coffee
+	- ancient seeds
+-Pizza
+	- mushroom
+	- flour
+	- egg
+	- raw meat
+-Pancakes
+	- flour
+	- egg
+	- honey
+	- butter
 
-When Valheim updates it is likely that parts of the assembly files change. If this is the case, the references to the assembly files must be renewed in Visual Studio and Unity.
 
-### Visual Studio actions
+#### v. 2.0.0
 
-1. There is a file called DoPrebuild.props included in the solution. When you set its only value to true, Jötunn will automatically generate publicized and MMHook assemblies for you. Otherwise you have to do this step manually.
+- Porridge
+	- barley
+	- cloudberry
+	- honey
+	- butter
+- Fire cream cone
+	- SurtlingCore
+	- Raspberry
+	- honey
+	- drake egg
+- Electric cream cone
+	- Crystal
+	- Cloudberry
+	- Honey
+	- drake egg
+- Acid cream cone
+	- Guck
+	- MushroomYellow
+	- Honey
+	- drake egg
+- PBJ
+	- Queens Jam
+	- Bread
+	- Nut-ella
+- Cake
+	- egg
+	- flour
+	- cloud berry
+	- honey
 
-### Unity actions
 
-1. Copy all `assembly_*.dll` from `<ValheimDir>\valheim_Data\Managed` into `<JotunnModStub>\JotunnModUnity\Assets\Assemblies`. <br />
-  **Do this directly in the filesystem - don't import the dlls in Unity**.
-2. Go to Unity Editor and press `Ctrl+R`. This reloads all files from the filesystem and "re-imports" the copied dlls into the project.
+#### v. 3.0.0
+
+- Haggis
+	- entrails
+	- raw meat
+	- carrot
+	- turnip
+- Moochi
+	- freeze gland
+	- blueberry
+	- drake egg
+	- honey
+- Candied Turnips
+	- honey
+	- turnip
+	- thistle
+- Boiled Eggs
+	- eggs
+- Carrot Sticks
+	- carrots
+	- nut-ella
+
+
+##### Master Chef2.0 Assets
+
+- Omlette
+	- egg
+	- raw pork
+	- thistle
+	- butter
+- Broth
+	- bone fragments
+	- butter
+- Butter
+	- carrot seeds
+- Fish Stew
+	- raw fish
+	- broth
+	- thistle
+	- egg
+- Burger
+	- raw lox meat
+	- raw meat
+	- bread
+	- turnip
+- Bloodsausage
+	- entrails
+	- raw pork
+	- thistle
+	- blood bag
+- Nut-ella
+	- Beech Seeds
+	- butter
+
+
+### Cooking Stations by unlock
+
+Griddle - Stone
+Prep Station - Tin
+Grill - Iron
+Oven - Addon for grill (Grill level +1) -Surtling Cores, and Trophies
+
+
+##### To Do/ Current Ideas
+
+x-add food menu items (done)
+x-expand menu (done untill H&H is released)
+-localizaion
+x-add another new processing station for food and expansions (done)
+x-add new food drops from creatures(done)
+-meals (delayed until H&H)
+x-config sync (done)
+
+This mod is routinely tested on a dedicated server with a great many other mods. To ensure your crafting stations don't disappear, and that food doesn't turn to dust, please put this on the dedicated server as well as ALL clients.
+
+
+Huge thanks to zarboz, GraveBear, and plumga for helping me get going, setting me up, and encouraging me the whole way! This mod wouldn't exist without them.
+Also a big thanks to my "players" on my server (my husband and our good friend) Itsmesds, and JaxomFaux who've helped with ideas and balance from the start. (Bone Appetit's name came from us haning out when itmesds said how about "bone appetit" and it stuck)
