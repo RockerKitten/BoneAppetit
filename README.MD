@@ -1,4 +1,4 @@
-## Introducing the newest fad in Viking cuisine! Hope you enjoy, Bone Appetit!
+# Introducing the newest fad in Viking cuisine! Hope you enjoy, Bone Appetit!
 
 Description revamp coming soon!
 
