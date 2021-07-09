@@ -217,7 +217,7 @@ Grill | Iron
 Oven | Addon for grill (Grill level +1) <br> Surtling Cores, and Trophies
 
 
-## To Do/ Current Ideas
+## To Do/Current Ideas
 - [x] add food menu items
 - [x] expand menu (done untill H&H is released)
 - [ ] localizaion
