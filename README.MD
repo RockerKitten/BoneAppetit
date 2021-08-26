@@ -8,7 +8,7 @@ Description revamp coming soon!
     - release includes 2 food crafting stations that require a fire underneath to cook on, and 5 new food items, one for each biome.
 - v. 1.0.1  
     - hotfix for those not using V+
-- v. 1.1.0 	
+- v. 1.1.0  
     - fix for the grill making it difficult to load the fire underneath
     - fix for Fried Lox not auto picking up
     - 5 new foods. Pancakes, Smoked Fish, Bacon, Coffee, and Pizza
@@ -28,7 +28,7 @@ Description revamp coming soon!
     - Redid all "Flavor" text
         
 ### `MAKE SURE YOU HAVE THE MOD AND CONFIG ON THE SERVER FOR THE SERVER SYNC TO WORK`
-	
+    
 - v. 2.0.1
     - Fixed "CloudBerry" so we can have CAKE! (Big thanks to PROXiCiDE for pointing this out to me)
 - v. 3.0.0
@@ -45,6 +45,22 @@ Description revamp coming soon!
 - v. 3.0.2
     - Load order fix
     - maybe fix for prep table fire (hopefully)
+- v. 3.1.0
+    - Added Cooking Skill
+      - Gain XP when cooking at a **Cooking Station**, or cooking a Consumable at the **rk_griddle**, **rk_grill**, **rk_prep** or **piece_cauldron**. Each level of cooking skill adds a 1% chance to craft an additional consumable. after lvl 25, your total cooking level is divided by 4 and the results is the % chance to crafted a 2nd additional consumable. 
+      - e.g. At level 100, there is a 100% chance to craft an additional consumable and 25% chance to craft a 2nd additional consumable on top of that. At level 100 a food that crafts in stacks of x5, if lucky could output 7 total items.
+      - Set **CookingSkillEnable** = false to disable.
+    - Added SE_CheffHat
+      - Improves Cooking Skill XP Earned while wearing the Chef Hat. 
+      - Set **HatXpGain** = 1 to disable.
+      - Taking the Chef Hat on and off displays a random Julia Child's quote. 
+        - Displaying this message can be disabled by setting **HatSEMessage** to false.
+    - Added Configs
+      - CookingSkillEnable (server synced, enforced)
+      - BonusWhenCookingEnabled (server synced, enforced)
+      - HatXpGain (server synced, enforced)
+      - HatSEMessage (local)
+    - Added NexusId for update notice mod.
 
 
 ## Installation:
@@ -52,7 +68,7 @@ Description revamp coming soon!
 Place the dll in the plugins folder, load the game to the start screen and *quit*. This will generate the config for the first time.
 
 **Known Issue:** Food *WILL NOT* show up to be crafted the very first time you load in after install and config generation. **please generate the config, quit and restart.**
-			
+            
 
 **Note:** This mod requires JVL (Jotunn the Valheim Lib) and it's dependent HookGenPatcher, it will not work without it.
 
@@ -73,138 +89,138 @@ Prep Table | New station in v3.0.0, all ice cream was moved here. requires Tin
 ### v. 1.0.0 - Initial Release
 
 - Pork Rinds 
-	- pork
-	- scraps
+    - pork
+    - scraps
 - Honey Glazed Carrots 
-	- Carrots
-	- Honey
-	- Dandelion
+    - Carrots
+    - Honey
+    - Dandelion
 - Kabobs
-	- Raw meat
-	- Bone fragments
-	- Carrot
-	- Turnip
+    - Raw meat
+    - Bone fragments
+    - Carrot
+    - Turnip
 - Ice Cream Cone
-	- freeze gland
-	- drake egg
-	- Honey
-	- blueberry
+    - freeze gland
+    - drake egg
+    - Honey
+    - blueberry
 - Country Fried Lox Meat
-	- lox meat
-	- butter
-	- barley flour
-	- egg (new seagull drop)
+    - lox meat
+    - butter
+    - barley flour
+    - egg (new seagull drop)
 
 
 ### v. 1.1.0
 
 - Smoked Fish
-	- raw fish
+    - raw fish
 
 #### Food Menu Assets Courtesy of zarboz
 
 - Bacon
     - raw pork
 - Coffee
-	- ancient seeds
+    - ancient seeds
 - Pizza
-	- mushroom
-	- flour
-	- egg
-	- raw meat
+    - mushroom
+    - flour
+    - egg
+    - raw meat
 - Pancakes
-	- flour
-	- egg
-	- honey
-	- butter
+    - flour
+    - egg
+    - honey
+    - butter
 
 
 ### v. 2.0.0
 
 - Porridge
-	- barley
-	- cloudberry
-	- honey
-	- butter
+    - barley
+    - cloudberry
+    - honey
+    - butter
 - Fire cream cone
-	- SurtlingCore
-	- Raspberry
-	- honey
-	- drake egg
+    - SurtlingCore
+    - Raspberry
+    - honey
+    - drake egg
 - Electric cream cone
-	- Crystal
-	- Cloudberry
-	- Honey
-	- drake egg
+    - Crystal
+    - Cloudberry
+    - Honey
+    - drake egg
 - Acid cream cone
-	- Guck
-	- MushroomYellow
-	- Honey
-	- drake egg
+    - Guck
+    - MushroomYellow
+    - Honey
+    - drake egg
 - PBJ
-	- Queens Jam
-	- Bread
-	- Nut-ella
+    - Queens Jam
+    - Bread
+    - Nut-ella
 - Cake
-	- egg
-	- flour
-	- cloud berry
-	- honey
+    - egg
+    - flour
+    - cloud berry
+    - honey
 
 
 ### v. 3.0.0
 
 - Haggis
-	- entrails
-	- raw meat
-	- carrot
-	- turnip
+    - entrails
+    - raw meat
+    - carrot
+    - turnip
 - Moochi
-	- freeze gland
-	- blueberry
-	- drake egg
-	- honey
+    - freeze gland
+    - blueberry
+    - drake egg
+    - honey
 - Candied Turnips
-	- honey
-	- turnip
-	- thistle
+    - honey
+    - turnip
+    - thistle
 - Boiled Eggs
-	- eggs
+    - eggs
 - Carrot Sticks
-	- carrots
-	- nut-ella
+    - carrots
+    - nut-ella
 
 
 ### Master Chef2.0 Assets
 
 - Omlette
-	- egg
-	- raw pork
-	- thistle
-	- butter
+    - egg
+    - raw pork
+    - thistle
+    - butter
 - Broth
-	- bone fragments
-	- butter
+    - bone fragments
+    - butter
 - Butter
-	- carrot seeds
+    - carrot seeds
 - Fish Stew
-	- raw fish
-	- broth
-	- thistle
-	- egg
+    - raw fish
+    - broth
+    - thistle
+    - egg
 - Burger
-	- raw lox meat
-	- raw meat
-	- bread
-	- turnip
+    - raw lox meat
+    - raw meat
+    - bread
+    - turnip
 - Bloodsausage
-	- entrails
-	- raw pork
-	- thistle
-	- blood bag
+    - entrails
+    - raw pork
+    - thistle
+    - blood bag
 - Nut-ella
-	- Beech Seeds
-	- butter
+    - Beech Seeds
+    - butter
 
 
 ## Cooking Stations by unlock
@@ -225,9 +241,14 @@ Oven | Addon for grill (Grill level +1) <br> Surtling Cores, and Trophies
 - [x] add new food drops from creatures
 - [ ] meals (delayed until H&H)
 - [x] config sync
+- [ ] Add Cooking Skill Sprite Graphic
 
 This mod is routinely tested on a dedicated server with a great many other mods. To ensure your crafting stations don't disappear, and that food doesn't turn to dust, please put this on the dedicated server as well as ALL clients.
 
 ## Credits
-Huge thanks to zarboz, GraveBear, and plumga for helping me get going, setting me up, and encouraging me the whole way! This mod wouldn't exist without them.
-Also a big thanks to my "players" on my server (my husband and our good friend) Itsmesds, and JaxomFaux who've helped with ideas and balance from the start. (Bone Appetit's name came from us haning out when itmesds said how about "bone appetit" and it stuck)
+Huge thanks to zarboz, GraveBear, and plumga for helping me get going, setting me up, and encouraging me the whole way! This mod wouldn't exist without them.  
+
+Also a big thanks to my "players" on my server (my husband and our good friend) Itsmesds, and JaxomFaux who've helped with ideas and balance from the start. (Bone Appetit's name came from us haning out when itmesds said how about "bone appetit" and it stuck)  
+
+Cooking Skill added by [Digitalroot](https://github.com/Digitalroot)
+
