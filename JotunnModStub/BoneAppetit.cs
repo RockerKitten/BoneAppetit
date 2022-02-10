@@ -1,28 +1,35 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Configuration;
+using HarmonyLib;
+using JetBrains.Annotations;
 using Jotunn.Configs;
 using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Boneappetit
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [BepInDependency(Jotunn.Main.ModGuid, "2.0.12")]
+    [BepInDependency(Jotunn.Main.ModGuid, "2.2.5")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
-    internal class BoneAppetit : BaseUnityPlugin
+    public class BoneAppetit : BaseUnityPlugin
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "3.0.2";
+        public const string PluginVersion = "3.1.0";
         public AssetBundle assetBundle;
         public AssetBundle customFood;
+        public static BoneAppetit Instance;
+        private Harmony _harmony;
         public Sprite CookingSprite;
-        public Skills.SkillType rkCookingSkill = 0;
+        public Skills.SkillType rkCookingSkill;
+        public static ConfigEntry<int> NexusId;
         public ConfigEntry<bool> PorkRindEnable;
         public ConfigEntry<bool> KabobEnable;
         public ConfigEntry<bool> FriedLoxEnable;
@@ -33,7 +40,7 @@ namespace Boneappetit
         public ConfigEntry<bool> PizzaEnable;
         public ConfigEntry<bool> CoffeeEnable;
         public ConfigEntry<bool> LatteEnable;
-        public ConfigEntry<bool> SkillEnable;
+        // public ConfigEntry<bool> SkillEnable;
         public ConfigEntry<bool> SmokelessEnable;
         public ConfigEntry<bool> HaggisEnable;
         public ConfigEntry<bool> CandiedTurnipEnable;
@@ -54,9 +61,11 @@ namespace Boneappetit
         public ConfigEntry<bool> CarrotSticksEnable;
         public ConfigEntry<bool> CheffHatEnable;
         public ConfigEntry<bool> MeadEnable;
+        public ConfigEntry<bool> CookingSkillEnable;
+        public ConfigEntry<bool> BonusWhenCookingEnabled;
+        public ConfigEntry<bool> HatSEMessage;
+        public ConfigEntry<float> HatXpGain;
         //public ConfigEntry<bool> ScrapsRecipe;
-
-
 
         public EffectList buildStone;
         public EffectList cookingSound;
@@ -135,14 +144,19 @@ namespace Boneappetit
         public GameObject eggFab;
         public GameObject deggFab;
         public GameObject porkFab;
-        
 
+        public BoneAppetit()
+        {
+          Instance = this;
+        }
+
+        [UsedImplicitly]
         public void Awake()
         {
-            CreatConfigValues();
+            CreateConfigValues();
             AssetLoad();
             //LoadDropFab();
-            //AddSkills();
+            AddSkills();
             ItemManager.OnVanillaItemsAvailable += LoadSounds;
             ItemManager.OnItemsRegistered += NewDrops;
 
@@ -161,12 +175,20 @@ namespace Boneappetit
 
                   }
               };
-
+            _harmony = Harmony.CreateAndPatchAll(typeof(BoneAppetit).Assembly, PluginGUID);
         }
-        public void CreatConfigValues()
+
+        [UsedImplicitly]
+        private void OnDestroy()
+        {
+          _harmony?.UnpatchSelf();
+        }
+
+        public void CreateConfigValues()
         {
             Config.SaveOnConfigSet = true;
 
+            NexusId = Config.Bind("Hidden", "NexusId", 1250, new ConfigDescription("NexusId", null, new ConfigurationManagerAttributes { IsAdminOnly = false, Browsable = false, ReadOnly = true}));
             ConesEnable = Config.Bind("Cones", "Enable", true, new ConfigDescription("All Cones Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             PorkRindEnable = Config.Bind("Pork Rind", "Enable", true, new ConfigDescription("Pork Rind Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             KabobEnable = Config.Bind("Kabob", "Enable", true, new ConfigDescription("Kabob Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
@@ -178,7 +200,7 @@ namespace Boneappetit
             PizzaEnable = Config.Bind("Pizza", "Enable", true, new ConfigDescription("Pizza Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             CoffeeEnable = Config.Bind("Coffee", "Enable", true, new ConfigDescription("Coffee Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             LatteEnable = Config.Bind("Latte", "Enable", true, new ConfigDescription("Latte Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
-            SkillEnable = Config.Bind("Skill", "Enable", true, new ConfigDescription("Skill Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            // SkillEnable = Config.Bind("Skill", "Enable", true, new ConfigDescription("Skill Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             PorridgeEnable = Config.Bind("Porridge", "Enable", true, new ConfigDescription("Porridge Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             PBJEnable = Config.Bind("PBJ", "Enable", true, new ConfigDescription("PBJ Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             CakeEnable = Config.Bind("Cake", "Enable", true, new ConfigDescription("Birthday Cake Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
@@ -198,6 +220,10 @@ namespace Boneappetit
             MeadEnable = Config.Bind("Mead", "Enable", true, new ConfigDescription("Mead Enable", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             GrillOriginal = Config.Bind("Original", "Enable", true, new ConfigDescription("Use original grill", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
             SmokelessEnable = Config.Bind("Smokeless", "Enable", true, new ConfigDescription("Enable to allow building of smokeless fires", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
+            CookingSkillEnable = Config.Bind("Cooking Skill", "Enable Cooking Skill", true, new ConfigDescription("Enable Cooking Skill", null, new ConfigurationManagerAttributes { IsAdminOnly = true, Order = 1}));
+            BonusWhenCookingEnabled = Config.Bind("Cooking Skill", "Enable Cooking Bonus", true, new ConfigDescription("Enable Cooking Bonus", null, new ConfigurationManagerAttributes { IsAdminOnly = true, Order = 2}));
+            HatXpGain = Config.Bind("Cooking Skill", "Chef Hat XP Gain", 5f, new ConfigDescription("XP Gain multiplier when cooking while wearing the Chef Hat", null, new ConfigurationManagerAttributes { IsAdminOnly = true, Order = 3}));
+            HatSEMessage = Config.Bind("Cooking Skill", "Enable Chef Hat Message", true, new ConfigDescription("Enable Message when equipping the Chef Hat", null, new ConfigurationManagerAttributes { IsAdminOnly = false, Order = 4}));
             //ScrapsRecipe = Config.Bind("Leather Scraps Recipe", "Enable", true, new ConfigDescription("Enabled add a Deer Hide to Leather Scraps recipe", null, new ConfigurationManagerAttributes { IsAdminOnly = true }));
 
         }
@@ -447,23 +473,42 @@ namespace Boneappetit
             ItemManager.OnVanillaItemsAvailable -= AddCharacterDrops;*/
             ItemManager.OnItemsRegistered -= NewDrops;
             
-            /*public void AddSkills()
-            {
+             /*public void AddSkills()
+             {
 
-                if (SkillEnable.Value == true)
-                // Test adding a skill with a texture
-                {
-                    rkCookingSkill = SkillManager.Instance.AddSkill(new SkillConfig
-                    {
+                 if (SkillEnable.Value == true)
+                 // Test adding a skill with a texture
+                 {
+                     CookingSkillIdentifier = SkillManager.Instance.AddSkill(new SkillConfig
+                     {
 
-                        Identifier = "rkCookingSkill",
-                        Name = "Gore-mand",
-                        Description = "Learn to cook and eat like a Viking!",
-                        Icon = CookingSprite,
-                        IncreaseStep = 1f,
-                    });
-                }*/
+                         Identifier = "rkCookingSkill",
+                         Name = "Gore-mand",
+                         Description = "Learn to cook and eat like a Viking!",
+                         Icon = CookingSprite,
+                         IncreaseStep = 1f,
+                     });
+                 }*/
         }
+
+        /// <summary>
+        /// Adds the cooking skill to the game.
+        /// </summary>
+        public void AddSkills()
+        {
+          if (CookingSkillEnable.Value) // Test adding a skill with a texture
+          {
+            rkCookingSkill = SkillManager.Instance.AddSkill(new SkillConfig
+            {
+              Identifier = PluginGUID
+              , Name = "Gore-mand"
+              , Description = "Learn to cook and eat like a Viking!"
+              , Icon = CookingSprite
+              , IncreaseStep = 1f,
+            });
+          }
+        }
+
         public void LoadDropFab()
         {
             porkFab = customFood.LoadAsset<GameObject>("rk_pork");
@@ -1205,18 +1250,22 @@ namespace Boneappetit
                new ItemConfig
                {
                    Name = "Chef Hat",
+                   Description = "Improves Cooking Skill XP Earned.",
                    Enabled = CheffHatEnable.Value,
                    Amount = 1,
                    CraftingStation = "",
                    Requirements = new[]
                    {
                           new RequirementConfig { Item = "Dandelion", Amount = 5}
-                   }
+                   },
                });
 
+            var itemDrop = hat.ItemDrop;
+            var hat_se = ScriptableObject.CreateInstance<SE_CheffHat>();
+            itemDrop.m_itemData.m_shared.m_equipStatusEffect = hat_se;
             ItemManager.Instance.AddItem(hat);
-
         }
+
         private void Mead()
         {
             meadFab = customFood.LoadAsset<GameObject>("rk_mead");
@@ -1327,6 +1376,188 @@ namespace Boneappetit
             PieceManager.Instance.AddPiece(fire);
         }
 
-    }
+        /// <summary>
+        /// Patch for CookingStation.
+        /// </summary>
+        /// <param name="__result">Was item placed on the cooking station successfully?</param>
+        public void OnCookingStationCookItem(ref bool __result)
+        {
+          LogDebug($"__result : {__result}");
+          if (!__result) return;
+          if (!CookingSkillEnable.Value) return;
+          RaiseCookingSkill();
+        }
 
+        /// <summary>
+        /// Raises Cooking skills
+        /// </summary>
+        private void RaiseCookingSkill()
+        {
+          PrintCookingSkillInfo();
+          Player.m_localPlayer.RaiseSkill(rkCookingSkill);
+          LogDebug($"Cooking Skill Raised");
+          PrintCookingSkillInfo();
+        }
+
+        /// <summary>
+        /// Print to the log details about the current cooking crafting skill level if a DEBUG Build
+        /// </summary>
+        [System.Diagnostics.Conditional("DEBUG")]
+        private void PrintCookingSkillInfo()
+        {
+          LogDebug($"[Skill Level Info] Current Level: {Player.m_localPlayer.GetSkills().m_skillData.FirstOrDefault(s => s.Key == rkCookingSkill).Value?.m_level ?? 0} ({(Player.m_localPlayer.GetSkills().m_skillData.FirstOrDefault(s => s.Key == rkCookingSkill).Value?.GetLevelPercentage() ?? 0) * 100}%), " +
+                   $"Next Level: {Player.m_localPlayer.GetSkills().m_skillData.FirstOrDefault(s => s.Key == rkCookingSkill).Value?.m_accumulator ?? 0}/{Player.m_localPlayer.GetSkills().m_skillData.FirstOrDefault(s => s.Key == rkCookingSkill).Value?.GetNextLevelRequirement() ?? 0}");
+        }
+
+        /// <summary>
+        /// Check if the current crafting station is one used for cooking.
+        /// </summary>
+        /// <param name="currentCraftingStationName">Name of the crafting station</param>
+        /// <returns>true if the current crafting station is one used for cooking else false</returns>
+        private bool IsValidCookingCraftingStation(string currentCraftingStationName)
+        {
+          LogDebug($"currentCraftingStationName : {currentCraftingStationName}");
+          switch (currentCraftingStationName)
+          {
+            case "rk_griddle(Clone)":
+            case "rk_grill(Clone)":
+            case "rk_prep(Clone)":
+            case "piece_cauldron(Clone)":
+              return true;
+          }
+
+          return false;
+        }
+
+        /// <summary>
+        /// Check if the item is being added via crafting.
+        /// </summary>
+        /// <param name="crafterID">Id of the player who is crafting</param>
+        /// <param name="crafterName">Name of the player who is crafting</param>
+        /// <returns></returns>
+        private bool IsFromCrafting(long crafterID, string crafterName)
+        {
+          return !string.IsNullOrEmpty(crafterName) && crafterID >= 1;
+        }
+
+        /// <summary>
+        /// Check if an item is a Consumable Type
+        /// </summary>
+        /// <param name="prefabName">Name of the item</param>
+        /// <returns>true if the item is a Consumable else false.</returns>
+        private bool IsConsumable(string prefabName)
+        {
+          var itemPrefab = ObjectDB.instance.GetItemPrefab(prefabName);
+          if (itemPrefab == null) return false;
+          var itemDrop = itemPrefab.GetComponent<ItemDrop>();
+          if (itemDrop == null) return false;
+          return itemDrop.m_itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Consumable;
+        }
+
+        /// <summary>
+        /// Patch for AddItem method.
+        /// </summary>
+        /// <param name="itemName">Name of the item</param>
+        /// <param name="stack">Stack size</param>
+        /// <param name="quality">Quality level</param>
+        /// <param name="variant">Variant to use</param>
+        /// <param name="crafterID">Id of the player who is crafting</param>
+        /// <param name="crafterName">Name of the player who is crafting</param>
+        public void OnInventoryAddItemPostFix(string itemName, int stack, int quality, int variant, long crafterID, string crafterName)
+        {
+          if (_isAddingExtraItem) return; // Recursive loop detection. 
+          LogDebug($"itemName: {itemName}, crafterID: {crafterID}, crafterName: {crafterName}");
+          LogDebug($"CookingSkillEnable.Value : {CookingSkillEnable?.Value}");
+          if (!CookingSkillEnable?.Value ?? false) return;
+          if (!IsFromCrafting(crafterID, crafterName)) return; // Item is being bought from trader.
+          if (!IsConsumable(itemName)) return;
+          if (!IsValidCookingCraftingStation(Player.m_localPlayer.GetCurrentCraftingStation()?.name)) return;
+
+          LogDebug($"BonusWhenCookingEnabled.Value : {BonusWhenCookingEnabled?.Value}");
+          if (BonusWhenCookingEnabled?.Value ?? false)
+          {
+            var skillLevel = Player.m_localPlayer.GetSkills().m_skillData.FirstOrDefault(s => s.Key == rkCookingSkill).Value?.m_level ?? 0;
+            LogDebug($"skillLevel : { skillLevel }");
+            // 1-100% chance to craft an extra item. 1% per level of skill.
+            if (IsCrafterLucky(skillLevel))
+            {
+              LogDebug($"[1][Start] -------------- ");
+              AddExtraItem(itemName);
+              LogDebug($"[1][End] ---------------- ");
+            }
+
+            // Max 25% chance to craft a 2nd extra after getting to skill level 25.
+            if (skillLevel > 25f && IsCrafterLucky(skillLevel / 4))
+            {
+              LogDebug($"[2][Start] -------------- ");
+              AddExtraItem(itemName);
+              LogDebug($"[2][End] ---------------- ");
+            }
+          }
+
+          if (!CookingSkillEnable.Value) return;
+          RaiseCookingSkill();
+        }
+
+        /// <summary>
+        /// Adds an extra item to the player inventory.
+        /// Checks that the player has room in their
+        /// inventory before trying to add the item.
+        /// </summary>
+        /// <param name="itemName"></param>
+        private void AddExtraItem(string itemName)
+        {
+          var itemPrefab = ObjectDB.instance.GetItemPrefab(itemName);
+          if (!Player.m_localPlayer.GetInventory().CanAddItem(itemPrefab, 1)) return;
+          LogDebug($"Trying to add extra item: {itemName}");
+          AddItem(itemName);
+          LogDebug($"Added extra item: {itemName}");
+        }
+
+        /// <summary>
+        /// AddItem Recursive loop flag
+        /// </summary>
+        private static bool _isAddingExtraItem;
+
+        /// <summary>
+        /// Adds an item to the players inventory.
+        /// All checks for the player having space for a new
+        /// item must be done before calling this method.
+        /// 
+        /// This is a recursive loop because the AddItem
+        /// method is being patched. To break it, we are
+        /// setting a flag to track this.
+        /// </summary>
+        /// <param name="itemName">Name of item to add.</param>
+        private void AddItem(string itemName)
+        {
+          _isAddingExtraItem = true; // Recursive loop flag.
+          Player.m_localPlayer.GetInventory().AddItem(itemName, 1, 1, 0, Player.m_localPlayer.GetPlayerID(), Player.m_localPlayer.GetPlayerName());
+          _isAddingExtraItem = false; // Reset flag.
+        }
+
+        /// <summary>
+        /// Calculate crafter's luck.
+        /// </summary>
+        /// <param name="skillLevel">Current skill level</param>
+        /// <returns>true if crafter is lucky else false</returns>
+        private bool IsCrafterLucky(float skillLevel)
+        {
+          if (skillLevel < 1) return false;
+          var rand = Random.Range(1, 100);
+          LogDebug($"Skill Level: {skillLevel} - Rand: {rand}");
+          LogDebug($"rand < skillLevel : {rand < skillLevel}");
+          return rand < skillLevel;
+        }
+
+        /// <summary>
+        /// Writes Debug messages if a DEBUG Build
+        /// </summary>
+        /// <param name="msg">Message to print to the log.</param>
+        [System.Diagnostics.Conditional("DEBUG")]
+        public static void LogDebug(string msg)
+        {
+          Jotunn.Logger.LogDebug(msg);
+        }
+    }
 }
