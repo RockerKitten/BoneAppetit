@@ -16,13 +16,13 @@ using Random = UnityEngine.Random;
 namespace Boneappetit
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [BepInDependency(Jotunn.Main.ModGuid, "2.2.5")]
+    [BepInDependency(Jotunn.Main.ModGuid, "2.6.9")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     public class BoneAppetit : BaseUnityPlugin
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "3.1.0";
+        public const string PluginVersion = "3.2.0";
         public AssetBundle assetBundle;
         public AssetBundle customFood;
         public static BoneAppetit Instance;
@@ -157,7 +157,7 @@ namespace Boneappetit
             AssetLoad();
             //LoadDropFab();
             AddSkills();
-            ItemManager.OnVanillaItemsAvailable += LoadSounds;
+            PrefabManager.OnVanillaPrefabsAvailable += LoadSounds;
             ItemManager.OnItemsRegistered += NewDrops;
 
             //PrefabManager.OnPrefabsRegistered += DropMachine;
@@ -349,7 +349,7 @@ namespace Boneappetit
             {
                 Jotunn.Logger.LogMessage("Load Complete. Bone Appetit yall.");
 
-                ItemManager.OnVanillaItemsAvailable -= LoadSounds;
+                PrefabManager.OnVanillaPrefabsAvailable -= LoadSounds;
             }
         }
         public void NewDrops()
@@ -530,13 +530,13 @@ namespace Boneappetit
         public void LoadDropFab()
         {
             porkFab = customFood.LoadAsset<GameObject>("rk_pork");
-            ItemManager.Instance.AddItem(new CustomItem(porkFab, true));
+            ItemManager.Instance.AddItem(new CustomItem(porkFab, false));
 
             eggFab = customFood.LoadAsset<GameObject>("rk_egg");
-            ItemManager.Instance.AddItem(new CustomItem(eggFab, true));
+            ItemManager.Instance.AddItem(new CustomItem(eggFab, false));
 
             deggFab = customFood.LoadAsset<GameObject>("rk_dragonegg");
-            ItemManager.Instance.AddItem(new CustomItem(deggFab, true));
+            ItemManager.Instance.AddItem(new CustomItem(deggFab, false));
         }
 
         private void LoadItem()
@@ -545,7 +545,7 @@ namespace Boneappetit
 
             //piece_grill
 
-            var grill = new CustomPiece(grillFab,
+            var grill = new CustomPiece(grillFab, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "forge",
@@ -576,7 +576,7 @@ namespace Boneappetit
             //piece_griddle
 
             var griddlefab = assetBundle.LoadAsset<GameObject>("rk_griddle");
-            var griddle = new CustomPiece(griddlefab,
+            var griddle = new CustomPiece(griddlefab, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "",
@@ -604,7 +604,7 @@ namespace Boneappetit
         {
 
             var ovenfab = assetBundle.LoadAsset<GameObject>("rk_oven");
-            var oven = new CustomPiece(ovenfab,
+            var oven = new CustomPiece(ovenfab, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "",
@@ -627,7 +627,7 @@ namespace Boneappetit
         private void Prepstation()
         {
             var prepFab = assetBundle.LoadAsset<GameObject>("rk_prep");
-            var prep = new CustomPiece(prepFab,
+            var prep = new CustomPiece(prepFab, fixReference: false,
                 new PieceConfig
                 {
                     PieceTable = "_HammerPieceTable",
@@ -1309,7 +1309,7 @@ namespace Boneappetit
         private void LoadFire()
         {
             var fireFab = assetBundle.LoadAsset<GameObject>("rk_campfire");
-            var fire = new CustomPiece(fireFab,
+            var fire = new CustomPiece(fireFab, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "",
@@ -1338,7 +1338,7 @@ namespace Boneappetit
         private void LoadHearth()
         {
             var fireFab = assetBundle.LoadAsset<GameObject>("rk_hearth");
-            var fire = new CustomPiece(fireFab,
+            var fire = new CustomPiece(fireFab, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "piece_stonecutter",
@@ -1366,7 +1366,7 @@ namespace Boneappetit
         private void Brazier()
         {
             var fireFab = assetBundle.LoadAsset<GameObject>("rk_brazier");
-            var fire = new CustomPiece(fireFab,
+            var fire = new CustomPiece(fireFab, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "forge",
