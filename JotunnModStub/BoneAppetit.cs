@@ -140,6 +140,12 @@ namespace Boneappetit
         public CustomItem mead;
         public GameObject hatFab;
         public CustomItem hat;
+        public GameObject fireFab1;
+        public CustomItem fire1;
+        public GameObject fireFab2;
+        public CustomItem fire2;
+        public GameObject fireFab3;
+        public CustomItem fire3;
 
         public GameObject eggFab;
         public GameObject deggFab;
@@ -260,6 +266,9 @@ namespace Boneappetit
             boiledegg.Recipe.Recipe.m_enabled = BoiledEggEnable.Value;
             carrotstick.Recipe.Recipe.m_enabled = CarrotSticksEnable.Value;
             mead.Recipe.Recipe.m_enabled = MeadEnable.Value;
+            fire1.Recipe.Recipe.m_enabled = SmokelessEnable.Value;
+            fire2.Recipe.Recipe.m_enabled = SmokelessEnable.Value;
+            fire3.Recipe.Recipe.m_enabled = SmokelessEnable.Value;
 
         }
         public void AssetLoad()
@@ -1308,8 +1317,8 @@ namespace Boneappetit
         //private void Haggis()
         private void LoadFire()
         {
-            var fireFab = assetBundle.LoadAsset<GameObject>("rk_campfire");
-            var fire = new CustomPiece(fireFab, fixReference: false,
+            var fireFab1 = assetBundle.LoadAsset<GameObject>("rk_campfire");
+            var fire1 = new CustomPiece(fireFab1, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "",
@@ -1322,23 +1331,23 @@ namespace Boneappetit
                         new RequirementConfig { Item = "Wood", Amount = 2, Recover = true}
                     }
                 });
-            var firebuild = fireFab.GetComponent<Piece>();
+            var firebuild = fireFab1.GetComponent<Piece>();
             firebuild.m_placeEffect = buildStone;
 
-            var firedecay = fireFab.GetComponent<WearNTear>();
+            var firedecay = fireFab1.GetComponent<WearNTear>();
             firedecay.m_destroyedEffect = breakStone;
 
-            var addFuel = fireFab.GetComponent<Fireplace>();
+            var addFuel = fireFab1.GetComponent<Fireplace>();
             addFuel.m_fuelAddedEffects = fireAddFuel;
 
-            fireVol = fireFab.GetComponentInChildren<AudioSource>();
+            fireVol = fireFab1.GetComponentInChildren<AudioSource>();
 
-            PieceManager.Instance.AddPiece(fire);
+            PieceManager.Instance.AddPiece(fire1);
         }
         private void LoadHearth()
         {
-            var fireFab = assetBundle.LoadAsset<GameObject>("rk_hearth");
-            var fire = new CustomPiece(fireFab, fixReference: false,
+            var fireFab2 = assetBundle.LoadAsset<GameObject>("rk_hearth");
+            var fire2 = new CustomPiece(fireFab2, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "piece_stonecutter",
@@ -1350,23 +1359,23 @@ namespace Boneappetit
                         new RequirementConfig { Item = "Stone", Amount = 15, Recover = true }
                     }
                 });
-            var firebuild = fireFab.GetComponent<Piece>();
+            var firebuild = fireFab2.GetComponent<Piece>();
             firebuild.m_placeEffect = buildStone;
 
-            var firedecay = fireFab.GetComponent<WearNTear>();
+            var firedecay = fireFab2.GetComponent<WearNTear>();
             firedecay.m_destroyedEffect = breakStone;
 
-            var addFuel = fireFab.GetComponent<Fireplace>();
+            var addFuel = fireFab2.GetComponent<Fireplace>();
             addFuel.m_fuelAddedEffects = hearthAddFuel;
 
-            fireVol = fireFab.GetComponentInChildren<AudioSource>();
+            fireVol = fireFab2.GetComponentInChildren<AudioSource>();
 
-            PieceManager.Instance.AddPiece(fire);
+            PieceManager.Instance.AddPiece(fire2);
         }
         private void Brazier()
         {
-            var fireFab = assetBundle.LoadAsset<GameObject>("rk_brazier");
-            var fire = new CustomPiece(fireFab, fixReference: false,
+            var fireFab3 = assetBundle.LoadAsset<GameObject>("rk_brazier");
+            var fire3 = new CustomPiece(fireFab3, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "forge",
@@ -1380,18 +1389,18 @@ namespace Boneappetit
                         new RequirementConfig { Item = "Chain", Amount = 1, Recover = true }
                     }
                 });
-            var firebuild = fireFab.GetComponent<Piece>();
+            var firebuild = fireFab3.GetComponent<Piece>();
             firebuild.m_placeEffect = buildStone;
 
-            var firedecay = fireFab.GetComponent<WearNTear>();
+            var firedecay = fireFab3.GetComponent<WearNTear>();
             firedecay.m_destroyedEffect = breakStone;
 
-            var addFuel = fireFab.GetComponent<Fireplace>();
+            var addFuel = fireFab3.GetComponent<Fireplace>();
             addFuel.m_fuelAddedEffects = hearthAddFuel;
 
-            fireVol = fireFab.GetComponentInChildren<AudioSource>();
+            fireVol = fireFab3.GetComponentInChildren<AudioSource>();
 
-            PieceManager.Instance.AddPiece(fire);
+            PieceManager.Instance.AddPiece(fire3);
         }
 
         /// <summary>
