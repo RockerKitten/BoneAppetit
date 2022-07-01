@@ -1,45 +1,57 @@
-## Introducing the newest fad in Viking cuisine! Hope you enjoy, Bone Appetit!
+# Introducing the newest fad in Viking cuisine! Hope you enjoy, Bone Appetit!
 
 Description revamp coming soon!
 
 ## Changelog:
 
-v. 1.0.0 	release includes 2 food crafting stations that require a fire underneath to cook on, and 5 new food items, one for each biome.
-v. 1.0.1 	hotfix for those not using V+
-v. 1.1.0 	fix for the grill making it difficult to load the fire underneath
-			fix for Fried Lox not auto picking up
-			5 new foods. Pancakes, Smoked Fish, Bacon, Coffee, and Pizza
-v. 1.1.1	updated visuals on bacon
-			Fixed collider on Griddle
-			Fixed attach point on kabob
-v. 2.0.0	Code rework
-			Updated Bacon Visuals (thicker) and fixed attach point
-			Added "Elemental" Cream Cones updated visuals on Ice Cream
-			First Rebalance pass
-			Added Porridge
-			Added A PJB for a special little boy by request.
-			Added CONFIG!!! (only a true/false for enabling/disabling recipes, likely will stay this way) Server synced. 
-				-MAKE SURE YOU HAVE THE MOD AND CONFIG ON THE SERVER FOR THE SERVER SYNC TO WORK-
-					Everything defaults to on, when loading for the first time.
-			Redid all "Flavor" text
-v. 2.0.1	Fixed "CloudBerry" so we can have CAKE! (Big thanks to PROXiCiDE for pointing this out to me)
-v. 3.0.0	Added MasterChef 2.0 assets. Omlette, Nut-ella, Bloodsausage, Broth, Carrot Butter, Burgers, and Fish Stew.
-			New Drops! You can now loot Pork from Boars, smaller Transportable Dragon Eggs from Drakes, and eggs from seagulls.
-			New food station, the Prep Staton. Unlocks with Tin.
-			More new food, Haggis, Moochi, Carrot Sticks, Boiled Eggs, and Candied Turnips.
-			Major balance pass, changed some recipes and food values, moved all food out of the cauldron and spread between Prep, griddle, and grill.
-			New Smokeless fires, for those of you struggling with FPS drops due to smoke particle physics, or who just want an indoor kitchen. There is now a campfire, and hearth that no longer produce particle smoke. (can be disabled in the config).
-v. 3.0.1	Hotfix for boar drops when using with CLLC calculate Amount
-			Fix for missing Omlette
-			Added smokeless Braziers by request.
-v. 3.0.2	Load order fix
-			maybe fix for prep table fire (hopefully)
+-v. 1.0.0
+	-release includes 2 food crafting stations that require a fire underneath to cook on, and 5 new food items, one for each biome.
+-v. 1.0.1 	
+	-hotfix for those not using V+
+-v. 1.1.0 	
+	-fix for the grill making it difficult to load the fire underneath
+	-fix for Fried Lox not auto picking up
+	-5 new foods. Pancakes, Smoked Fish, Bacon, Coffee, and Pizza
+-v. 1.1.1
+	-updated visuals on bacon
+	-Fixed collider on Griddle
+	-Fixed attach point on kabob 
+-v. 2.0.0	  
+	-Code rework
+	-Updated Bacon Visuals (thicker) and fixed attach point
+	-Added "Elemental" Cream Cones updated visuals on Ice Cream
+	-First Rebalance pass
+	-Added Porridge
+	-Added A PJB for a special little boy by request.
+	-Added CONFIG!!! (only a true/false for enabling/disabling recipes, likely will stay this way) Server synced. 
+	-Everything defaults to on, when loading for the first time.
+	-Redid all "Flavor" text
+        
+			 ### -MAKE SURE YOU HAVE THE MOD AND CONFIG ON THE SERVER FOR THE SERVER SYNC TO WORK-
+	
+-v. 2.0.1
+	-Fixed "CloudBerry" so we can have CAKE! (Big thanks to PROXiCiDE for pointing this out to me)
+-v. 3.0.0
+	-Added MasterChef 2.0 assets. Omlette, Nut-ella, Bloodsausage, Broth, Carrot Butter, Burgers, and Fish Stew.
+	-New Drops! You can now loot Pork from Boars, smaller Transportable Dragon Eggs from Drakes, and eggs from seagulls.
+	-New food station, the Prep Staton. Unlocks with Tin.
+	-More new food, Haggis, Moochi, Carrot Sticks, Boiled Eggs, and Candied Turnips.
+	-Major balance pass, changed some recipes and food values, moved all food out of the cauldron and spread between Prep, griddle, and grill.
+	-New Smokeless fires, for those of you struggling with FPS drops due to smoke particle physics, or who just want an indoor kitchen. There is now a campfire, a hearth that no longer produce particle smoke. (can be disabled in the config).
+v. 3.0.1
+	-Hotfix for boar drops when using with CLLC calculate Amount
+	-Fix for missing Omlette
+	-Added smokeless Braziers by request.
+v. 3.0.2
+	-Load order fix
+	-maybe fix for prep table fire (hopefully)
 
 
 ## Installation:
 
 Place the dll  in the plugins folder, load the game to the start  screen and *quit*. this will generate the config for the first time.
-Known Issue: Food *WILL NOT* show up to be crafted the verry first time you load in after install and config generation. please ***generate the config, quit and restart.***
+Known Issue: Food *WILL NOT* show up to be crafted the verry first time you load in after install and config generation. please 
+###***generate the config, quit and restart.***
 			
 
 Note: this mod requires JVL (Jotunn the Valheim Lib) and it's dependent HookGenPatcher, it will not work without it.

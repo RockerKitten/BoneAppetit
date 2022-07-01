@@ -16,7 +16,7 @@ using Random = UnityEngine.Random;
 namespace Boneappetit
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [BepInDependency(Jotunn.Main.ModGuid, "2.6.9")]
+    [BepInDependency(Jotunn.Main.ModGuid, "2.7.0")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     public class BoneAppetit : BaseUnityPlugin
     {

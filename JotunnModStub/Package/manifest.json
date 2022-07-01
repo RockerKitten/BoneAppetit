@@ -1,10 +1,10 @@
 {
   "name": "BoneAppetit",
-  "version_number": "3.0.2",
+  "version_number": "3.2.0",
   "website_url": "https://github.com/RockerKitten/BoneAppetit",
   "description": "New food and cooking stations!",
   "dependencies": [
-    "denikson-BepInExPack_Valheim-5.4.1100",
-    "ValheimModding-Jotunn-2.1.3"
+    "denikson-BepInExPack_Valheim-5.4.1901",
+    "ValheimModding-Jotunn-2.7.0"
   ]
 }

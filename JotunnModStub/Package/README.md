@@ -45,6 +45,25 @@ v. 3.0.1
 v. 3.0.2
 	-Load order fix
 	-maybe fix for prep table fire (hopefully)
+- v. 3.1.0
+    - Added Cooking Skill
+      - Gain XP when cooking at a **Cooking Station**, or cooking a Consumable at the **rk_griddle**, **rk_grill**, **rk_prep** or **piece_cauldron**. Each level of cooking skill adds a 1% chance to craft an additional consumable. after lvl 25, your total cooking level is divided by 4 and the results is the % chance to crafted a 2nd additional consumable. 
+      - e.g. At level 100, there is a 100% chance to craft an additional consumable and 25% chance to craft a 2nd additional consumable on top of that. At level 100 a food that crafts in stacks of x5, if lucky could output 7 total items.
+      - Set **CookingSkillEnable** = false to disable.
+    - Added SE_CheffHat
+      - Improves Cooking Skill XP Earned while wearing the Chef Hat. 
+      - Set **HatXpGain** = 1 to disable.
+      - Taking the Chef Hat on and off displays a random Julia Child's quote. 
+        - Displaying this message can be disabled by setting **HatSEMessage** to false.
+    - Added Configs
+      - CookingSkillEnable (server synced, enforced)
+      - BonusWhenCookingEnabled (server synced, enforced)
+      - HatXpGain (server synced, enforced)
+      - HatSEMessage (local)
+    - Added NexusId for update notice mod.
+v. 3.2.0
+	- updated for Jotun
+	- fixed versioning so it shows correct version everywhere.
 
 
 ## Installation:
