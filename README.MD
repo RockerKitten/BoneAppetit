@@ -61,7 +61,8 @@ Description revamp coming soon!
       - HatXpGain (server synced, enforced)
       - HatSEMessage (local)
     - Added NexusId for update notice mod.
-
+  v. 3.2.0
+    - Update for Jotunn
 
 ## Installation:
 
