@@ -141,11 +141,11 @@ namespace Boneappetit
         public GameObject hatFab;
         public CustomItem hat;
         public GameObject fireFab1;
-        public CustomItem fire1;
+        public CustomPiece fire1;
         public GameObject fireFab2;
-        public CustomItem fire2;
+        public CustomPiece fire2;
         public GameObject fireFab3;
-        public CustomItem fire3;
+        public CustomPiece fire3;
 
         public GameObject eggFab;
         public GameObject deggFab;
@@ -266,9 +266,10 @@ namespace Boneappetit
             boiledegg.Recipe.Recipe.m_enabled = BoiledEggEnable.Value;
             carrotstick.Recipe.Recipe.m_enabled = CarrotSticksEnable.Value;
             mead.Recipe.Recipe.m_enabled = MeadEnable.Value;
-            fire1.Recipe.Recipe.m_enabled = SmokelessEnable.Value;
-            fire2.Recipe.Recipe.m_enabled = SmokelessEnable.Value;
-            fire3.Recipe.Recipe.m_enabled = SmokelessEnable.Value;
+            //fire1.Recipe.Recipe.m_enabled = SmokelessEnable.Value;
+            fire1.Piece.m_enabled = SmokelessEnable.Value;
+            fire2.Piece.m_enabled = SmokelessEnable.Value;
+            fire3.Piece.m_enabled = SmokelessEnable.Value;
 
         }
         public void AssetLoad()
@@ -1317,8 +1318,8 @@ namespace Boneappetit
         //private void Haggis()
         private void LoadFire()
         {
-            var fireFab1 = assetBundle.LoadAsset<GameObject>("rk_campfire");
-            var fire1 = new CustomPiece(fireFab1, fixReference: false,
+            fireFab1 = assetBundle.LoadAsset<GameObject>("rk_campfire");
+            fire1 = new CustomPiece(fireFab1, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "",
@@ -1346,8 +1347,8 @@ namespace Boneappetit
         }
         private void LoadHearth()
         {
-            var fireFab2 = assetBundle.LoadAsset<GameObject>("rk_hearth");
-            var fire2 = new CustomPiece(fireFab2, fixReference: false,
+            fireFab2 = assetBundle.LoadAsset<GameObject>("rk_hearth");
+            fire2 = new CustomPiece(fireFab2, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "piece_stonecutter",
@@ -1374,8 +1375,8 @@ namespace Boneappetit
         }
         private void Brazier()
         {
-            var fireFab3 = assetBundle.LoadAsset<GameObject>("rk_brazier");
-            var fire3 = new CustomPiece(fireFab3, fixReference: false,
+            fireFab3 = assetBundle.LoadAsset<GameObject>("rk_brazier");
+            fire3 = new CustomPiece(fireFab3, fixReference: false,
                 new PieceConfig
                 {
                     CraftingStation = "forge",
