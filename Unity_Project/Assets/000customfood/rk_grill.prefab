@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 205323777827785416}
   - component: {fileID: 114821046913310040}
   - component: {fileID: 114309202193986222}
+  - component: {fileID: 6757543802639839422}
   m_Layer: 0
   m_Name: rk_grill
   m_TagString: Untagged
@@ -160,6 +161,50 @@ MonoBehaviour:
   m_craftingStation: {fileID: 0}
   m_resources: []
   m_destroyedLootPrefab: {fileID: 0}
+--- !u!114 &6757543802639839422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100466806209893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 895252998, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_new: {fileID: 1122739087765005}
+  m_worn: {fileID: 1122739087765005}
+  m_broken: {fileID: 1122739087765005}
+  m_wet: {fileID: 1122739087765005}
+  m_noRoofWear: 0
+  m_noSupportWear: 1
+  m_materialType: 2
+  m_supports: 1
+  m_comOffset: {x: 0, y: 0, z: 0}
+  m_health: 0
+  m_damages:
+    m_blunt: 0
+    m_slash: 0
+    m_pierce: 0
+    m_chop: 0
+    m_pickaxe: 0
+    m_fire: 3
+    m_frost: 0
+    m_lightning: 0
+    m_poison: 0
+    m_spirit: 0
+  m_hitNoise: 0
+  m_destroyNoise: 0
+  m_triggerPrivateArea: 1
+  m_destroyedEffect:
+    m_effectPrefabs: []
+  m_hitEffect:
+    m_effectPrefabs: []
+  m_switchEffect:
+    m_effectPrefabs: []
+  m_autoCreateFragments: 1
+  m_fragmentRoots: []
 --- !u!1 &1122739087765005
 GameObject:
   m_ObjectHideFlags: 0
