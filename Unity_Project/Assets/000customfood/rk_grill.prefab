@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 114309202193986222}
   - component: {fileID: 6757543802639839422}
   m_Layer: 0
-  m_Name: rk_grill_new
+  m_Name: rk_grill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
     m_effectPrefabs: []
   m_switchEffect:
     m_effectPrefabs: []
-  m_autoCreateFragments: 1
+  m_autoCreateFragments: 0
   m_fragmentRoots: []
 --- !u!1 &1122739087765005
 GameObject:

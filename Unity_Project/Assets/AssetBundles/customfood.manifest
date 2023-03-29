@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 130797521
+CRC: 1083960867
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 40a4978fb9debf45a0e16830d809c569
+    Hash: 9b0c5c96778de9d88bde119519e093ed
   TypeTreeHash:
     serializedVersion: 2
     Hash: 55634691b925eebff7d2576df1587ada
@@ -89,7 +89,7 @@ Assets:
 - Assets/000customfood/rk_boiledegg.prefab
 - Assets/000customfood/masterchef/rk_butter.prefab
 - Assets/000customfood/rk_smokedfish.prefab
-- Assets/000customfood/rk_grill_new.prefab
+- Assets/000customfood/rk_grill.prefab
 - Assets/000customfood/masterchef/rk_nut_ella.prefab
 - Assets/000customfood/rk_glazedcarrots.prefab
 - Assets/000customfood/masterchef/rk_bloodsausage.prefab

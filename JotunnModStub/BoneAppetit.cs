@@ -559,7 +559,7 @@ namespace Boneappetit
                     grillFab = GrillAssetBundle.LoadAsset<GameObject>("rk_grill");
                     break;
                 default:
-                    grillFab =  FoodAssetBundle.LoadAsset<GameObject>("rk_grill_new");
+                    grillFab =  FoodAssetBundle.LoadAsset<GameObject>("rk_grill");
                     break;
             }
             
