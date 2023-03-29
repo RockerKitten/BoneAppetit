@@ -23,7 +23,7 @@ namespace Boneappetit
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "3.2.1";
+        public const string PluginVersion = "3.2.2";
         public AssetBundle GrillAssetBundle;
         public AssetBundle FoodAssetBundle;
         public static BoneAppetit Instance;
@@ -1286,7 +1286,7 @@ namespace Boneappetit
         private void ChefHatt()
         {
             hatFab = FoodAssetBundle.LoadAsset<GameObject>("rk_chef");
-            hat = new CustomItem(hatFab,  false,
+            hat = new CustomItem(hatFab,  true,
                new ItemConfig
                {
                    Name = "Chef Hat",
