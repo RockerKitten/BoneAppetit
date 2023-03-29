@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 2291970500
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: customfood
+      Dependencies: {}
+    Info_1:
+      Name: grill
+      Dependencies: {}

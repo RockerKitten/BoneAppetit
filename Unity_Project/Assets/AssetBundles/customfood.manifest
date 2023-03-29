@@ -1,0 +1,113 @@
+ManifestFileVersion: 0
+CRC: 53584116
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 91ae7a51456c4ef7c54fa53bc0a10f40
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 8ce2b607d109592c4f7a7a0ac6778207
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 963225042, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+- Class: 114
+  Script: {fileID: 1541706127, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+- Class: 114
+  Script: {fileID: 825357479, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+- Class: 114
+  Script: {fileID: 2053127972, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+- Class: 114
+  Script: {fileID: 2094620348, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+- Class: 114
+  Script: {fileID: 1345532120, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+- Class: 114
+  Script: {fileID: 1521249158, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+- Class: 114
+  Script: {fileID: 1109157524, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 205
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: assembly_valheim
+  ClassName: Attack
+- AssemblyName: assembly_valheim
+  ClassName: EffectList
+- AssemblyName: assembly_valheim
+  ClassName: HitData/DamageModPair
+- AssemblyName: assembly_valheim
+  ClassName: HitData/DamageTypes
+- AssemblyName: assembly_valheim
+  ClassName: ItemDrop/ItemData
+- AssemblyName: assembly_valheim
+  ClassName: ItemDrop/ItemData/SharedData
+Assets:
+- Assets/000customfood/rk_friedloxmeat.prefab
+- Assets/000customfood/rk_kabob.prefab
+- Assets/000customfood/rk_firecream.prefab
+- Assets/000customfood/masterchef/rk_burger.prefab
+- Assets/000customfood/rk_carrotsticks.prefab
+- Assets/000customfood/rk_haggis.prefab
+- Assets/000customfood/rk_dragonegg.prefab
+- Assets/000customfood/rk_boiledegg.prefab
+- Assets/000customfood/masterchef/rk_butter.prefab
+- Assets/000customfood/rk_smokedfish.prefab
+- Assets/000customfood/rk_grill.prefab
+- Assets/000customfood/masterchef/rk_nut_ella.prefab
+- Assets/000customfood/rk_glazedcarrots.prefab
+- Assets/000customfood/masterchef/rk_bloodsausage.prefab
+- Assets/000customfood/rk_electriccream.prefab
+- Assets/000customfood/rk_icecream.prefab
+- Assets/000customfood/rk_coffee.prefab
+- Assets/000customfood/rk_acidcream.prefab
+- Assets/000customfood/masterchef/rk_chef.prefab
+- Assets/000customfood/rk_porkrind.prefab
+- Assets/000customfood/rk_pork.prefab
+- Assets/000customfood/rk_candiedturnip.prefab
+- Assets/000customfood/masterchef/rk_broth.prefab
+- Assets/000customfood/rk_latte.prefab
+- Assets/000customfood/rk_pizza.prefab
+- Assets/000customfood/masterchef/rk_fishstew.prefab
+- Assets/000customfood/masterchef/rk_omlette.prefab
+- Assets/000customfood/rk_porridge.prefab
+- Assets/000customfood/rk_pancake.prefab
+- Assets/000customfood/rk_egg.prefab
+- Assets/000customfood/rk_bacon.prefab
+- Assets/000customfood/rk_birthday.prefab
+- Assets/000customfood/masterchef/rk_mead.prefab
+- Assets/000customfood/rk_pbj.prefab
+- Assets/000customfood/rk_moochi.prefab
+Dependencies: []
