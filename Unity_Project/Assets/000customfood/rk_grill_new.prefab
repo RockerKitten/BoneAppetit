@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 114309202193986222}
   - component: {fileID: 6757543802639839422}
   m_Layer: 0
-  m_Name: rk_grill
+  m_Name: rk_grill_new
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

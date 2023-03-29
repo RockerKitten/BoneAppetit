@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 4286445639
+CRC: 130797521
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7f04ffd5aa5cf491fe91a25c7d86de62
+    Hash: 40a4978fb9debf45a0e16830d809c569
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 6856fa9191b3a7047604b4c02b216c88
+    Hash: 55634691b925eebff7d2576df1587ada
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -35,6 +35,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 825357479, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+- Class: 114
+  Script: {fileID: 895252998, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
 - Class: 114
   Script: {fileID: 2053127972, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
 - Class: 114
@@ -69,6 +71,8 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: assembly_valheim
   ClassName: HitData/DamageModPair
 - AssemblyName: assembly_valheim
+  ClassName: HitData/DamageModifiers
+- AssemblyName: assembly_valheim
   ClassName: HitData/DamageTypes
 - AssemblyName: assembly_valheim
   ClassName: ItemDrop/ItemData
@@ -85,7 +89,7 @@ Assets:
 - Assets/000customfood/rk_boiledegg.prefab
 - Assets/000customfood/masterchef/rk_butter.prefab
 - Assets/000customfood/rk_smokedfish.prefab
-- Assets/000customfood/rk_grill.prefab
+- Assets/000customfood/rk_grill_new.prefab
 - Assets/000customfood/masterchef/rk_nut_ella.prefab
 - Assets/000customfood/rk_glazedcarrots.prefab
 - Assets/000customfood/masterchef/rk_bloodsausage.prefab
