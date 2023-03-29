@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1345532120, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+  m_Name: electric resist
+  m_EditorClassIdentifier:
+  m_name: Ice Cream
+  m_category:
+  m_icon: {fileID: 21300000, guid: f0d52d4c923f917458656feb77f825d5, type: 2}
+  m_flashIcon: 0
+  m_cooldownIcon: 0
+  m_tooltip: You just ate Guck, you don't think much could Shock you now.
+  m_attributes: 0
+  m_startMessageType: 1
+  m_startMessage: You feel green
+  m_stopMessageType: 1
+  m_stopMessage:
+  m_repeatMessageType: 1
+  m_repeatMessage:
+  m_repeatInterval: 0
+  m_ttl: 300
+  m_startEffects:
+    m_effectPrefabs: []
+  m_stopEffects:
+    m_effectPrefabs: []
+  m_cooldown: 0
+  m_activationAnimation: gpower
+  m_tickInterval: 0
+  m_healthPerTickMinHealthPercentage: 0
+  m_healthPerTick: 0
+  m_healthOverTime: 0
+  m_healthOverTimeDuration: 0
+  m_healthOverTimeInterval: 0
+  m_staminaOverTime: 0
+  m_staminaOverTimeDuration: 0
+  m_staminaDrainPerSec: 0
+  m_runStaminaDrainModifier: 0
+  m_jumpStaminaUseModifier: 0
+  m_healthRegenMultiplier: 1
+  m_staminaRegenMultiplier: 1
+  m_raiseSkill: 0
+  m_raiseSkillModifier: 0
+  m_mods:
+  - m_type: 128
+    m_modifier: 5
+  m_modifyAttackSkill: 0
+  m_damageModifier: 1
+  m_noiseModifier: 0
+  m_stealthModifier: 0
+  m_addMaxCarryWeight: 0

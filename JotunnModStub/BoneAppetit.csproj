@@ -92,16 +92,9 @@
     <EmbeddedResource Include="grill" />
     <EmbeddedResource Include="customfood" />
     <None Include="packages.config" />
-    <None Include="Package\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Package\plugins\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Package\manifest.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Package\icon.png" />
+    <Folder Include="Assets" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="JotunnPostBuildTaskWin" Condition="'$(OS)' == 'Windows_NT'">

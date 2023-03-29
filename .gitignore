@@ -373,3 +373,5 @@ Environment.props
 
 # not the generated dll for thunderstore
 */Package/plugins/*
+/Thunderstore_Release/plugins/BoneAppetit.dll
+/Thunderstore_Release/Thunderstore_Release.zip
