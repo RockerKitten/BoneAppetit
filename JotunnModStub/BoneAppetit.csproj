@@ -89,12 +89,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="grill" />
-    <EmbeddedResource Include="customfood" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets" />
+    <EmbeddedResource Include="..\Unity_Project\Assets\AssetBundles\customfood">
+      <Link>customfood</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Unity_Project\Assets\AssetBundles\grill">
+      <Link>grill</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="JotunnPostBuildTaskWin" Condition="'$(OS)' == 'Windows_NT'">

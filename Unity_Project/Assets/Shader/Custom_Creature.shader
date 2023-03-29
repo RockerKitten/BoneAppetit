@@ -1,4 +1,4 @@
-Shader "Custom/REPLACE_Creature" {
+Shader "JVLmock_Custom/Creature" {
 	Properties {
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_Color ("Color", Vector) = (1,1,1,1)

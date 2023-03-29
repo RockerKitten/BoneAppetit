@@ -102,6 +102,14 @@ Note: this mod requires JVL (Jotunn the Valheim Lib) and it's dependent HookGenP
 * Updated for mistlands
 * Unity version update
 
+# V. 3.2.2
+
+* Updated Some missed assets
+	* Added WnT to the new grill
+	* made sure assets loaded properly (no more failure to load)
+	* fixed chef hat from looking like a light bulb
+	
+
 </details>
 
 
