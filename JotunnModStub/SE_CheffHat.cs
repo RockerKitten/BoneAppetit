@@ -16,13 +16,20 @@ namespace Boneappetit
     /// </summary>
     public SE_CheffHat()
     {
-      name = "rkCookingSkillStatusEffect";
-      m_name = "Cooking Bonus";
-      m_raiseSkill = BoneAppetit.Instance.rkCookingSkill;
-      m_raiseSkillModifier = BoneAppetit.Instance.HatXpGain.Value;
-      m_startMessageType = MessageHud.MessageType.Center;
-      m_stopMessageType = MessageHud.MessageType.Center;
-      SetMessages();
+    }
+
+    /// <summary>
+    /// Put ctor stuff in OnEnable
+    /// </summary>
+    private void OnEnable()
+    {
+        name = "rkCookingSkillStatusEffect";
+        m_name = "Cooking Bonus";
+        m_raiseSkill = BoneAppetit.Instance.rkCookingSkill;
+        m_raiseSkillModifier = BoneAppetit.Instance.HatXpGain.Value;
+        m_startMessageType = MessageHud.MessageType.Center;
+        m_stopMessageType = MessageHud.MessageType.Center;
+        SetMessages();
     }
 
     /// <summary>
