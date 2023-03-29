@@ -16,13 +16,13 @@ using Random = UnityEngine.Random;
 namespace Boneappetit
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [BepInDependency(Jotunn.Main.ModGuid, "2.7.0")]
+    [BepInDependency(Jotunn.Main.ModGuid)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     public class BoneAppetit : BaseUnityPlugin
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "3.2.0";
+        public const string PluginVersion = "3.2.1";
         public AssetBundle assetBundle;
         public AssetBundle customFood;
         public static BoneAppetit Instance;
