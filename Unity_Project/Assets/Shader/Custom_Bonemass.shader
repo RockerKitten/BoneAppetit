@@ -1,4 +1,4 @@
-Shader "Custom/REPLACE_Bonemass" {
+Shader "JVLmock_Custom/Bonemass" {
 	Properties {
 		_Color ("Color", Vector) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}

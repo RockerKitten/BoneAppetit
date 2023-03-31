@@ -146,7 +146,7 @@ namespace Boneappetit
         public GameObject fireFab2;
         public CustomPiece fire2;
         public GameObject fireFab3;
-        public CustomPiece fire3;
+        private CustomPiece fire3;
 
         public GameObject eggFab;
         public GameObject deggFab;

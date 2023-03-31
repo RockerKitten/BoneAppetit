@@ -1,4 +1,4 @@
-Shader "REPLACE_Lux Lit Particles/ Tess Bumped" {
+Shader "JVLmock_Lux Lit Particles/ Tess Bumped" {
 	Properties {
 		_Color ("Color", Vector) = (1,1,1,1)
 		_MainTex ("Normal (RG) Depth (B) Alpha (A)", 2D) = "white" {}
