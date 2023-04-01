@@ -1,4 +1,4 @@
-Shader "Custom/StaticRock" {
+Shader "JVLmock_Custom/StaticRock" {
 	Properties {
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_Color ("Color", Vector) = (1,1,1,1)

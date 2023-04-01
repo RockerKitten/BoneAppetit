@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: GriddleRock 1
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ADDSNOW_ON _NORMALMAP
+  m_Shader: {fileID: 4800000, guid: 8e7b10eb277a2054fb0f6c7e4f79d54d, type: 3}
+  m_ShaderKeywords: _ADDRAIN_ON _ADDSNOW_ON _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -47,6 +47,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetallicTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: dfd545abae3718445bf08b1b743365ea, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -59,6 +67,7 @@ Material:
     - _AddRain: 1
     - _AddSnow: 1
     - _BumpScale: 1
+    - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -67,6 +76,7 @@ Material:
     - _GlossyReflections: 1
     - _MetalGloss: 0
     - _Metallic: 0
+    - _MetallicAlphaGloss: 0
     - _Mode: 0
     - _MossAlpha: 0
     - _MossBlend: 3.27
@@ -79,11 +89,19 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TriplanarLocalPos: 0
+    - _TriplanarMap: 0
+    - _TriplanarScale: 1
+    - _TwoSidedNormals: 0
     - _UVSec: 0
+    - _ValueNoise: 0.5
+    - _ValueNoiseVertex: 0
     - _WaterlineOffset: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.6886792, g: 0.6691883, b: 0.6691883, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MetalColor: {r: 1, g: 1, b: 1, a: 1}
     - _MossColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

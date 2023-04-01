@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3064438724
+CRC: 2194297099
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b72d2d52796f640ea2e786497af24923
+    Hash: 2cc5ab6fd1b1554f2e94add3eb095132
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 55634691b925eebff7d2576df1587ada
+    Hash: e888c1dae9c254bfa448078bfda15788
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -51,6 +51,8 @@ ClassTypes:
   Script: {fileID: 1521249158, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
 - Class: 114
   Script: {fileID: 1109157524, guid: 1e5eba4f196255a48a608a7b9d58fac4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 32825e849fc1ff24cade5083ad9542cd, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 136
@@ -64,6 +66,8 @@ ClassTypes:
 - Class: 213
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
+- AssemblyName: BoneAppetit
+  ClassName: ShaderType
 - AssemblyName: assembly_valheim
   ClassName: Attack
 - AssemblyName: assembly_valheim

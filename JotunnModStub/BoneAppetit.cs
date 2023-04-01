@@ -23,7 +23,7 @@ namespace Boneappetit
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "3.2.2";
+        public const string PluginVersion = "3.2.3";
         public AssetBundle GrillAssetBundle;
         public AssetBundle FoodAssetBundle;
         public static BoneAppetit Instance;
@@ -567,7 +567,7 @@ namespace Boneappetit
             //piece_grill
             //var grillFab = GrillAssetBundle.LoadAsset<GameObject>("rk_grill");
 
-            var grill = new CustomPiece(grillFab,  false,
+            var grill = new CustomPiece(grillFab,  true,
                 new PieceConfig
                 {
                     CraftingStation = "forge",
@@ -598,7 +598,7 @@ namespace Boneappetit
             //piece_griddle
 
             var griddlefab = GrillAssetBundle.LoadAsset<GameObject>("rk_griddle");
-            var griddle = new CustomPiece(griddlefab,  false,
+            var griddle = new CustomPiece(griddlefab,  true,
                 new PieceConfig
                 {
                     CraftingStation = "",
@@ -626,7 +626,7 @@ namespace Boneappetit
         {
 
             var ovenfab = GrillAssetBundle.LoadAsset<GameObject>("rk_oven");
-            var oven = new CustomPiece(ovenfab,  false,
+            var oven = new CustomPiece(ovenfab,  true,
                 new PieceConfig
                 {
                     CraftingStation = "",
@@ -649,7 +649,7 @@ namespace Boneappetit
         private void Prepstation()
         {
             var prepFab = GrillAssetBundle.LoadAsset<GameObject>("rk_prep");
-            var prep = new CustomPiece(prepFab,  false,
+            var prep = new CustomPiece(prepFab,  true,
                 new PieceConfig
                 {
                     PieceTable = "_HammerPieceTable",
@@ -1331,7 +1331,7 @@ namespace Boneappetit
         private void LoadFire()
         {
             fireFab1 = GrillAssetBundle.LoadAsset<GameObject>("rk_campfire");
-            fire1 = new CustomPiece(fireFab1,  false,
+            fire1 = new CustomPiece(fireFab1,  true,
                 new PieceConfig
                 {
                     CraftingStation = "",
@@ -1360,7 +1360,7 @@ namespace Boneappetit
         private void LoadHearth()
         {
             fireFab2 = GrillAssetBundle.LoadAsset<GameObject>("rk_hearth");
-            fire2 = new CustomPiece(fireFab2,  false,
+            fire2 = new CustomPiece(fireFab2,  true,
                 new PieceConfig
                 {
                     CraftingStation = "piece_stonecutter",
@@ -1388,7 +1388,7 @@ namespace Boneappetit
         private void Brazier()
         {
             fireFab3 = GrillAssetBundle.LoadAsset<GameObject>("rk_brazier");
-            fire3 = new CustomPiece(fireFab3,  false,
+            fire3 = new CustomPiece(fireFab3,  true,
                 new PieceConfig
                 {
                     CraftingStation = "forge",
