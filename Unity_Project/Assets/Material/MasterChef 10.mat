@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MasterChef 10
-  m_Shader: {fileID: 4800000, guid: 073287233112af2438a3ee1761caad81, type: 3}
+  m_Shader: {fileID: 4800000, guid: c646387c3cf7bce48b29cd28eb7373f4, type: 3}
   m_ShaderKeywords: _ADDRAIN_ON _EMISSION _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
