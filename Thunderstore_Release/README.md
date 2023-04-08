@@ -108,6 +108,18 @@ Note: this mod requires JVL (Jotunn the Valheim Lib) and it's dependent HookGenP
 	* Added WnT to the new grill
 	* made sure assets loaded properly (no more failure to load)
 	* fixed chef hat from looking like a light bulb
+
+# V. 3.2.3
+
+* Updated Hearth model
+  *  Updated Lights in Prep table (no more flicker)
+  *  Updated various piece shaders for objects
+  *  Updated various other shaders
+
+# V. 3.2.4
+
+* Missed a couple assets in the package all is 100% now
+
 	
 
 </details>

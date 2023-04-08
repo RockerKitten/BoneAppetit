@@ -8200,7 +8200,7 @@ MonoBehaviour:
   m_materialType: 0
   m_supports: 1
   m_comOffset: {x: 0, y: 0, z: 0}
-  m_health: 0
+  m_health: 50
   m_damages:
     m_blunt: 0
     m_slash: 0

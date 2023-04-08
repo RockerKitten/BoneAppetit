@@ -23,7 +23,7 @@ namespace Boneappetit
     {
         public const string PluginGUID = "com.rockerkitten.boneappetit";
         public const string PluginName = "BoneAppetit";
-        public const string PluginVersion = "3.2.3";
+        public const string PluginVersion = "3.2.4";
         public AssetBundle GrillAssetBundle;
         public AssetBundle FoodAssetBundle;
         public static BoneAppetit Instance;
