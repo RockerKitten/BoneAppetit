@@ -43,7 +43,7 @@ namespace BoneAppetit
     /// <summary>
     /// Patch the Players Inventory
     /// </summary>
-    [HarmonyPatch(typeof(Inventory), nameof(Inventory.AddItem), typeof(string), typeof(int), typeof(int), typeof(int), typeof(long), typeof(string))]
+    [HarmonyPatch(typeof(Inventory), nameof(Inventory.AddItem), typeof(string), typeof(int), typeof(int), typeof(int), typeof(long), typeof(string), typeof(bool)]
     public static class PatchInventory
     {
       /// <summary>
@@ -58,7 +58,7 @@ namespace BoneAppetit
       [HarmonyPostfix]
       [HarmonyPriority(Priority.Normal)]
       [UsedImplicitly]
-      public static void Postfix(string name, int stack, int quality, int variant, long crafterID, string crafterName)
+      public static void Postfix(string name, int stack, int quality, int variant, long crafterID, string crafterName, bool pickedUp)
       {
         try
         {
